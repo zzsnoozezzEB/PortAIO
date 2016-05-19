@@ -135,9 +135,9 @@ namespace PortAIO.Utility
             "Riven", // 41
             "Graves", // 42
             "Elise", // 43
-            "Rengar", //46
-            "Zed", //44
-            "Ahri", //45
+            "Rengar", //44
+            "Zed", //45
+            "Ahri", //46
         });
 
         public static void Menu()
@@ -324,15 +324,15 @@ namespace PortAIO.Utility
                 {
                     Miscc.Add("Elise", new ComboBox("Use addon for Elise : ", 0, "GFuel Elise", "D-Elise"));
                 }
-                if (Player.ChampionName.Equals(Champion[46]))
+                if (Player.ChampionName.Equals(Champion[44]))
                 {
                     Miscc.Add("rengar", new ComboBox("Use addon for Rengar : ", 0, "ElRengar", "D-Rengar"));
                 }
-                if (Player.ChampionName.Equals(Champion[44]))
+                if (Player.ChampionName.Equals(Champion[45]))
                 {
                     Miscc.Add("zed", new ComboBox("Use addon for Zed : ", 0, "ValvraveSharp", "Ze-D is Back", "iDZed"));
                 }
-                if (Player.ChampionName.Equals(Champion[45]))
+                if (Player.ChampionName.Equals(Champion[46]))
                 {
                     Miscc.Add("ahri", new ComboBox("Use addon for Ahri : ", 0, "OKTW", "AhriSharp"));
                 }
