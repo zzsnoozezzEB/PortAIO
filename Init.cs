@@ -423,8 +423,19 @@ namespace PortAIO
                                 break;
                         }
                         break;
-                    case "elise": // G-FUEL Elise
-                        GFUELElise.Elise.OnGameLoad();
+                    case "elise":
+                        switch (Loader.elise)
+                        {
+                            case 0:
+                                GFUELElise.Elise.OnGameLoad();
+                                break;
+                            case 1:
+                                D_Elise.Program.Game_OnGameLoad();
+                                break;
+                            default:
+                                GFUELElise.Elise.OnGameLoad();
+                                break;
+                        }
                         break;
                     case "evelynn": // Evelynn#
                         switch (Loader.evelynn)
