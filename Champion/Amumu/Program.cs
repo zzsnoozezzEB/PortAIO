@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -163,7 +163,7 @@ namespace PortAIO.Champion.Amumu
             var comboE = getCheckBoxItem(comboMenu, "comboE");
             var comboR = getSliderItem(comboMenu, "comboR");
 
-            if (comboQ > 0 && _spellQ.IsReady())
+            if (comboQ > 1 && _spellQ.IsReady())
             {
                 if (_spellR.IsReady() && comboR > 0)
                     //search unit that provides most targets hit by ult. prioritize hero target unit
@@ -196,10 +196,16 @@ namespace PortAIO.Champion.Amumu
                 }
 
                 Obj_AI_Base target = TargetSelector.GetTarget(_spellQ.Range, DamageType.Magical);
-
                 if (target != null)
-                    if (comboQ == 1 || (comboQ == 2 && !Orbwalking.InAutoAttackRange(target)))
-                        CastQ(target);
+                {
+                    var pred = _spellQ.GetPrediction(target);
+                    if (comboQ == 2 || (comboQ == 3 && !Orbwalking.InAutoAttackRange(target)) && _spellQ.IsReady() && target.IsValidTarget() && pred.Hitchance >= HitChance.High)
+                        _spellQ.Cast(pred.CastPosition);
+                    else if (!target.CanMove && comboQ == 2 || comboQ == 3)
+                    {
+                        _spellQ.Cast(target);
+                    }
+                }   
             }
 
             if (comboW && _spellW.IsReady())
