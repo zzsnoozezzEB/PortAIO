@@ -276,6 +276,20 @@ namespace PortAIO
                                 break;
                         }
                         break;
+                    case "ahri":
+                        switch (Loader.graves)
+                        {
+                            case 0:
+                                SebbyLib.Program.GameOnOnGameLoad();
+                                break;
+                            case 1:
+                                AhriSharp.Ahri.Ahri_Load();
+                                break;
+                            default:
+                                SebbyLib.Program.GameOnOnGameLoad();
+                                break;
+                        }
+                        break;
                     case "anivia": // OKTW - Sebby - All Seeby champs go down here
                     case "thresh":
                     case "annie":
@@ -290,7 +304,6 @@ namespace PortAIO
                     case "velkoz":
                     case "swain":
                     case "urgot":
-                    case "ahri":
                         SebbyLib.Program.GameOnOnGameLoad();
                         break;
                     case "azir": // Synx Auto Carry
@@ -761,8 +774,21 @@ namespace PortAIO
                         GFUELTalon.Talon.OnGameLoad();
                         break;
                     case "zed": // iZed
-                        //iDZed.Zed.OnLoad();
-                        Valvrave_Sharp.Program.MainA();
+                        switch (Loader.zed)
+                        {
+                            case 0:
+                                Valvrave_Sharp.Program.MainA();
+                                break;
+                            case 1:
+                                Zed.Program.Game_OnGameLoad();
+                                break;
+                            case 2:
+                                iDZed.Zed.OnLoad();
+                                break;
+                            default:
+                                Valvrave_Sharp.Program.MainA();
+                                break;
+                        }
                         break;
                     case "udyr": // D_Udyr
                         D_Udyr.Program.Game_OnGameLoad();

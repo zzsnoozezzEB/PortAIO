@@ -146,6 +146,9 @@
     <Compile Include="Champion\Riven\Classes\Modes\Lane.cs" />
     <Compile Include="Champion\Riven\Classes\Spells.cs" />
     <Compile Include="Champion\Riven\Program.cs" />
+    <Compile Include="Dual-Port\AhriSharp\Ahri.cs" />
+    <Compile Include="Dual-Port\AhriSharp\Helper.cs" />
+    <Compile Include="Dual-Port\AhriSharp\Program.cs" />
     <Compile Include="Dual-Port\AJayce\Helper.cs" />
     <Compile Include="Dual-Port\AJayce\Jayce.cs" />
     <Compile Include="Dual-Port\AJayce\MenuConfig.cs" />
@@ -687,6 +690,9 @@
     <Compile Include="Dual-Port\YasuoPro\WallJump.cs" />
     <Compile Include="Dual-Port\YasuoPro\Yasuo.cs" />
     <Compile Include="Dual-Port\YasuoPro\YasuoMenu.cs" />
+    <Compile Include="Dual-Port\Ze-D is Back\DamageIndicator.cs" />
+    <Compile Include="Dual-Port\Ze-D is Back\DangerDB.cs" />
+    <Compile Include="Dual-Port\Ze-D is Back\Program.cs" />
     <Compile Include="Libraries\DZLib\Core\DZAntigapcloser.cs" />
     <Compile Include="Libraries\DZLib\Core\DZInterrupter.cs" />
     <Compile Include="Libraries\DZLib\Geometry\DZGeometry.cs" />
