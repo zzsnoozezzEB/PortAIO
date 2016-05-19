@@ -7,7 +7,7 @@
 
 -Port [Will Port One at a time when I'm bored or there's nothing on the to-do]
 
-Champion Ports :
+Champion Ports [Starting 5/19, I'm going to start checking these in game via L# to see which actually work before porting]:
 - SkyLv Tristana/AurelionSol [https://github.com/EloFactory/SkyLv_SoLuTiON]
 - J4 [https://github.com/diabaths/Mycodes]
 - STahmKench [https://github.com/Screeder/LeagueSharp/blob/master/Common/SStandalone/SChampions/STahmKench/Champions/TahmKench.cs]
