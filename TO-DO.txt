@@ -1,8 +1,4 @@
 ﻿To-Do :
-- Fix BadaoGP
-- Fix Up Ze-D is back
-- Fix up NechritoGragas
-
 - Fix the Lee Sin Crash
 - Bard Flee [Don't have Bard so can't fix]
 - Tahm Kench Crash [Don't have TK]
