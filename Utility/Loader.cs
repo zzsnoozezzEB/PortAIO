@@ -76,6 +76,7 @@ namespace PortAIO.Utility
         public static int graves { get { return Miscc["graves"].Cast<ComboBox>().CurrentValue; } }
         public static bool banwards { get { return Miscc["banwards"].Cast<CheckBox>().CurrentValue; } }
         public static int elise { get { return Miscc["elise"].Cast<ComboBox>().CurrentValue; } }
+        public static int rengar { get { return Miscc["rengar"].Cast<ComboBox>().CurrentValue; } }
 
 
         public static Menu Miscc;
@@ -132,6 +133,7 @@ namespace PortAIO.Utility
             "Riven", // 41
             "Graves", // 42
             "Elise", // 43
+            "Rengar", //46
         });
 
         public static void Menu()
@@ -317,6 +319,9 @@ namespace PortAIO.Utility
                 if (Player.ChampionName.Equals(Champion[43]))
                 {
                     Miscc.Add("Elise", new ComboBox("Use addon for Elise : ", 0, "GFuel Elise", "D-Elise"));
+                }
+                if (Player.ChampionName.Equals(Champion[46]))
+                {
                 }
             }
             else

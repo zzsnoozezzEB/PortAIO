@@ -841,8 +841,19 @@ namespace PortAIO
                     case "rammus": // BrianSharp
                         new BrianSharp.Plugin.Rammus();
                         break;
-                    case "rengar": // ElRengar
-                        ElRengarRevamped.Rengar.OnLoad();
+                    case "rengar": // ElRengar && D-Rengar
+                        switch (Loader.rengar)
+                        {
+                            case 0:
+                                ElRengarRevamped.Rengar.OnLoad();
+                                break;
+                            case 1:
+                                D_Rengar.Program.Game_OnGameLoad();
+                                break;
+                            default:
+                                ElRengarRevamped.Rengar.OnLoad();
+                                break;
+                        }
                         break;
                     case "soraka": // Sophie's Soraka
                         switch (Loader.soraka)
