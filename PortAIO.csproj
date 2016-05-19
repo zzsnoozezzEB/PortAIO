@@ -58,19 +58,19 @@
   <ItemGroup>
     <Reference Include="Berb.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\EloBuddy\Berb.Common\bin\Debug\Berb.Common.dll</HintPath>
+      <HintPath>..\..\..\Downloads\Berb.Common.dll</HintPath>
     </Reference>
     <Reference Include="EloBuddy">
-      <HintPath>..\..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.dll</HintPath>
+      <HintPath>..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.dll</HintPath>
     </Reference>
     <Reference Include="EloBuddy.Sandbox">
-      <HintPath>..\..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.Sandbox.dll</HintPath>
+      <HintPath>..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.Sandbox.dll</HintPath>
     </Reference>
     <Reference Include="EloBuddy.SDK">
-      <HintPath>..\..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.SDK.dll</HintPath>
+      <HintPath>..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.SDK.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -220,6 +220,7 @@
     <Compile Include="Dual-Port\ChewyMoon Shaco\Illuminati.cs" />
     <Compile Include="Dual-Port\ChewyMoon Shaco\ShacoUtil.cs" />
     <Compile Include="Dual-Port\D-Corki\Program.cs" />
+    <Compile Include="Dual-Port\D-Elise\Program.cs" />
     <Compile Include="Dual-Port\D-Graves\Program.cs" />
     <Compile Include="Dual-Port\e.MotionKatarina\Program.cs" />
     <Compile Include="Dual-Port\ElEasy Ryze\Ryze.cs" />
