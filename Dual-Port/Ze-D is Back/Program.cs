@@ -648,15 +648,12 @@ namespace Zed
         private static void KillSteal()
         {
             var target = TargetSelector.GetTarget(2000, DamageType.Physical);
-            Console.WriteLine("1");
             if (target == null)
             {
                 return;
             }
-            Console.WriteLine("2");
             if (target.LSIsValidTarget() && _q.IsReady() && getCheckBoxItem(miscMenu, "UseQM") && _q.GetDamage(target) > target.Health)
             {
-                Console.WriteLine("3");
                 if (_player.LSDistance(target.ServerPosition) <= _q.Range)
                 {
                     _q.Cast(target);
@@ -672,7 +669,6 @@ namespace Zed
                     _q.Cast(target);
                 }
             }
-
             if (target.LSIsValidTarget() && _q.IsReady() && getCheckBoxItem(miscMenu, "UseQM") && _q.GetDamage(target) > target.Health)
             {
                 if (_player.LSDistance(target.ServerPosition) <= _q.Range)
@@ -685,13 +681,15 @@ namespace Zed
                     _q.Cast(target);
                 }
             }
-
             if (_e.IsReady() && getCheckBoxItem(miscMenu, "UseEM"))
             {
                 var t = TargetSelector.GetTarget(_e.Range, DamageType.Physical);
-                if (_e.GetDamage(t) > t.Health && (_player.LSDistance(t.ServerPosition) <= _e.Range || WShadow.LSDistance(t.ServerPosition) <= _e.Range))
+                if (t != null)
                 {
-                    _e.Cast();
+                    if (_e.GetDamage(t) > t.Health && (_player.LSDistance(t.ServerPosition) <= _e.Range || WShadow.LSDistance(t.ServerPosition) <= _e.Range))
+                    {
+                        _e.Cast();
+                    }
                 }
             }
         }
