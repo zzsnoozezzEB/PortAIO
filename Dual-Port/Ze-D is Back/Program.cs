@@ -276,6 +276,9 @@ namespace Zed
         private static void Combo(AIHeroClient t)
         {
             var target = t;
+
+            if (target == null) return;
+
             var overkill = _player.LSGetSpellDamage(target, SpellSlot.Q) + _player.LSGetSpellDamage(target, SpellSlot.E) + _player.LSGetAutoAttackDamage(target, true) * 2;
             var doubleu = _player.Spellbook.GetSpell(SpellSlot.W);
 
