@@ -210,7 +210,7 @@ namespace PortAIO.Champion.Amumu
 
             if (comboW && _spellW.IsReady())
             {
-                var target = TargetSelector.GetTarget(_spellW.Range, DamageType.Magical);
+                var target = TargetSelector.GetTarget(_spellW.Range + 200, DamageType.Magical);
 
                 if (target != null)
                 {
