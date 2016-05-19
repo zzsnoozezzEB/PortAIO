@@ -326,6 +326,8 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[46]))
                 {
+                    Miscc.Add("rengar", new ComboBox("Use addon for Rengar : ", 0, "ElRengar", "D-Rengar"));
+                }
                 if (Player.ChampionName.Equals(Champion[44]))
                 {
                     Miscc.Add("zed", new ComboBox("Use addon for Zed : ", 0, "ValvraveSharp", "Ze-D is Back", "iDZed"));
@@ -379,4 +381,3 @@ namespace PortAIO.Utility
     }
 
     }
-}
