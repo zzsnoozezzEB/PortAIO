@@ -18,7 +18,6 @@ Champion Ports :
 - Kurisu's Blitzcrank/Riven [https://github.com/xKurisu/KurisuSolutions]
 - FreshBooster Braum & LeBlanc [https://github.com/NaviFly/LeagueSharp/tree/master/FreshBooster]
 - Nocturne is Back https://github.com/xQxCPMxQx/LeagueSharp2/tree/master/Nocturne
-- Zed is Back [https://github.com/xQxCPMxQx/LeagueSharp2/tree/master/Ze-D%20is%20Back]
 - iDzZed [https://github.com/HikigayaAss/JabbaRepo/tree/master/iDZed]
 - Sharpy AIO Zed [https://github.com/deop7138/Sharpy-AIO/tree/master/Sharpy%20AIO]
 - Swiftly Teemo [https://github.com/Nechrito/SDK/tree/master/Swiftly%20Teemo]

@@ -168,6 +168,10 @@ namespace Zed
                 return;
             if (unit.IsEnemy)
             {
+                if (miscMenu["ds" + unit.BaseSkinName] == null)
+                {
+                    return;
+                }
                 if (getCheckBoxItem(miscMenu, "rdodge") && _r.IsReady() && UltStage == UltCastStage.First && getCheckBoxItem(miscMenu, "ds" + unit.BaseSkinName))
                 {
                     if (DangerDB.DangerousList.Any(spell => spell.Contains(castedSpell.SData.Name)) &&
