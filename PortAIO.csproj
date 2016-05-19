@@ -679,7 +679,6 @@
     <Compile Include="Dual-Port\YasuoPro\WallJump.cs" />
     <Compile Include="Dual-Port\YasuoPro\Yasuo.cs" />
     <Compile Include="Dual-Port\YasuoPro\YasuoMenu.cs" />
-    <Compile Include="Dual-Port\Ze-D is Back\DamageIndicator.cs" />
     <Compile Include="Dual-Port\Ze-D is Back\DangerDB.cs" />
     <Compile Include="Dual-Port\Ze-D is Back\Program.cs" />
     <Compile Include="Libraries\DZLib\Core\DZAntigapcloser.cs" />

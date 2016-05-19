@@ -147,10 +147,6 @@ namespace Zed
                 drawMenu.Add("CircleQuality", new Slider("Circles Quality", 100, 10, 100));
                 drawMenu.Add("CircleThickness", new Slider("Circles Thickness", 1, 1, 10));
 
-                new DamageIndicator();
-
-                DamageIndicator.DamageToUnit = ComboDamage;
-
                 Drawing.OnDraw += Drawing_OnDraw;
                 Game.OnUpdate += Game_OnUpdate;
                 Obj_AI_Base.OnProcessSpellCast += OnProcessSpell;
@@ -237,7 +233,7 @@ namespace Zed
                 countults = countults + 1;
             }
 
-            if (ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(minion => minion.IsVisible && minion.IsAlly && minion.Name == "Shadow") != null)
+            if (LastCastedSpell.LastCastPacketSent.Slot == SpellSlot.R && ObjectManager.Player.Level >= 6)
             {
                 Obj_AI_Minion shadow;
                 shadow = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(minion => minion.IsVisible && minion.IsAlly && minion.Name == "Shadow");
