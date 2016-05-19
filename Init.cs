@@ -715,6 +715,9 @@ namespace PortAIO
                             case 1:
                                 VayneHunter_Reborn.Program.Game_OnGameLoad();
                                 break;
+                            case 2:
+                                hi_im_gosu.Vayne.Game_OnGameLoad();
+                                break;
                             default:
                                 Vayne.Program.OnLoad();
                                 break;

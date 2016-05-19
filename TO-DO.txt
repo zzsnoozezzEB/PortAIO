@@ -22,7 +22,6 @@ Champion Ports :
 - Teemo God [https://github.com/MasterGFv2/Teemo_The_Real_God/tree/master/Teemo_The_Real_God]
 - RAREKarthus/Zyra [https://github.com/KyonLeague/RAREScripts/tree/master]
 - Karma - the Englightned One [https://github.com/SwipeDan/LeagueSharp/tree/master/Karma%20%20%20%E2%80%93%20%20the%20Enlightened%20One]
-- Hi_Im_Gosu BLM [https://github.com/diabaths/Mycodes/tree/master/hi%20im%20gosu]
 - NechritoRengar [https://github.com/Nechrito/Leaguesharp/tree/master/Nechrito%20Rengar]
 - SephCassio/Syndra/Soraka [https://github.com/SephLeague/LeagueSharp]
 - Hikicarry Draven (A really nice manual Draven) [https://github.com/HikigayaAss/hikiMarksman/tree/master/hikiMarksmanRework/hikiMarksmanRework]

@@ -184,7 +184,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[10]))
                 {
-                    Miscc.Add("vayne", new ComboBox("Use addon for Vayne : ", 0, "ChallengerVayne", "VayneHunterReborn"));
+                    Miscc.Add("vayne", new ComboBox("Use addon for Vayne : ", 0, "ChallengerVayne", "VayneHunterReborn", "hi im gosu"));
                 }
                 if (Player.ChampionName.Equals(Champion[11]))
                 {

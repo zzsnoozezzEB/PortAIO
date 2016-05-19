@@ -261,6 +261,7 @@
     <Compile Include="Dual-Port\GosuMechanics Yasuo\SpellDatabase.cs" />
     <Compile Include="Dual-Port\GosuMechanics Yasuo\Utils.cs" />
     <Compile Include="Dual-Port\GosuMechanics Yasuo\Yasuo.cs" />
+    <Compile Include="Dual-Port\hi_im_gosu\Program.cs" />
     <Compile Include="Dual-Port\iDzEzreal\Ezreal.cs" />
     <Compile Include="Dual-Port\iDzEzreal\EzrealBootstrap.cs" />
     <Compile Include="Dual-Port\iDzEzreal\MenuHelper\MenuGenerator.cs" />
