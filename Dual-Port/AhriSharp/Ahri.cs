@@ -18,7 +18,6 @@ namespace AhriSharp
         const float _spellQFarmSpeed = 1600;
         const float _spellQAcceleration = -3200;
         private static Menu Main,ComboM, HarassM, FarmM, DrawM, Misc;
-        private static SebbyLib.Orbwalking.Orbwalker _orbwalker;
         public static Helper Helper;
 
         public static void Ahri_Load()
