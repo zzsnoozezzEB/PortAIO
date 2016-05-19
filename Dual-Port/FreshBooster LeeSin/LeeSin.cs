@@ -464,7 +464,7 @@ namespace FreshBooster.Champion
                     var Cursor = Game.CursorPos;
                     var Ward = Items.GetWardSlot();
                     EloBuddy.Player.IssueOrder(GameObjectOrder.MoveTo, Cursor);
-                    Console.WriteLine(ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).Name);
+                    //Console.WriteLine(ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).Name);
                     if (ObjectManager.Player.Spellbook.GetSpell(SpellSlot.W).Name.ToLower() == "blindmonkwtwo") return;
                     if (Player.LSDistance(Cursor) > 700) Cursor = Game.CursorPos.LSExtend(Player.Position, +Player.LSDistance(Game.CursorPos) - 700);
                     //Render.Circle.DrawCircle(Cursor, 50, Color.Black, 2);
@@ -547,14 +547,14 @@ namespace FreshBooster.Champion
                 var Anti = getSliderItem(miscMenu, "LeeSin_AntiGab");
                 var Myhp = Player.HealthPercent;
                 var Target = gapcloser.Sender;
-                Console.Write(Target.ChampionName);
+                //Console.Write(Target.ChampionName);
                 if (Target != null && Player.LSDistance(Target) < 375 && Myhp < Anti && _R.Level > 0 && _R.IsReady()) _R.Cast(Target, true);
             }
             catch (Exception)
             {
                 if (NowTime() > ErrorTime)
                 {
-                    Chat.Print(ChampName + " in FreshBooster isn't Load. Error Code 07");
+                    //Chat.Print(ChampName + " in FreshBooster isn't Load. Error Code 07");
                     ErrorTime = TickCount(10000);
                 }
             }
@@ -578,7 +578,7 @@ namespace FreshBooster.Champion
                     }
                     if (sender.IsMe)
                     {
-                        Console.Write("Spell Name: " + args.SData.Name + "\n");
+                        //Console.Write("Spell Name: " + args.SData.Name + "\n");
                     }
                 }
             }
@@ -649,8 +649,8 @@ namespace FreshBooster.Champion
             }
             catch (Exception e)
             {
-                Console.Write(e);
-                Chat.Print("FreshPoppy is not working. plz send message by KorFresh (Code 13)");
+                //Console.Write(e);
+                //Chat.Print("FreshPoppy is not working. plz send message by KorFresh (Code 13)");
             }
         }
 
@@ -662,8 +662,8 @@ namespace FreshBooster.Champion
             }
             catch (Exception e)
             {
-                Console.Write(e);
-                Chat.Print("FreshPoppy is not working. plz send message by KorFresh (Code 14)");
+                //Console.Write(e);
+                //Chat.Print("FreshPoppy is not working. plz send message by KorFresh (Code 14)");
             }
         }
         private static void AutoKick()
