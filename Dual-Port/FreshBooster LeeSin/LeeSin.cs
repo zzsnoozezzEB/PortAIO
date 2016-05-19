@@ -81,6 +81,13 @@ namespace FreshBooster.Champion
                 comboMenu.Add("LeeSin_CUse_W", new CheckBox("Use W"));
                 comboMenu.Add("LeeSin_CUse_E", new CheckBox("Use E"));
                 comboMenu.Add("LeeSin_CUse_R", new CheckBox("Use R"));
+                comboMenu.AddSeparator();
+                comboMenu.AddLabel("1 : Out of Range");
+                comboMenu.AddLabel("2 : Impossible");
+                comboMenu.AddLabel("3 : Low");
+                comboMenu.AddLabel("4 : Medium");
+                comboMenu.AddLabel("5 : High");
+                comboMenu.AddLabel("6 : Very High");
                 comboMenu.Add("LeeSin_CUseQ_Hit", new Slider("Q HitChance", 4, 1, 6));
 
                 harassMenu = menu.AddSubMenu("Harass", "Harass");
@@ -288,6 +295,12 @@ namespace FreshBooster.Champion
                         _Q.CastIfHitchanceEquals(QTarget, HC, true);
                         QTime = TickCount(2000);
                     }
+
+                    if (QTarget != null && QTarget.HasBuff("BlindMonkSonicWave") && _Q.IsReady() && ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).Name != "BlindMonkQOne" && getCheckBoxItem(comboMenu, "LeeSin_CUse_Q"))
+                    {
+                        _Q.Cast();
+                    }
+
                     if (ETarget != null && _E.IsReady() && !Orbwalker.CanAutoAttack && Orbwalker.CanMove && ETime < Environment.TickCount && getCheckBoxItem(comboMenu, "LeeSin_CUse_E"))
                     {
                         _E.Cast(true);
@@ -367,6 +380,7 @@ namespace FreshBooster.Champion
                 }
                 if (getKeyBindItem(miscMenu, "LeeSin_InsecKick"))    // 인섹킥
                 {
+                    EloBuddy.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
                     var GetTarget = TargetSelector.SelectedTarget;
                     if (GetTarget == null || GetTarget.IsDead) return;
                     if (_Q.IsReady() && ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).Name == "BlindMonkQOne" && _Q.GetPrediction(GetTarget).Hitchance >= HitChance.Low)
