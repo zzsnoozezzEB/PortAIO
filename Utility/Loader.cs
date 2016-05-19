@@ -77,11 +77,8 @@ namespace PortAIO.Utility
         public static int ahri { get { return Miscc["ahri"].Cast<ComboBox>().CurrentValue; } }
         public static bool banwards { get { return Miscc["banwards"].Cast<CheckBox>().CurrentValue; } }
         public static int elise { get { return Miscc["elise"].Cast<ComboBox>().CurrentValue; } }
-<<<<<<< HEAD
         public static int rengar { get { return Miscc["rengar"].Cast<ComboBox>().CurrentValue; } }
-=======
         public static int zed { get { return Miscc["zed"].Cast<ComboBox>().CurrentValue; } }
->>>>>>> origin/master
 
 
         public static Menu Miscc;
@@ -138,12 +135,9 @@ namespace PortAIO.Utility
             "Riven", // 41
             "Graves", // 42
             "Elise", // 43
-<<<<<<< HEAD
             "Rengar", //46
-=======
             "Zed", //44
             "Ahri", //45
->>>>>>> origin/master
         });
 
         public static void Menu()
@@ -330,10 +324,8 @@ namespace PortAIO.Utility
                 {
                     Miscc.Add("Elise", new ComboBox("Use addon for Elise : ", 0, "GFuel Elise", "D-Elise"));
                 }
-<<<<<<< HEAD
                 if (Player.ChampionName.Equals(Champion[46]))
                 {
-=======
                 if (Player.ChampionName.Equals(Champion[44]))
                 {
                     Miscc.Add("zed", new ComboBox("Use addon for Zed : ", 0, "ValvraveSharp", "Ze-D is Back", "iDZed"));
@@ -341,7 +333,6 @@ namespace PortAIO.Utility
                 if (Player.ChampionName.Equals(Champion[45]))
                 {
                     Miscc.Add("ahri", new ComboBox("Use addon for Ahri : ", 0, "OKTW", "AhriSharp"));
->>>>>>> origin/master
                 }
             }
             else
@@ -385,5 +376,7 @@ namespace PortAIO.Utility
             }
             */
         }
+    }
+
     }
 }
