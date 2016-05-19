@@ -198,14 +198,20 @@ namespace Zed
         {
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
             {
+                if (GetEnemy == null)
+                    return;
                 Combo(GetEnemy);
             }
             if (getKeyBindItem(comboMenu, "TheLine"))
             {
+                if (GetEnemy == null)
+                    return;
                 TheLine(GetEnemy);
             }
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
             {
+                if (GetEnemy == null)
+                    return;
                 Harass(GetEnemy);
             }
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
