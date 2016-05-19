@@ -56,8 +56,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Berb.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Berb.Common">
       <HintPath>..\..\..\Downloads\Berb.Common.dll</HintPath>
     </Reference>
     <Reference Include="EloBuddy">
@@ -225,6 +224,7 @@
     <Compile Include="Dual-Port\D-Corki\Program.cs" />
     <Compile Include="Dual-Port\D-Elise\Program.cs" />
     <Compile Include="Dual-Port\D-Graves\Program.cs" />
+    <Compile Include="Dual-Port\D-Rengar\Program.cs" />
     <Compile Include="Dual-Port\e.MotionKatarina\Program.cs" />
     <Compile Include="Dual-Port\ElEasy Ryze\Ryze.cs" />
     <Compile Include="Dual-Port\ElEasy Sona\Sona.cs" />
