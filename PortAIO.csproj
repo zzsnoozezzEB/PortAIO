@@ -249,6 +249,7 @@
     <Compile Include="Dual-Port\ExorCait\Properties\Utilities\Targets.cs" />
     <Compile Include="Dual-Port\FastTrundle\FastTrundle.cs" />
     <Compile Include="Dual-Port\FastTrundle\FastTrundleMenu.cs" />
+    <Compile Include="Dual-Port\FreshBooster LeeSin\LeeSin.cs" />
     <Compile Include="Dual-Port\GosuMechanics Yasuo\Collision.cs" />
     <Compile Include="Dual-Port\GosuMechanics Yasuo\Config.cs" />
     <Compile Include="Dual-Port\GosuMechanics Yasuo\EvadeSpellData.cs" />

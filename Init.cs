@@ -657,6 +657,9 @@ namespace PortAIO
                             case 1:
                                 ElLeeSin.Program.Game_OnGameLoad();
                                 break;
+                            case 2:
+                                new FreshBooster.Champion.LeeSin();
+                                break;
                             default:
                                 Valvrave_Sharp.Program.MainA();
                                 break;

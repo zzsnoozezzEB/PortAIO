@@ -23,7 +23,7 @@ namespace D_Elise
 
         private static Menu Menu { get; set; }
 
-        public static Menu comboMenu, harassMenu, itemMenu, clearMenu, miscMenu, lasthitMenu, jungleMenu, drawMenu, ksMenu, smiteMenu;
+        public static Menu comboMenu, harassMenu, itemMenu, clearMenu, miscMenu, jungleMenu, drawMenu, ksMenu, smiteMenu;
 
         private static SpellSlot _igniteSlot;
 

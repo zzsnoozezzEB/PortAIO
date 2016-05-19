@@ -152,7 +152,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[2]))
                 {
-                    Miscc.Add("leesin", new ComboBox("Use addon for Lee Sin : ", 0, "ValvraveSharp", "El Lee Sin : Reborn"));
+                    Miscc.Add("leesin", new ComboBox("Use addon for Lee Sin : ", 0, "ValvraveSharp", "El Lee Sin : Reborn", "FreshBooster"));
                 }
                 if (Player.ChampionName.Equals(Champion[3]))
                 {
