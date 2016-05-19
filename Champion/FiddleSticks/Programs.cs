@@ -119,12 +119,11 @@ namespace Feedlesticks
             {
                 Orbwalker.DisableAttacking = true;
                 Orbwalker.DisableMovement = true;
+                return;
             }
-            else
-            {
-                Orbwalker.DisableAttacking = false;
-                Orbwalker.DisableMovement = false;
-            }
+
+            Orbwalker.DisableAttacking = false;
+            Orbwalker.DisableMovement = false;
 
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) && !IsWActive)
             {
