@@ -381,10 +381,16 @@ namespace FreshBooster.Champion
                 if (getKeyBindItem(miscMenu, "LeeSin_InsecKick"))    // 인섹킥
                 {
                     EloBuddy.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+
                     var GetTarget = TargetSelector.SelectedTarget;
+
                     if (GetTarget == null || GetTarget.IsDead) return;
+
                     if (_Q.IsReady() && ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).Name == "BlindMonkQOne" && _Q.GetPrediction(GetTarget).Hitchance >= HitChance.Low)
-                        _Q.CastOnUnit(GetTarget, true);
+                        _Q.Cast(GetTarget);
+                    else if (_Q.IsReady() && ObjectManager.Player.Spellbook.GetSpell(SpellSlot.Q).Name != "BlindMonkQOne" && GetTarget.HasBuff("BlindMonkSonicWave"))
+                        _Q.Cast();
+
                     var Turrets = ObjectManager.Get<Obj_Turret>()
                     .OrderBy(obj => obj.Position.LSDistance(Player.Position))
                     .FirstOrDefault(obj => obj.IsAlly && obj.Health > 1);
