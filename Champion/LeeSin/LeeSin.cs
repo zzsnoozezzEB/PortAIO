@@ -106,7 +106,7 @@
             comboMenu.Add("Q", new CheckBox("Use Q"));
             comboMenu.Add("Q2", new CheckBox("Also Q2"));
             comboMenu.Add("Q2Obj", new CheckBox("Q2 Even Miss", false));
-            comboMenu.Add("QCol", new CheckBox("Smite Collision"));
+            //comboMenu.Add("QCol", new CheckBox("Smite Collision"));
             comboMenu.AddGroupLabel("Star Combo Settings");
             comboMenu.Add("Star", new KeyBind("Star Combo", false, KeyBind.BindTypes.HoldActive, 'X'));
             comboMenu.Add("StarKill", new CheckBox("Auto Star Combo If Killable", false));
@@ -361,10 +361,10 @@
             {
                 QELO.Cast(target);
             }
-            else if ((getCheckBoxItem(comboMenu, "QCol") && Common.CastSmiteKillCollision(colA)))
-            {
-                QELO.Cast(target);
-            }
+            //else if ((getCheckBoxItem(comboMenu, "QCol") && Common.CastSmiteKillCollision(colA)))
+            //{
+                //QELO.Cast(target);
+            //}
         }
 
         private static void CastRFlash(Obj_AI_Base target)
@@ -1078,7 +1078,7 @@
 
                 insecMenu.AddGroupLabel("Q Settings");
                 insecMenu.Add("Q", new CheckBox("Use Q"));
-                insecMenu.Add("QCol", new CheckBox("Smite Collision"));
+                //insecMenu.Add("QCol", new CheckBox("Smite Collision"));
                 insecMenu.Add("QObj", new CheckBox("Use Q On Near Object"));
 
                 insecMenu.AddGroupLabel("Keybinds");
@@ -1302,10 +1302,10 @@
                     {
                         QELO.Cast(target);
                     }
-                    else if ((getCheckBoxItem(comboMenu, "QCol") && Common.CastSmiteKillCollision(colA)))
-                    {
-                        QELO.Cast(target);
-                    }
+                    //else if ((getCheckBoxItem(comboMenu, "QCol") && Common.CastSmiteKillCollision(colA)))
+                    //{
+                        //QELO.Cast(target);
+                    //}
                     if (!getCheckBoxItem(insecMenu, "QObj"))
                     {
                         return;
