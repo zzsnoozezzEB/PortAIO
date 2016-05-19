@@ -1,4 +1,7 @@
 ﻿To-Do :
+- Fix Badao GP
+- Fix Lee Sin Q2 FreshBooster
+
 - Fix the Lee Sin Crash
 - Bard Flee [Don't have Bard so can't fix]
 - Tahm Kench Crash [Don't have TK]

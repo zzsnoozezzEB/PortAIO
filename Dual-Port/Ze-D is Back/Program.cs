@@ -199,54 +199,42 @@ namespace Zed
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
             {
                 Combo(GetEnemy);
-
             }
             if (getKeyBindItem(comboMenu, "TheLine"))
             {
                 TheLine(GetEnemy);
             }
-
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
             {
                 Harass(GetEnemy);
-
             }
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) || Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
             {
                 Laneclear();
                 JungleClear();
             }
-
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit))
             {
                 LastHit();
             }
-
             if (getCheckBoxItem(miscMenu, "AutoE"))
             {
                 CastE();
             }
-
             if (Environment.TickCount >= clockon && countdanger > countults)
             {
                 _r.Cast(TargetSelector.GetTarget(640, DamageType.Physical));
                 countults = countults + 1;
             }
 
-
-            if (LastCastedSpell.LastCastPacketSent.Slot == SpellSlot.R)
+            if (ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(minion => minion.IsVisible && minion.IsAlly && minion.Name == "Shadow") != null)
             {
                 Obj_AI_Minion shadow;
-                shadow = ObjectManager.Get<Obj_AI_Minion>()
-                        .FirstOrDefault(minion => minion.IsVisible && minion.IsAlly && minion.Name == "Shadow");
-
+                shadow = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(minion => minion.IsVisible && minion.IsAlly && minion.Name == "Shadow");
                 rpos = shadow.ServerPosition;
             }
 
-
             _player = ObjectManager.Player;
-
-
             KillSteal();
 
         }
@@ -660,17 +648,15 @@ namespace Zed
         private static void KillSteal()
         {
             var target = TargetSelector.GetTarget(2000, DamageType.Physical);
-            var igniteDmg = _player.GetSummonerSpellDamage(target, LeagueSharp.Common.Damage.SummonerSpell.Ignite);
-            if (target.LSIsValidTarget() && getCheckBoxItem(miscMenu, "UseIgnitekill") && _igniteSlot != SpellSlot.Unknown &&
-                _player.Spellbook.CanUseSpell(_igniteSlot) == SpellState.Ready)
+            Console.WriteLine("1");
+            if (target == null)
             {
-                if (igniteDmg > target.Health && _player.LSDistance(target.ServerPosition) <= 600)
-                {
-                    _player.Spellbook.CastSpell(_igniteSlot, target);
-                }
+                return;
             }
+            Console.WriteLine("2");
             if (target.LSIsValidTarget() && _q.IsReady() && getCheckBoxItem(miscMenu, "UseQM") && _q.GetDamage(target) > target.Health)
             {
+                Console.WriteLine("3");
                 if (_player.LSDistance(target.ServerPosition) <= _q.Range)
                 {
                     _q.Cast(target);
@@ -699,6 +685,7 @@ namespace Zed
                     _q.Cast(target);
                 }
             }
+
             if (_e.IsReady() && getCheckBoxItem(miscMenu, "UseEM"))
             {
                 var t = TargetSelector.GetTarget(_e.Range, DamageType.Physical);

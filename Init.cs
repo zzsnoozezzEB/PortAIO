@@ -277,7 +277,7 @@ namespace PortAIO
                         }
                         break;
                     case "ahri":
-                        switch (Loader.graves)
+                        switch (Loader.ahri)
                         {
                             case 0:
                                 SebbyLib.Program.GameOnOnGameLoad();
