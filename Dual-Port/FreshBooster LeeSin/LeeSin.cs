@@ -643,28 +643,10 @@ namespace FreshBooster.Champion
         }
         private static void GameObject_OnCreate(GameObject obj, EventArgs args)
         {
-            try
-            {
-
-            }
-            catch (Exception e)
-            {
-                //Console.Write(e);
-                //Chat.Print("FreshPoppy is not working. plz send message by KorFresh (Code 13)");
-            }
         }
 
         private static void GameObject_OnDelete(GameObject obj, EventArgs args)
         {
-            try
-            {
-
-            }
-            catch (Exception e)
-            {
-                //Console.Write(e);
-                //Chat.Print("FreshPoppy is not working. plz send message by KorFresh (Code 14)");
-            }
         }
         private static void AutoKick()
         {

@@ -287,8 +287,7 @@ namespace Zed
             var doubleu = _player.Spellbook.GetSpell(SpellSlot.W);
 
 
-            if (getCheckBoxItem(comboMenu, "UseUlt") && UltStage == UltCastStage.First && (overkill < target.Health ||
-                (!_w.IsReady() && doubleu.Cooldown > 2f && _player.LSGetSpellDamage(target, SpellSlot.Q) < target.Health && target.LSDistance(_player.Position) > 400)))
+            if (getCheckBoxItem(comboMenu, "UseUlt") && UltStage == UltCastStage.First && (overkill < target.Health || (!_w.IsReady() && doubleu.Cooldown > 2f && _player.LSGetSpellDamage(target, SpellSlot.Q) < target.Health && target.LSDistance(_player.Position) > 400)))
             {
                 if ((target.LSDistance(_player.Position) > 700 && target.MoveSpeed > _player.MoveSpeed) || target.LSDistance(_player.Position) > 800)
                 {
@@ -314,19 +313,13 @@ namespace Zed
                 {
                     CastW(target);
                 }
-                if (target != null && ShadowStage == ShadowCastStage.Second && getCheckBoxItem(comboMenu, "UseWC") &&
-                    target.LSDistance(WShadow.ServerPosition) < target.LSDistance(_player.Position))
+                if (target != null && ShadowStage == ShadowCastStage.Second && getCheckBoxItem(comboMenu, "UseWC") && target.LSDistance(WShadow.ServerPosition) < target.LSDistance(_player.Position))
                 {
                     _w.Cast();
                 }
-
-
                 CastE();
                 CastQ(target);
-
             }
-
-
         }
 
         private static void TheLine(AIHeroClient t)
@@ -357,17 +350,13 @@ namespace Zed
                     _w.Cast(linepos);
                     CastE();
                     CastQ(target);
-
-
-                    if (target != null && getCheckBoxItem(comboMenu, "UseIgnitecombo") && _igniteSlot != SpellSlot.Unknown &&
-                            _player.Spellbook.CanUseSpell(_igniteSlot) == SpellState.Ready)
+                    if (target != null && getCheckBoxItem(comboMenu, "UseIgnitecombo") && _igniteSlot != SpellSlot.Unknown && _player.Spellbook.CanUseSpell(_igniteSlot) == SpellState.Ready)
                     {
                         _player.Spellbook.CastSpell(_igniteSlot, target);
                     }
 
                 }
             }
-
             if (target != null && WShadow != null && UltStage == UltCastStage.Second && target.LSDistance(_player.Position) > 250 && (target.LSDistance(WShadow.ServerPosition) < target.LSDistance(_player.Position)))
             {
                 _w.Cast();

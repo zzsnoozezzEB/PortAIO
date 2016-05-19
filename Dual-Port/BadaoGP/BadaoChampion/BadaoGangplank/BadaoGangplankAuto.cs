@@ -24,7 +24,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
         {
             if (Environment.TickCount - BadaoGangplankCombo.LastCondition >= 100 + Game.Ping)
             {
-                foreach (var hero in HeroManager.Enemies.Where(x => x.LSIsValidTarget()))
+                foreach (var hero in HeroManager.Enemies.Where(x => x.LSIsValidTarget() && x.LSDistance(ObjectManager.Player) < 2000 && x.IsHPBarRendered))
                 {
                     var pred = LeagueSharp.Common.Prediction.GetPrediction(hero, 0.5f).UnitPosition;
                     if (BadaoMainVariables.Q.IsReady())
@@ -41,6 +41,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                                     Orbwalker.DisableMovement = false;
                                     Orbwalker.DisableAttacking = false;
                                 });
+                                BadaoMainVariables.Q.Cast(barrel.Bottle);
                                 if (BadaoMainVariables.Q.Cast(barrel.Bottle) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
                                 {
                                     BadaoGangplankCombo.LastCondition = Environment.TickCount;
@@ -51,28 +52,31 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                     }
                 }
 
-                foreach (var hero in HeroManager.Enemies.Where(x => x.LSIsValidTarget()))
+                foreach (var hero in HeroManager.Enemies.Where(x => x.LSIsValidTarget() && x.LSDistance(ObjectManager.Player) < 2000 && x.IsHPBarRendered))
                 {
                     var pred = LeagueSharp.Common.Prediction.GetPrediction(hero, 0.5f).UnitPosition;
-                    if (Orbwalker.CanAutoAttack)
+                    foreach (var barrel in BadaoGangplankBarrels.AttackableBarrels())
                     {
-                        foreach (var barrel in BadaoGangplankBarrels.AttackableBarrels())
+                        var nbarrels = BadaoGangplankBarrels.ChainedBarrels(barrel);
+                        if (nbarrels.Any(x => x.Bottle.LSDistance(pred) <= 330 /*+ hero.BoundingRadius*/))
                         {
-                            var nbarrels = BadaoGangplankBarrels.ChainedBarrels(barrel);
-                            if (nbarrels.Any(x => x.Bottle.LSDistance(pred) <= 330 /*+ hero.BoundingRadius*/))
+                            Console.WriteLine("1");
+                            Orbwalker.DisableMovement = true;
+                            Orbwalker.DisableAttacking = true;
+                            Console.WriteLine("2");
+                            LeagueSharp.Common.Utility.DelayAction.Add(300 + Game.Ping, () =>
                             {
-                                Orbwalker.DisableMovement = true;
-                                Orbwalker.DisableAttacking = true;
-                                LeagueSharp.Common.Utility.DelayAction.Add(100 + Game.Ping, () =>
-                                {
-                                    Orbwalker.DisableMovement = false;
-                                    Orbwalker.DisableAttacking = false;
-                                });
-                                if (EloBuddy.Player.IssueOrder(GameObjectOrder.AttackUnit, barrel.Bottle))
-                                {
-                                    BadaoGangplankCombo.LastCondition = Environment.TickCount;
-                                    return;
-                                }
+                                Orbwalker.DisableMovement = false;
+                                Orbwalker.DisableAttacking = false;
+                            });
+                            Console.WriteLine("3");
+                            Orbwalker.ForcedTarget = barrel.Bottle;
+                            EloBuddy.Player.IssueOrder(GameObjectOrder.AttackUnit, barrel.Bottle);
+                            Console.WriteLine("4");
+                            if (EloBuddy.Player.IssueOrder(GameObjectOrder.AttackUnit, barrel.Bottle))
+                            {
+                                BadaoGangplankCombo.LastCondition = Environment.TickCount;
+                                return;
                             }
                         }
                     }
@@ -80,7 +84,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
             }
             if (BadaoMainVariables.W.IsReady() &&
                 BadaoGangplankVariables.AutoWLowHealth &&
-                BadaoGangplankVariables.AutoWLowHealthValue >= Player.Health*100/Player.MaxHealth)
+                BadaoGangplankVariables.AutoWLowHealthValue >= Player.Health * 100 / Player.MaxHealth)
             {
                 BadaoMainVariables.W.Cast();
             }
@@ -96,12 +100,13 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
             }
             if (BadaoMainVariables.Q.IsReady())
             {
-                foreach (var hero in HeroManager.Enemies.Where(x => x.BadaoIsValidTarget(BadaoMainVariables.Q.Range) 
+                foreach (var hero in HeroManager.Enemies.Where(x => x.BadaoIsValidTarget(BadaoMainVariables.Q.Range)
                 && BadaoMainVariables.Q.GetDamage(x) >= x.Health))
                 {
                     BadaoMainVariables.Q.Cast(hero);
                 }
             }
+            Orbwalker.ForcedTarget = null;
         }
     }
 }

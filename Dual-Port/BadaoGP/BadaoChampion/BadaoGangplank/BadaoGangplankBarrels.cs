@@ -8,6 +8,7 @@ using LeagueSharp.Common;
 using SharpDX;
 using Color = System.Drawing.Color;
 using EloBuddy;
+using EloBuddy.SDK;
 
 namespace BadaoKingdom.BadaoChampion.BadaoGangplank
 {
@@ -41,7 +42,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                 Player.Level >= 7 ?
                 1000 :
                 2000;
-            var meelebarrels = Barrels.Where(x => Orbwalking.InAutoAttackRange(x.Bottle)
+            var meelebarrels = Barrels.Where(x => Player.IsInAutoAttackRange(x.Bottle)
            && (Environment.TickCount - x.CreationTime >= 2 * time - Game.Ping - Player.AttackCastDelay * 1000 + 50 - delay
            || (Environment.TickCount - x.CreationTime >=  time - Game.Ping - Player.AttackCastDelay * 1000 + 50  - delay && x.Bottle.Health == 2
            && Environment.TickCount - x.CreationTime <= time) ?

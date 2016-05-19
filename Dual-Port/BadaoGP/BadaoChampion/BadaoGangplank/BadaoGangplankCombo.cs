@@ -15,9 +15,9 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
     public static class BadaoGangplankCombo
     {
         public static int LastCondition;
-        public static int Estack { get{ return BadaoMainVariables.E.Instance.Ammo; } }
-        public static AIHeroClient  Player { get { return ObjectManager.Player; } }
-        public static void BadaoActivate ()
+        public static int Estack { get { return BadaoMainVariables.E.Instance.Ammo; } }
+        public static AIHeroClient Player { get { return ObjectManager.Player; } }
+        public static void BadaoActivate()
         {
             Game.OnUpdate += Game_OnUpdate;
         }
@@ -85,7 +85,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                         }
                     }
                 }
-                foreach (var hero in HeroManager.Enemies.Where(x => x.LSIsValidTarget()))
+                foreach (var hero in HeroManager.Enemies.Where(x => x.LSIsValidTarget() && x.LSDistance(ObjectManager.Player) < 2000))
                 {
                     var pred = LeagueSharp.Common.Prediction.GetPrediction(hero, 0.5f).UnitPosition;
                     if (BadaoMainVariables.Q.IsReady())
@@ -95,16 +95,17 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                             var nbarrels = BadaoGangplankBarrels.ChainedBarrels(barrel);
                             if (nbarrels.Any(x => x.Bottle.LSDistance(pred) <= 330 /*+ hero.BoundingRadius*/))
                             {
-                                Orbwalker.DisableAttacking = true;
                                 Orbwalker.DisableMovement = true;
+                                Orbwalker.DisableAttacking = true;
                                 LeagueSharp.Common.Utility.DelayAction.Add(100 + Game.Ping, () =>
                                 {
-                                    Orbwalker.DisableAttacking = false;
                                     Orbwalker.DisableMovement = false;
+                                    Orbwalker.DisableAttacking = false;
                                 });
+                                BadaoMainVariables.Q.Cast(barrel.Bottle);
                                 if (BadaoMainVariables.Q.Cast(barrel.Bottle) == LeagueSharp.Common.Spell.CastStates.SuccessfullyCasted)
                                 {
-                                    LastCondition = Environment.TickCount;
+                                    BadaoGangplankCombo.LastCondition = Environment.TickCount;
                                     return;
                                 }
                             }
@@ -112,28 +113,31 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                     }
                 }
 
-                foreach (var hero in HeroManager.Enemies.Where(x => x.LSIsValidTarget()))
+                foreach (var hero in HeroManager.Enemies.Where(x => x.LSIsValidTarget() && x.LSDistance(ObjectManager.Player) < 2000 && x.IsHPBarRendered))
                 {
                     var pred = LeagueSharp.Common.Prediction.GetPrediction(hero, 0.5f).UnitPosition;
-                    if (Orbwalker.CanAutoAttack)
+                    foreach (var barrel in BadaoGangplankBarrels.AttackableBarrels())
                     {
-                        foreach (var barrel in BadaoGangplankBarrels.AttackableBarrels())
+                        var nbarrels = BadaoGangplankBarrels.ChainedBarrels(barrel);
+                        if (nbarrels.Any(x => x.Bottle.LSDistance(pred) <= 330 /*+ hero.BoundingRadius*/))
                         {
-                            var nbarrels = BadaoGangplankBarrels.ChainedBarrels(barrel);
-                            if (nbarrels.Any(x => x.Bottle.LSDistance(pred) <= 330 /*+ hero.BoundingRadius*/))
+                            Console.WriteLine("1");
+                            Orbwalker.DisableMovement = true;
+                            Orbwalker.DisableAttacking = true;
+                            Console.WriteLine("2");
+                            LeagueSharp.Common.Utility.DelayAction.Add(300 + Game.Ping, () =>
                             {
-                                Orbwalker.DisableAttacking = true;
-                                Orbwalker.DisableMovement = true;
-                                LeagueSharp.Common.Utility.DelayAction.Add(100 + Game.Ping, () =>
-                                {
-                                    Orbwalker.DisableAttacking = false;
-                                    Orbwalker.DisableMovement = false;
-                                });
-                                if (EloBuddy.Player.IssueOrder(GameObjectOrder.AttackUnit, barrel.Bottle))
-                                {
-                                    LastCondition = Environment.TickCount;
-                                    return;
-                                }
+                                Orbwalker.DisableMovement = false;
+                                Orbwalker.DisableAttacking = false;
+                            });
+                            Console.WriteLine("3");
+                            Orbwalker.ForcedTarget = barrel.Bottle;
+                            EloBuddy.Player.IssueOrder(GameObjectOrder.AttackUnit, barrel.Bottle);
+                            Console.WriteLine("4");
+                            if (EloBuddy.Player.IssueOrder(GameObjectOrder.AttackUnit, barrel.Bottle))
+                            {
+                                BadaoGangplankCombo.LastCondition = Environment.TickCount;
+                                return;
                             }
                         }
                     }
@@ -142,7 +146,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
             if (Estack >= 2 && BadaoMainVariables.E.IsReady() && BadaoGangplankVariables.ComboE1)
             {
                 var target = TargetSelector.GetTarget(BadaoMainVariables.E.Range, DamageType.Physical);
-                if( target.BadaoIsValidTarget())
+                if (target.BadaoIsValidTarget())
                 {
                     var pred = LeagueSharp.Common.Prediction.GetPrediction(target, 0.5f).UnitPosition;
                     if (!BadaoGangplankBarrels.Barrels.Any(x => x.Bottle.LSDistance(pred) <= 660 /*+ target.BoundingRadius*/))
