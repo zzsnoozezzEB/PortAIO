@@ -464,15 +464,21 @@ namespace SebbyLib
             {
                 if (getSliderItem("HitChance") == 0)
                 {
-                    QWER.CastIfHitchanceEquals(target, LeagueSharp.Common.HitChance.VeryHigh);
+                    var pred = QWER.GetPrediction(target);
+                    if (pred.Hitchance >= LeagueSharp.Common.HitChance.VeryHigh)
+                        QWER.Cast(pred.CastPosition);
                 }
                 else if (getSliderItem("HitChance") == 1)
                 {
-                    QWER.CastIfHitchanceEquals(target, LeagueSharp.Common.HitChance.High);
+                    var pred = QWER.GetPrediction(target);
+                    if (pred.Hitchance >= LeagueSharp.Common.HitChance.High)
+                        QWER.Cast(pred.CastPosition);
                 }
                 else if (getSliderItem("HitChance") == 2)
                 {
-                    QWER.CastIfHitchanceEquals(target, LeagueSharp.Common.HitChance.Medium);
+                    var pred = QWER.GetPrediction(target);
+                    if (pred.Hitchance >= LeagueSharp.Common.HitChance.Medium)
+                        QWER.Cast(pred.CastPosition);
                 }
             }
 
