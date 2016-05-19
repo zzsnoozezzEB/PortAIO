@@ -24,7 +24,7 @@ namespace hi_im_gosu
         private static Menu menu;
 
         private static Dictionary<string, SpellSlot> spellData;
-        
+
         private static AIHeroClient tar;
         public const string ChampName = "Vayne";
         public static AIHeroClient Player;
@@ -84,12 +84,12 @@ namespace hi_im_gosu
         public static void Game_OnGameLoad()
         {
             Player = ObjectManager.Player;
-            
+
             if (Player.ChampionName != ChampName) return;
             spellData = new Dictionary<string, SpellSlot>();
-            
+
             menu = MainMenu.AddMenu("Gosu", "Gosu");
-            
+
             menu.Add("aaqaa", new KeyBind("Auto -> Q -> AA", false, KeyBind.BindTypes.HoldActive, 'X'));
             menu.Add("walltumble", new KeyBind("Wall Tumble", false, KeyBind.BindTypes.PressToggle, 'U'));
             menu.Add("useR", new CheckBox("Use R Combo"));
@@ -110,7 +110,7 @@ namespace hi_im_gosu
             emenu.Add("Gap_E", new CheckBox("Use E To Gabcloser"));
             emenu.Add("PushDistance", new Slider("E Push Distance", 425, 475, 300));
             emenu.Add("UseEaa", new KeyBind("Use E after auto", false, KeyBind.BindTypes.PressToggle, 'G'));
-           
+
 
             Q = new LeagueSharp.Common.Spell(SpellSlot.Q, 0f);
             R = new LeagueSharp.Common.Spell(SpellSlot.R, float.MaxValue);
@@ -260,7 +260,7 @@ namespace hi_im_gosu
             {
                 R.Cast();
             }
-            
+
             if (getKeyBindItem(menu, "walltumble"))
             {
                 TumbleHandler();
@@ -273,23 +273,12 @@ namespace hi_im_gosu
 
             if (!E.IsReady()) return;
             if ((Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) && getCheckBoxItem(emenu, "UseEC")) || (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass) && getCheckBoxItem(emenu, "he")) || getKeyBindItem(emenu, "UseET"))
-                foreach (var hero in from hero in ObjectManager.Get<AIHeroClient>().Where(hero => hero.LSIsValidTarget(550f))
-                                     let prediction = E.GetPrediction(hero)
-                                     where NavMesh.GetCollisionFlags(
-                                         prediction.UnitPosition.LSTo2D()
-                                             .LSExtend(ObjectManager.Player.ServerPosition.LSTo2D(),
-                                                 -getSliderItem(emenu, "PushDistance"))
-                                             .To3D())
-                                         .HasFlag(CollisionFlags.Wall) || NavMesh.GetCollisionFlags(
-                                             prediction.UnitPosition.LSTo2D()
-                                                 .Extend(ObjectManager.Player.ServerPosition.LSTo2D(),
-                                                     -(getSliderItem(emenu, "PushDistance")))
-                                                 .To3D())
-                                             .HasFlag(CollisionFlags.Wall)
-                                     select hero)
+            {
+                foreach (var hero in from hero in ObjectManager.Get<AIHeroClient>().Where(hero => hero.LSIsValidTarget(550f)) let prediction = E.GetPrediction(hero) where NavMesh.GetCollisionFlags(prediction.UnitPosition.LSTo2D().LSExtend(ObjectManager.Player.ServerPosition.LSTo2D(), -getSliderItem(emenu, "PushDistance")).To3D()).HasFlag(CollisionFlags.Wall) || NavMesh.GetCollisionFlags(prediction.UnitPosition.LSTo2D().LSExtend(ObjectManager.Player.ServerPosition.LSTo2D(), -(getSliderItem(emenu, "PushDistance"))).To3D()).HasFlag(CollisionFlags.Wall) select hero)
                 {
                     E.Cast(hero);
                 }
+            }
         }
     }
 }
