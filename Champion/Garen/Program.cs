@@ -48,23 +48,27 @@ namespace UnderratedAIO.Champions
             if (GarenE)
             {
                 Orbwalker.DisableMovement = true;
-                if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None))
-                {
-                    Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
-                }
             }
             else
             {
                 Orbwalker.DisableMovement = false;
             }
 
-            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None) ||
-                Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None))
+            if (GarenE && getCheckBoxItem(comboMenu, "orbwalkto"))
+            {
+                if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None))
+                {
+                    Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+                }
+            }
+
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) ||
+                Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear))
             {
                 Clear();
             }
 
-            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None))
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
             {
                 Combo();
             }
@@ -329,6 +333,7 @@ namespace UnderratedAIO.Champions
             drawMenu.Add("drawrr", new CheckBox("Draw R range"));
             drawMenu.Add("drawrkillable", new CheckBox("Show if killable with R"));
 
+
             // Combo Settings
             comboMenu = config.AddSubMenu("Combo ", "csettings");
             comboMenu.Add("useq", new CheckBox("Use Q"));
@@ -337,7 +342,8 @@ namespace UnderratedAIO.Champions
             comboMenu.Add("user", new CheckBox("Use R"));
             comboMenu.Add("useFlash", new CheckBox("Use Flash"));
             comboMenu.Add("useIgnite", new CheckBox("Use Ignite"));
-
+            comboMenu.Add("orbwalkto", new CheckBox("Orbwalk with E ?"));
+            comboMenu.AddLabel("if you disable this it will orbwalk to enemy");
             // LaneClear Settings
             laneClearMenu = config.AddSubMenu("LaneClear ", "Lcsettings");
             laneClearMenu.Add("useeLC", new CheckBox("Use E"));
