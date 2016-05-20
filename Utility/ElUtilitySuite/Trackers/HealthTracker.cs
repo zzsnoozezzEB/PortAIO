@@ -167,7 +167,7 @@
 
                 this.DrawRect(
                     Drawing.Width - HudOffsetRight,
-                    getSliderItem("OffsetTop") + i,
+                    HudOffsetTop + i,
                     100,
                     this.BarHeight,
                     1,
