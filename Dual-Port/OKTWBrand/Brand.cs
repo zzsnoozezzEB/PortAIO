@@ -258,14 +258,14 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                 {
                     if ((Program.Combo && Player.Mana > RMANA + EMANA) || (Program.Farm && getCheckBoxItem(eMenu, "harrasE") && Player.Mana > RMANA + EMANA))
                     {
-                        foreach (var minion in Cache.GetMinions(Player.Position, E.Range).Where(minion => minion.IsValidTarget(E.Range) && minion.CountEnemiesInRange(300) > 0 && minion.HasBuff("brandablaze")))
+                        foreach (var minion in Cache.GetMinions(Player.Position, E.Range).Where(minion => minion.LSIsValidTarget(E.Range) && minion.CountEnemiesInRange(300) > 0 && minion.HasBuff("brandablaze")))
                         {
                             E.CastOnUnit(minion);
                         }
                     }
-                    if (Program.LaneClear && Player.ManaPercent > getSliderItem(farmMenu, "Mana") && getCheckBoxItem(farmMenu, "farmE") && Player.Mana > RMANA + EMANA)
+                    if (Program.LaneClear && Player.ManaPercent > getSliderItem(farmMenu, "Mana") && getCheckBoxItem(farmMenu, "farmE"))
                     {
-                        foreach (var minion in Cache.GetMinions(Player.Position, E.Range).Where(minion => minion.IsValidTarget(E.Range) && minion.HasBuff("brandablaze") && CountMinionsInRange(400, minion.Position) >= getSliderItem(farmMenu, "LCminions")))
+                        foreach (var minion in Cache.GetMinions(Player.Position, E.Range).Where(minion => minion.LSIsValidTarget(E.Range) && minion.HasBuff("brandablaze") && CountMinionsInRange(400, minion.Position) >= getSliderItem(farmMenu, "LCminions")))
                         {
                             E.CastOnUnit(minion);
                         }
@@ -347,7 +347,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                         {
                             if (Player.CountEnemiesInRange(R.Range) > 0)
                             {
-                                foreach (var t in Program.Enemies.Where(enemy => enemy.IsValidTarget(R.Range) && enemy.Distance(prepos) < bounceRange))
+                                foreach (var t in Program.Enemies.Where(enemy => enemy.IsValidTarget(R.Range) && enemy.LSDistance(prepos) < bounceRange))
                                 {
                                     R.CastOnUnit(t);
                                 }
@@ -355,7 +355,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                             else
                             {
                                 var minions = Cache.GetMinions(Player.Position, R.Range);
-                                foreach (var minion in minions.Where(minion => minion.IsValidTarget(R.Range) && minion.Distance(prepos) < bounceRange))
+                                foreach (var minion in minions.Where(minion => minion.IsValidTarget(R.Range) && minion.LSDistance(prepos) < bounceRange))
                                 {
                                     R.CastOnUnit(minion);
                                 }
