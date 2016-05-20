@@ -290,8 +290,23 @@ namespace PortAIO
                                 break;
                         }
                         break;
-                    case "anivia": // OKTW - Sebby - All Seeby champs go down here
-                    case "thresh":
+
+                    case "anivia":
+                        switch (Loader.anivia)
+                        {
+                            case 0:
+                                SebbyLib.Program.GameOnOnGameLoad();
+                                break;
+                            case 1:
+                                ExorAIO.Core.Bootstrap.BuildMenu();
+                                ExorAIO.Core.Bootstrap.LoadChampion();
+                                break;
+                            default:
+                                SebbyLib.Program.GameOnOnGameLoad();
+                                break;
+                        }
+                        break;
+                    case "thresh": // OKTW - Sebby - All Seeby champs go down here
                     case "annie":
                     case "braum":
                     case "jinx":
