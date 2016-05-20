@@ -254,6 +254,7 @@
     <Compile Include="Dual-Port\GosuMechanics Yasuo\SpellDatabase.cs" />
     <Compile Include="Dual-Port\GosuMechanics Yasuo\Utils.cs" />
     <Compile Include="Dual-Port\GosuMechanics Yasuo\Yasuo.cs" />
+    <Compile Include="Dual-Port\HeavenStrikeReksaj\Program.cs" />
     <Compile Include="Dual-Port\hi_im_gosu\Program.cs" />
     <Compile Include="Dual-Port\iDzEzreal\Ezreal.cs" />
     <Compile Include="Dual-Port\iDzEzreal\EzrealBootstrap.cs" />
@@ -665,6 +666,8 @@
     <Compile Include="Dual-Port\Vayne Hunter Reborn\Utility\Variables.cs" />
     <Compile Include="Dual-Port\Vayne Hunter Reborn\Utility\VHRBootstrap.cs" />
     <Compile Include="Dual-Port\Vayne Hunter Reborn\VHR.cs" />
+    <Compile Include="Dual-Port\VoliPower\HPIndicator.cs" />
+    <Compile Include="Dual-Port\VoliPower\Program.cs" />
     <Compile Include="Dual-Port\xQx LeBlanc\Common\CommonBuffManager.cs" />
     <Compile Include="Dual-Port\xQx LeBlanc\Common\CommonGeometry.cs" />
     <Compile Include="Dual-Port\xQx LeBlanc\Program.cs" />

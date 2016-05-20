@@ -918,8 +918,19 @@ namespace PortAIO
                     case "veigar": // FreshBooster
                         new FreshBooster.Champion.Veigar();
                         break;
-                    case "reksai": // D-Reksai
-                        D_RekSai.Program.Game_OnGameLoad();
+                    case "reksai": // D-Reksai && HeavenStrikeReksaj
+                        switch (Loader.reksai)
+                        {
+                            case 0:
+                                D_RekSai.Program.Game_OnGameLoad();
+                                break;
+                            case 1:
+                                HeavenStrikeReksaj.Program.Game_OnGameLoad();
+                                break;
+                            default:
+                                D_RekSai.Program.Game_OnGameLoad();
+                                break;
+                        }
                         break;
                     case "rumble": // Underrated AIO & ElRumble
                         switch (Loader.rumble)
@@ -1012,9 +1023,6 @@ namespace PortAIO
                     case "zac": // Underrated AIO
                         new UnderratedAIO.Champions.Zac();
                         break;
-                    case "volibear": // Underrated AIO
-                        new UnderratedAIO.Champions.Volibear();
-                        break;
                     case "tahmkench": // Underrated AIO
                         new UnderratedAIO.Champions.TahmKench();
                         break;
@@ -1034,6 +1042,20 @@ namespace PortAIO
                         break;
                     case "vi": //ElVi
                         ElVi.Vi.OnLoad();
+                        break;
+                    case "volibear": // Underrated AIO && VoliPower
+                        switch (Loader.volibear)
+                        {
+                            case 0:
+                                new UnderratedAIO.Champions.Volibear();
+                                break;
+                            case 1:
+                                VoliPower.Program.Game_OnLoad();
+                                break;
+                            default:
+                                new UnderratedAIO.Champions.Volibear();
+                                break;
+                        }
                         break;
                     case "trundle": // ElTrundle
                         switch (Loader.trundle)
