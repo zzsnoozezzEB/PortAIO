@@ -91,6 +91,7 @@ namespace Elvarus
             ElVarusMenu.Initialize();
             Game.OnUpdate += OnGameUpdate;
             Drawing.OnDraw += Drawings.Drawing_OnDraw;
+            EloBuddy.Player.OnIssueOrder += Obj_AI_Base_OnIssueOrder;
 
             Menu = ElVarusMenu.Menu;
             cMenu = ElVarusMenu.cMenu;
@@ -103,6 +104,15 @@ namespace Elvarus
         #endregion
 
         #region Methods
+
+        private static void Obj_AI_Base_OnIssueOrder(Obj_AI_Base sender, PlayerIssueOrderEventArgs args)
+        {
+            if (args.Order == GameObjectOrder.AttackUnit && spells[Spells.Q].IsCharging)
+            {
+                EloBuddy.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+                args.Process = false;
+            }
+        }
 
         private static void Combo()
         {
@@ -421,6 +431,11 @@ namespace Elvarus
                 && getKeyBindItem(cMenu, "ElVarus.SemiR"))
             {
                 spells[Spells.R].CastOnUnit(target);
+            }
+
+            if (spells[Spells.Q].IsCharging && (int)(Game.Time * 10) % 2 == 0)
+            {
+                EloBuddy.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
             }
         }
 
