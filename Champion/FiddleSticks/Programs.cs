@@ -81,7 +81,7 @@ namespace Feedlesticks
 
         public static bool IsWActive
         {
-            get { return ObjectManager.Player.HasBuff("fiddlebuff"); }
+            get { return ObjectManager.Player.HasBuff("Drain"); }
         }
 
         /// <summary>
