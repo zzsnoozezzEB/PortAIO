@@ -151,6 +151,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
 
         private static void AntiGapcloser_OnEnemyGapcloser(ActiveGapcloser gapcloser)
         {
+            if (gapcloser.Sender.IsAlly || EMenu["Egapcloser" + gapcloser.Sender.NetworkId] == null)
             {
                 return;
             }
