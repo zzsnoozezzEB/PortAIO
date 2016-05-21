@@ -252,12 +252,12 @@ namespace UnderratedAIO.Champions
             var clone = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(m => m.Name == player.Name && !m.IsMe);
             if (clone != null && Gtarget != null && Gtarget.IsValid)
             {
-                if ((CanCloneAttack(clone) || clone.CanAttack) && clone.CanMove)
+                if (clone.CanMove)
                 {
                     Player.IssueOrder(GameObjectOrder.MovePet, Gtarget);
                 }
 
-                if (clone.LSDistance(Gtarget) < 125)
+                if (clone.LSDistance(Gtarget) < 130 && (CanCloneAttack(clone) || clone.CanAttack))
                 {
                     Player.IssueOrder(GameObjectOrder.AutoAttackPet, Gtarget);
                 }
