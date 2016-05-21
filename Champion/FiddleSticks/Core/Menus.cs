@@ -35,16 +35,14 @@ namespace Feedlesticks.Core
             wMenu.AddGroupLabel("W Whitelist");
             foreach (var enemy in ObjectManager.Get<AIHeroClient>().Where(o => o.IsEnemy))
             {
-                wMenu.Add("w.enemy." + enemy.NetworkId,
-                    new CheckBox(string.Format("W: {0}", enemy.CharData.BaseSkinName),
-                        Piorty.HighChamps.Contains(enemy.CharData.BaseSkinName)));
+                wMenu.Add("w.enemy." + enemy.NetworkId, new CheckBox(string.Format("W: {0}", enemy.CharData.BaseSkinName), Piorty.HighChamps.Contains(enemy.CharData.BaseSkinName)));
             }
 
             eMenu = Config.AddSubMenu("E Settings", "E Settings");
             eMenu.AddGroupLabel("E Whitelist");
             foreach (var enemy in ObjectManager.Get<AIHeroClient>().Where(o => o.IsEnemy))
             {
-                eMenu.Add("e.enemy." + enemy.ChampionName,
+                eMenu.Add("e.enemy." + enemy.NetworkId,
                     new CheckBox(string.Format("E: {0}", enemy.CharData.BaseSkinName),
                         Piorty.HighChamps.Contains(enemy.CharData.BaseSkinName)));
             }
