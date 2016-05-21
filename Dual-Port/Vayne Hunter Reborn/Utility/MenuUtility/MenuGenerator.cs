@@ -94,7 +94,8 @@ namespace VayneHunter_Reborn.Utility.MenuUtility
             drawMenu.Add("dz191.vhr.draw.condemn", new CheckBox("Draw Condemn Rectangles", false));
             drawMenu.Add("dz191.vhr.draw.qpos", new CheckBox("Reborn Q Position (Debug)", false));
 
-            CustomAntigapcloser.BuildMenu(RootMenu);
+            //  CustomAntigapcloser.BuildMenu(RootMenu);
+            DZLib.Core.DZAntigapcloser.BuildMenu(RootMenu, "[VHR] AntiGapclosers List", "dz191.vhr.agplist");
         }
     }
 }
