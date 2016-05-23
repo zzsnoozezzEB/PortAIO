@@ -1291,7 +1291,7 @@ namespace SebbyLib.Prediction
                 var AC = Math.Pow(A.X - C.X, 2) + Math.Pow(A.Y - C.Y, 2);
 
 
-                if (TrackerUnit.PathBank[1].Position.Distance(TrackerUnit.PathBank[2].Position) < 50)
+                if (TrackerUnit.PathBank[1].Position.LSDistance(TrackerUnit.PathBank[2].Position) < 50)
                 {
                     Console.WriteLine("SPAM PLACE");
                     return true;
