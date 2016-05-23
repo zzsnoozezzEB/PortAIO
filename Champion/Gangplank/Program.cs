@@ -743,6 +743,31 @@ namespace UnderratedAIO.Champions
                         xPos, player.HPBarPosition.Y + 8, xPos, (float) ((double) player.HPBarPosition.Y + 17), 2f,
                         Color.Coral);
                 }
+
+                var tokens = player.GetBuff("gangplankbilgewatertoken");
+                if (player.InFountain() && getCheckBoxItem(drawMenu, "drawQpass") && tokens != null &&
+                    tokens.Count > 500)
+                {
+                    var second = DateTime.Now.Second.ToString();
+                    var time = int.Parse(second[second.Length - 1].ToString());
+                    var color = Color.DeepSkyBlue;
+                    if (time >= 3 && time < 6)
+                    {
+                        color = Color.GreenYellow;
+                    }
+                    if (time >= 6 && time < 8)
+                    {
+                        color = Color.Yellow;
+                    }
+                    if (time >= 8)
+                    {
+                        color = Color.Orange;
+                    }
+                    Drawing.DrawText(
+                        Drawing.WorldToScreen(Game.CursorPos).X - 150, Drawing.WorldToScreen(Game.CursorPos).Y - 50, color,
+                        "Spend your Silver Serpents, landlubber!");
+                }
+
             }
             if (getBoxItem(drawMenu, "drawKillableSL") != 0 && R.IsReady())
             {
@@ -976,8 +1001,8 @@ namespace UnderratedAIO.Champions
             drawMenu.Add("drawWcd", new CheckBox("Draw E countdown"));
             drawMenu.Add("drawEmini", new CheckBox("Draw killable minions around E"));
             drawMenu.Add("drawEQ", new CheckBox("Draw EQ to cursor"));
-            drawMenu.Add("drawKillableSL",
-                new ComboBox("Show killable targets with R", 1, "OFF", "Above HUD", "Under GP"));
+            drawMenu.Add("drawKillableSL", new ComboBox("Show killable targets with R", 1, "OFF", "Above HUD", "Under GP"));
+            drawMenu.Add("drawQpass", new CheckBox("Draw notification about Silver serpents"));
 
             // Combo Settings
             comboMenu = config.AddSubMenu("Combo ", "csettings");
