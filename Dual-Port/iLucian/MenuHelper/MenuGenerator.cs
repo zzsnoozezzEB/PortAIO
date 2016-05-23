@@ -24,7 +24,7 @@ namespace iLucian.MenuHelper
             comboOptions.Add("com.ilucian.combo.w", new CheckBox("Use W", true));
             comboOptions.Add("com.ilucian.combo.e", new CheckBox("Use E", true));
             comboOptions.Add("com.ilucian.combo.eRange", new Slider("E Dash Range", 65, 50, 475));
-            comboOptions.Add("com.ilucian.combo.eMode", new ComboBox("E Mode", 5, "Kite", "Side", "Cursor", "Enemy", "Fast Mode", "Smart E"));
+            comboOptions.Add("com.ilucian.combo.eMode", new ComboBox("E Mode", 5, "Kite", "Side", "Cursor", "Enemy", "Fast Mode", "Smart E", "URF"));
             comboOptions.Add("com.ilucian.combo.forceR", new KeyBind("Semi Ult Key", false, KeyBind.BindTypes.PressToggle, 'T'));
 
             harassOptions = Variables.Menu.AddSubMenu(":: iLucian - Harass Options", "com.ilucian.harass");
@@ -48,6 +48,7 @@ namespace iLucian.MenuHelper
             jungleclearOptions.Add("com.ilucian.jungleclear.e", new CheckBox("Use E", true));
 
             miscOptions = Variables.Menu.AddSubMenu(":: iLucian - Misc Options", "com.ilucian.misc");
+            miscOptions.Add("com.ilucian.misc.antiVayne", new CheckBox("Anti Vayne Condemn", true));
             miscOptions.Add("com.ilucian.misc.usePrediction", new CheckBox("Use W Pred", true));
             miscOptions.Add("com.ilucian.misc.gapcloser", new CheckBox("Use E For Gapcloser", true));
             miscOptions.Add("com.ilucian.misc.eqKs", new CheckBox("EQ - Killsteal", true));
