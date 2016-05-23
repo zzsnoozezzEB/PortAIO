@@ -53,29 +53,26 @@ namespace OneKeyToWin_AIO_Sebby.Core
         private void Drawing_OnDraw(EventArgs args)
         {
             if (Missile != null && Missile.IsValid && getCheckBoxItem("drawHelper"))
-                OktwCommon.DrawLineRectangle(Missile.Position, Player.Position, (int) QWER.Width, 1, Color.White);
+                OktwCommon.DrawLineRectangle(Missile.Position, Player.Position, (int)QWER.Width, 1, Color.White);
         }
 
         private void Game_OnGameUpdate(EventArgs args)
         {
-            if (Missile != null)
+            if (getCheckBoxItem("aim"))
             {
-                if (getCheckBoxItem("aim"))
+                var posPred = CalculateReturnPos();
+                if (posPred != Vector3.Zero)
                 {
-                    var posPred = CalculateReturnPos();
-                    if (posPred != Vector3.Zero)
+                    if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None))
                     {
-                        if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None))
-                        {
-                            Orbwalker.OrbwalkTo(posPred);
-                        }
+                        Orbwalker.OrbwalkTo(posPred);
                     }
-                    else
+                }
+                else
+                {
+                    if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None))
                     {
-                        if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None))
-                        {
-                            Orbwalker.OrbwalkTo(Game.CursorPos);
-                        }
+                        Orbwalker.OrbwalkTo(Game.CursorPos);
                     }
                 }
             }
@@ -94,7 +91,7 @@ namespace OneKeyToWin_AIO_Sebby.Core
             if (sender.IsEnemy || sender.Type != GameObjectType.MissileClient || !sender.IsValid<MissileClient>())
                 return;
 
-            var missile = (MissileClient) sender;
+            var missile = (MissileClient)sender;
 
             if (missile.SData.Name != null)
             {
@@ -111,7 +108,7 @@ namespace OneKeyToWin_AIO_Sebby.Core
             if (sender.IsEnemy || sender.Type != GameObjectType.MissileClient || !sender.IsValid<MissileClient>())
                 return;
 
-            var missile = (MissileClient) sender;
+            var missile = (MissileClient)sender;
 
             if (missile.SData.Name != null)
             {
@@ -124,7 +121,7 @@ namespace OneKeyToWin_AIO_Sebby.Core
 
         public Vector3 CalculateReturnPos()
         {
-            if (Missile != null && Missile.IsValidMissile() && Target.IsValidTarget())
+            if (Missile != null && Missile.IsValidMissile() && Target.IsValidTarget() && Missile.IsValid)
             {
                 var finishPosition = Missile.Position;
                 if (Missile.SData.Name.ToLower() == MissileName.ToLower())
@@ -147,7 +144,7 @@ namespace OneKeyToWin_AIO_Sebby.Core
                         if (ext.LSDistance(Player.Position) < 800 && ext.CountEnemiesInRange(400) < 2)
                         {
                             if (getCheckBoxItem("drawHelper"))
-                                Utility.DrawCircle(ext, 100, Color.White, 1, 1);
+                                Utility.DrawCircle(ext, 100, System.Drawing.Color.White, 1, 1);
                             return ext;
                         }
                     }
