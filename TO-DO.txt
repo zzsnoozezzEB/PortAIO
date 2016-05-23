@@ -1,10 +1,13 @@
 ﻿To-Do :
-- Fix the Lee Sin Crash
+- Fix Valvrave
 - Fix Nechrito Riven
 - Check out Nocturne
 - hi im gosu Null Ref [http://i.hizliresim.com/4lZjZL.png]
 - Check out UnderratedShaco
 - Fix Karthus LaneClear
+- Gosu Yas - Doesn't E on C - Fix GapClose on minions
+- Check Liss
+- Check out ElVarus
 
 - Bard Flee [Don't have Bard so can't fix]
 - Tahm Kench Crash [Don't have TK]
