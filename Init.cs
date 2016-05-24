@@ -537,8 +537,19 @@ namespace PortAIO
                     case "irelia": // Challenger Series Irelia
                         Challenger_Series.Irelia.OnLoad();
                         break;
-                    case "janna": // LCS Janna
-                        LCS_Janna.Program.OnGameLoad();
+                    case "janna": // LCS Janna & FreshBooster
+                        switch (Loader.janna)
+                        {
+                            case 0:
+                                LCS_Janna.Program.OnGameLoad();
+                                break;
+                            case 1:
+                               new FreshBooster.Champion.Janna();
+                                break;
+                            default:
+                                LCS_Janna.Program.OnGameLoad();
+                                break;
+                        }
                         break;
                     case "jarvaniv": // BrianSharp
                         BrianSharp.Plugin.JarvanIV.OnLoad();
