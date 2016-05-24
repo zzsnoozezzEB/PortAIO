@@ -803,6 +803,9 @@ namespace PortAIO
                                 NechritoRiven.Program.OnGameLoad();
                                 break;
                             case 1:
+                                KurisuRiven.Program.Game_OnGameLoad();
+                                break;
+                            case 2:
                                 HeavenStrikeRiven.Program.OnStart();
                                 break;
                             default:

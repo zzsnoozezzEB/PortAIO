@@ -323,7 +323,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[41]))
                 {
-                    Miscc.Add("Riven", new ComboBox("Use addon for Riven : ", 0, "NechritoRiven", "Heaven Strike Riven"));
+                    Miscc.Add("Riven", new ComboBox("Use addon for Riven : ", 0, "NechritoRiven", "Heaven Strike Riven", "KurisuRiven"));
                 }
                 if (Player.ChampionName.Equals(Champion[42]))
                 {

@@ -285,6 +285,9 @@
     <Compile Include="Dual-Port\iTwitch\Extensions.cs" />
     <Compile Include="Dual-Port\iTwitch\Twitch.cs" />
     <Compile Include="Dual-Port\KurisuBlitz\Program.cs" />
+    <Compile Include="Dual-Port\KurisuRiven\KurisuRiven.cs" />
+    <Compile Include="Dual-Port\KurisuRiven\HpBarIndicator.cs" />
+    <Compile Include="Dual-Port\KurisuRiven\Program.cs" />
     <Compile Include="Dual-Port\NechritoDiana\Classes\Dmg.cs" />
     <Compile Include="Dual-Port\NechritoDiana\Classes\HpBarIndicator.cs" />
     <Compile Include="Dual-Port\NechritoDiana\Classes\Logic.cs" />
