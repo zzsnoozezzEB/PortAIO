@@ -8,6 +8,8 @@
 - Gosu Yas - Doesn't E on C - Fix GapClose on minions
 - Check Liss
 - Check out ElVarus
+- Shen Q Clearing
+- Akali Q Last Hit
 
 - Bard Flee [Don't have Bard so can't fix]
 - Tahm Kench Crash [Don't have TK]
