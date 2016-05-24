@@ -76,7 +76,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
             eMenu.Add("bushE", new CheckBox("Auto E bush", true));
             eMenu.Add("Espell", new CheckBox("E on special spell detection", true));
             eMenu.Add("EmodeCombo", new ComboBox("E combo mode", 1, "always", "run - cheese", "disable"));
-            eMenu.Add("Eaoe", new Slider("Auto E x enemies", 3, 0, 5));
+            eMenu.Add("Eaoe", new Slider("Auto E x enemies", 2, 0, 5));
             eMenu.AddGroupLabel("E GapClose :");
             eMenu.Add("EmodeGC", new ComboBox("Gap Closer position mode", 0, "Dash end position", "My hero position"));
             foreach (var enemy in ObjectManager.Get<AIHeroClient>().Where(enemy => enemy.IsEnemy))
