@@ -771,8 +771,19 @@ namespace PortAIO
                     case "tristana": // ElTristana
                         ElTristana.Tristana.OnLoad();
                         break;
-                    case "taliyah": // taliyah
-                        Taliyah.Program.OnLoad();
+                    case "taliyah": // taliyah && tophsharp
+                        switch (Loader.taliyah)
+                        {
+                            case 0:
+                                Taliyah.Program.OnLoad();
+                                break;
+                            case 1:
+                                TophSharp.Taliyah.OnLoad();
+                                break;
+                            default:
+                                Taliyah.Program.OnLoad();
+                                break;
+                        }
                         break;
                     case "riven": // Nechrito Riven & Badao Riven
                         switch (Loader.riven)
