@@ -30,7 +30,6 @@ namespace TophSharp
         {
             if (Player.ChampionName != "Taliyah") return;
 
-
             Ignite = Player.GetSpellSlot("SummonerDot");
             // thanks to Shine for spell values!
 

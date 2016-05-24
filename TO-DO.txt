@@ -38,7 +38,7 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - Underrated Renekton/Singed [https://github.com/Soresu/LeagueSharp/blob/master/UnderratedAIO/UnderratedAIO/]
 - Royal Ziggs [https://github.com/princer007/LSResurrected/tree/master/RoyalZiggy]
 - Badao Draven (https://github.com/badao/Draven/)
-- Taliyah [https://www.joduska.me/forum/topic/207404-toph-taliyah-assembly-combo-lane-clear-drawings-etc/]
+- Taliyah [https://www.joduska.me/forum/topic/207404-toph-taliyah-assembly-combo-lane-clear-drawings-etc/] --> DONE but not tested
 - xQx LeBlanc & Irelia [https://github.com/CPMSoft/xQx-LeagueSharp]
 - SoloVayne
 

@@ -328,6 +328,8 @@
     <Compile Include="Dual-Port\OKTWTwistedFate\TwistedFate.cs" />
     <Compile Include="Dual-Port\SimpleSion\Sion.cs" />
     <Compile Include="Champion\Taliyah\Program.cs" />
+    <Compile Include="Dual-Port\TophSharp\MenuConfig.cs" />
+    <Compile Include="Dual-Port\TophSharp\Taliyah.cs" />
     <Compile Include="Dual-Port\Tyler1\Program.cs" />
     <Compile Include="Dual-Port\Tyler1\Utils.cs" />
     <Compile Include="Dual-Port\UnderratedFiora\Fiora.cs" />
@@ -1186,6 +1188,7 @@
     <None Include="Resources\RecallBar.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Dual-Port\ExorKalista\" />
     <Folder Include="Libraries\ValvraveSharp\Plugin\" />
   </ItemGroup>
   <ItemGroup>
