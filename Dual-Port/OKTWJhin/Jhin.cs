@@ -267,7 +267,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
 
         private static void LogicW()
         {
-            var t = TargetSelector.GetTarget(W.Range, DamageType.Magical);
+            var t = TargetSelector.GetTarget(W.Range, DamageType.Physical);
             if (t.LSIsValidTarget())
             {
                 var wDmg = GetWdmg(t);
@@ -301,7 +301,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                     {
                         foreach (var enemy in Program.Enemies.Where(enemy => enemy.LSIsValidTarget(W.Range) && (!OktwCommon.CanMove(enemy) || enemy.HasBuff("jhinespotteddebuff"))))
                         {
-                            if (!OktwCommon.CanMove(enemy))
+                            if (!OktwCommon.CanMove(enemy) && !enemy.CanMove)
                             {
                                 W.Cast(enemy);
                             }
@@ -386,7 +386,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                     if (t.LSIsValidTarget())
                     {
 
-                        var minion = Cache.GetMinions(LeagueSharp.Common.Prediction.GetPrediction(t, 0.1f).CastPosition, 300).Where(minion2 => minion2.LSIsValidTarget(Q.Range)).OrderBy(x => x.Distance(t)).FirstOrDefault();
+                        var minion = Cache.GetMinions(LeagueSharp.Common.Prediction.GetPrediction(t, 0.1f).CastPosition, 300).Where(minion2 => minion2.LSIsValidTarget(Q.Range)).OrderBy(x => x.LSDistance(t)).FirstOrDefault();
                         if (minion.LSIsValidTarget())
                         {
                             if (t.Health < GetQdmg(t))
