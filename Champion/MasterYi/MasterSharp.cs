@@ -223,6 +223,7 @@ namespace MasterSharp
                     //Console.WriteLine(buf.Name);
                 }
             }
+
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
             {
                 var target = TargetSelector.GetTarget(800, DamageType.Physical);
@@ -230,6 +231,10 @@ namespace MasterSharp
                 if (target != null)
                     MasterYi.selectedTarget = target;
                 MasterYi.slayMaderDuker(target);
+            }
+            else
+            {
+                Orbwalker.ForcedTarget = null;
             }
 
             DetectedSkillshots.RemoveAll(skillshot => !skillshot.IsActive());
