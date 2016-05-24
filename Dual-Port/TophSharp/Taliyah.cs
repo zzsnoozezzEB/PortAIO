@@ -159,7 +159,7 @@ namespace TophSharp
                 LastHit();
             }          
 
-            if (getKeyBindItem(MenuConfig.harassMenu, "onofftoggle"))
+            if (getKeyBindItem(MenuConfig.ahMenu, "onofftoggle"))
             {
                 Mixed();
             }

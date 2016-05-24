@@ -33,7 +33,7 @@ namespace TophSharp
 
 
             ahMenu = Config.AddSubMenu("Auto Harass", "AutoHarass");
-            comboMenu.Add("onofftoggle", new KeyBind("Toggle", false, KeyBind.BindTypes.PressToggle, 'T'));
+            ahMenu.Add("onofftoggle", new KeyBind("Toggle", false, KeyBind.BindTypes.PressToggle, 'T'));
             ahMenu.Add("useqha", new CheckBox("Use Q"));
             ahMenu.Add("usewha", new CheckBox("Use W"));
 
