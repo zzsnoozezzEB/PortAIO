@@ -303,7 +303,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                         {
                             if (!OktwCommon.CanMove(enemy))
                             {
-                                Q.Cast(enemy);
+                                W.Cast(enemy);
                             }
                             if (enemy.HasBuff("jhinespotteddebuff"))
                             {
