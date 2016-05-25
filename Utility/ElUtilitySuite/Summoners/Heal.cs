@@ -145,19 +145,19 @@
 
                 foreach (var ally in HeroManager.Allies.Where(a => a.LSIsValidTarget(this.HealSpell.Range, false) && !a.LSIsRecalling()))
                 {
-                    if (!getCheckBoxItem(this.Menu, string.Format("healon{0}", ally.ChampionName)))
+                    if (!getCheckBoxItem(this.Menu, string.Format("healon{0}", ally.ChampionName)) || ally.LSIsRecalling() || ally.IsInvulnerable)
                     {
                         return;
                     }
 
                     var enemies = ally.LSCountEnemiesInRange(600);
                     var totalDamage = IncomingDamageManager.GetDamage(ally) * 1.1f;
-                    if (totalDamage > 1)
+                    if (totalDamage <= 0)
                     {
-                        Console.WriteLine(totalDamage);
+                        return;
                     }
 
-                    if (ally.HealthPercent <= getSliderItem(this.Menu, "min-health") && enemies >= 1)
+                    if (ally.HealthPercent <= getSliderItem(this.Menu, "min-health") && this.HealSpell.IsInRange(ally) && enemies >= 1)
                     {
                         if ((int)(totalDamage / ally.Health) > getSliderItem(this.Menu, "min-damage")
                             || ally.HealthPercent < getSliderItem(this.Menu, "min-health"))
