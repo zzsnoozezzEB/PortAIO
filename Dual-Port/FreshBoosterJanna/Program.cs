@@ -85,7 +85,7 @@ namespace FreshBooster.Champion
                 miscMenu.Add("Janna_AutoRHP", new Slider("Min HP % for Auto R", 10, 1, 100));
                 miscMenu.Add("Janna_InterQ", new CheckBox("Use Q Interrupt"));
                 miscMenu.Add("Janna_InterR", new CheckBox("Use R Interrupt"));
-                miscMenu.Add("Janna_GapQ", new CheckBox("Use R GapCloser"));
+                miscMenu.Add("Janna_GapQ", new CheckBox("Use Q GapCloser"));
                 miscMenu.Add("Janna_GapR", new CheckBox("Use R GapCloser"));
 
                 drawMenu = menu.AddSubMenu("Draw", "Draw");
