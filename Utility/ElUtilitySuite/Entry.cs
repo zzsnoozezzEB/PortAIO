@@ -5,7 +5,7 @@
     using System.Linq.Expressions;
     using System.Reflection;
     using System.Security.Permissions;
-
+    using ElUtilitySuite.Vendor.SFX;
     using LeagueSharp;
     using LeagueSharp.Common;
     using EloBuddy.SDK.Menu;
@@ -85,13 +85,21 @@
                     plugin.Load();
                 }
 
+                foreach (var ally in HeroManager.Allies)
+                {
+                    IncomingDamageManager.AddChampion(ally);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(@"[ELUTILITYSUITE] loaded champions: {0}", ally.ChampionName);
+                }
+                Console.ForegroundColor = ConsoleColor.White;
+
                 menu.Add("usecombo", new KeyBind("Combo (Active)", false, KeyBind.BindTypes.HoldActive, 32));
 
                 Menu = menu;
             }
             catch (Exception e)
             {
-                Console.WriteLine("An error occurred: '{0}'", e);
+                Console.WriteLine(@"An error occurred: '{0}'", e);
             }
         }
 
