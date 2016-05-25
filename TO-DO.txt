@@ -43,7 +43,6 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - SoloVayne
 
 Utility Ports [Only doing after Champions are completed] :
-- SharpAI [https://github.com/myo/LeagueSharp/tree/master/SharpAI] - LETS FUCKING GO
 - Universal Leveler [https://github.com/TheSaltyWaffle/LeagueSharp/tree/master/UniversalLeveler]
 - DZAwareness [https://github.com/DZ191/LeagueSharp/tree/master/DZAwarenessAIO]
 - Snitched 3.0 [https://github.com/ChewyMoon/LeagueSharp-Reloaded/blob/master/Snitched%203.0/]
