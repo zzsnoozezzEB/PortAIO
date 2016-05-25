@@ -25,8 +25,6 @@ namespace FreshBooster.Champion
 
         public static bool QSpell = false;
         public static int SpellTime = 0, RTime;
-        public static AIHeroClient FleeQ;
-        public static Vector3 QPosition;
 
         private void SkillSet()
         {

@@ -1,10 +1,12 @@
-﻿using EloBuddy;
-using EloBuddy.SDK;
-using EloBuddy.SDK.Menu.Values;
-
-namespace ElUtilitySuite.Items.OffensiveItems
+﻿namespace ElUtilitySuite.Items.OffensiveItems
 {
-    internal class TitanicHydra : Item
+    using System.Linq;
+
+    using LeagueSharp;
+    using LeagueSharp.Common;
+    using EloBuddy;
+    using EloBuddy.SDK;
+    internal class TitanicHydra : ElUtilitySuite.Items.Item
     {
         #region Public Properties
 
@@ -44,32 +46,9 @@ namespace ElUtilitySuite.Items.OffensiveItems
         ///     Shoulds the use item.
         /// </summary>
         /// <returns></returns>
-        /// 
-
-        public bool getCheckBoxItem(string item)
-        {
-            return Menu[item].Cast<CheckBox>().CurrentValue;
-        }
-
-        public int getSliderItem(string item)
-        {
-            return Menu[item].Cast<Slider>().CurrentValue;
-        }
-
-        public bool getKeyBindItem(string item)
-        {
-            return Menu[item].Cast<KeyBind>().CurrentValue;
-        }
-
-        public override void CreateMenu()
-        {
-            Menu.AddGroupLabel("Titanic Hydra");
-            Menu.Add("TitanicHydracombo", new CheckBox("Use on Combo"));
-        }
-
         public override bool ShouldUseItem()
         {
-            return getCheckBoxItem("TitanicHydracombo") && ComboModeActive && !Orbwalker.CanAutoAttack;
+            return getCheckBoxItem(this.Menu, "Titanic Hydracombo") && this.ComboModeActive && !Orbwalker.CanAutoAttack;
         }
 
         #endregion

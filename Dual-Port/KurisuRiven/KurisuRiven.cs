@@ -46,19 +46,17 @@ namespace KurisuRiven
         private static bool ssfl;
         public static int LastAATick;
 
-        private static Menu menu;
         private static Spell q, w, e, r;
         private static AIHeroClient player = ObjectManager.Player;
         private static HpBarIndicator hpi = new HpBarIndicator();
         private static Obj_AI_Base qtarg; // semi q target
 
-        private static int qq;
         private static int cc;
         private static int pc;
         private static bool uo;
         private static SpellSlot flash;
 
-        public static Menu rivenMenu, farmMenu, harassMenu, keybindsMenu, qMenu, wMenu, eMenu, r1Menu, r2Menu, drawMenu, animation;
+        public static Menu rivenMenu, farmMenu, harassMenu, keybindsMenu, qMenu, wMenu, eMenu, r1Menu, r2Menu, drawMenu;
 
         private static float truerange;
         private static Vector3 movepos;

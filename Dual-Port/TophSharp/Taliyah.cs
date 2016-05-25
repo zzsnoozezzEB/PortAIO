@@ -20,9 +20,7 @@ namespace TophSharp
         private static Spell _q;
         private static Spell _w;
         private static Spell _e;
-        private static Spell _r;
         public static SpellSlot Ignite;
-        private static bool casted;
         public static AIHeroClient Player { get { return ObjectManager.Player; } }
         private static readonly DateTime AssemblyLoadTime = DateTime.Now;
 
