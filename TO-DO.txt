@@ -10,6 +10,7 @@
 - Check out ElVarus
 - Shen Q Clearing
 - Akali Q Last Hit
+- Veigar R in Zhonya
 
 - Bard Flee [Don't have Bard so can't fix]
 - Tahm Kench Crash [Don't have TK]
