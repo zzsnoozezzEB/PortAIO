@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -117,29 +117,29 @@ namespace iKalistaReborn
             Menu = MainMenu.AddMenu("iKalista: Reborn", "com.ikalista");
 
             comboMenu = Menu.AddSubMenu("iKalista: Reborn - Combo", "com.ikalista.combo");
-            comboMenu.Add("com.ikalista.combo.useQ", new CheckBox("Use Q"));
-            comboMenu.Add("com.ikalista.combo.useE", new CheckBox("Use E"));
+            comboMenu.Add("com.ikalista.combo.useQ", new CheckBox("Use Q", true));
+            comboMenu.Add("com.ikalista.combo.useE", new CheckBox("Use E", true));
             comboMenu.Add("com.ikalista.combo.stacks", new Slider("Rend at X stacks", 10, 1, 20));
             comboMenu.Add("com.ikalista.combo.eLeaving", new CheckBox("Use E Leaving", true));
             comboMenu.Add("com.ikalista.combo.ePercent", new Slider("Min Percent for E Leaving", 50, 10, 100));
-            comboMenu.Add("com.ikalista.combo.saveMana", new CheckBox("Save Mana for E"));
-            comboMenu.Add("com.ikalista.combo.saveAlly", new CheckBox("Save Ally With R"));
+            comboMenu.Add("com.ikalista.combo.saveMana", new CheckBox("Save Mana for E", true));
+            comboMenu.Add("com.ikalista.combo.saveAlly", new CheckBox("Save Ally With R", true));
             comboMenu.Add("com.ikalista.combo.balista", new CheckBox("Use Balista", true));
-            comboMenu.Add("com.ikalista.combo.autoE", new CheckBox("Auto E Minion > Champion"));
-            comboMenu.Add("com.ikalista.combo.orbwalkMinions", new CheckBox("Orbwalk Minions in combo"));
-            comboMenu.Add("com.ikalista.combo.allyPercent", new Slider("Min Health % for Ally", 20, 10));
+            comboMenu.Add("com.ikalista.combo.autoE", new CheckBox("Auto E Minion > Champion", true));
+            comboMenu.Add("com.ikalista.combo.orbwalkMinions", new CheckBox("Orbwalk Minions in combo", true));
+            comboMenu.Add("com.ikalista.combo.allyPercent", new Slider("Min Health % for Ally", 20, 10, 100));
 
             mixedMenu = Menu.AddSubMenu("iKalista: Reborn - Mixed", "com.ikalista.mixed");
-            mixedMenu.Add("com.ikalista.mixed.useQ", new CheckBox("Use Q"));
-            mixedMenu.Add("com.ikalista.mixed.useE", new CheckBox("Use E"));
+            mixedMenu.Add("com.ikalista.mixed.useQ", new CheckBox("Use Q", true));
+            mixedMenu.Add("com.ikalista.mixed.useE", new CheckBox("Use E", true));
             mixedMenu.Add("com.ikalista.mixed.stacks", new Slider("Rend at X stacks", 10, 1, 20));
 
             laneclearMenu = Menu.AddSubMenu("iKalista: Reborn - Laneclear", "com.ikalista.laneclear");
-            laneclearMenu.Add("com.ikalista.laneclear.useQ", new CheckBox("Use Q"));
+            laneclearMenu.Add("com.ikalista.laneclear.useQ", new CheckBox("Use Q", true));
             laneclearMenu.Add("com.ikalista.laneclear.qMinions", new Slider("Min Minions for Q", 3, 1, 10));
-            laneclearMenu.Add("com.ikalista.laneclear.useE", new CheckBox("Use E"));
+            laneclearMenu.Add("com.ikalista.laneclear.useE", new CheckBox("Use E", true));
             laneclearMenu.Add("com.ikalista.laneclear.eMinions", new Slider("Min Minions for E", 5, 1, 10));
-            laneclearMenu.Add("com.ikalista.laneclear.useEUnkillable", new CheckBox("E Unkillable Minions"));
+            laneclearMenu.Add("com.ikalista.laneclear.useEUnkillable", new CheckBox("E Unkillable Minions", true));
             laneclearMenu.Add("com.ikalista.laneclear.eSiege", new CheckBox("Auto E Siege Minions", true));
 
             jungleStealMenu = Menu.AddSubMenu("iKalista: Reborn - Jungle Steal", "com.ikalista.jungleSteal");
@@ -150,7 +150,7 @@ namespace iKalistaReborn
             }
 
             miscMenu = Menu.AddSubMenu("iKalista: Reborn - Misc", "com.ikalista.Misc");
-            miscMenu.Add("com.ikalista.misc.reduceE", new Slider("Reduce Rend Damage", 50, 0, 300));
+            miscMenu.Add("com.ikalista.misc.reduceE", new Slider("Reduce Rend Damage", 90, 0, 300));
             miscMenu.Add("com.ikalista.misc.forceW", new CheckBox("Focus Enemy With W"));
             if (Game.MapId != GameMapId.SummonersRift)
             {
