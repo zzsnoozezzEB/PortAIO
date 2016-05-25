@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Drawing;
@@ -140,18 +140,18 @@ namespace ezEvade
 
             Menu miscMenu = menu.AddSubMenuEx("Misc Settings", "MiscSettings");
             miscMenu.Add("HigherPrecision", new CheckBox("Enhanced Dodge Precision", false));
-            miscMenu.Add("RecalculatePosition", new CheckBox("Recalculate Path"));
-            miscMenu.Add("ContinueMovement", new CheckBox("Continue Last Movement", false));
-            miscMenu.Add("CalculateWindupDelay", new CheckBox("Calculate Windup Delay"));
+            miscMenu.Add("RecalculatePosition", new CheckBox("Recalculate Path", true));
+            miscMenu.Add("ContinueMovement", new CheckBox("Continue Last Movement", true));
+            miscMenu.Add("CalculateWindupDelay", new CheckBox("Calculate Windup Delay", true));
             miscMenu.Add("CheckSpellCollision", new CheckBox("Check Spell Collision", false));
             miscMenu.Add("PreventDodgingUnderTower", new CheckBox("Prevent Dodging Under Tower", false));
-            miscMenu.Add("PreventDodgingNearEnemy", new CheckBox("Prevent Dodging Near Enemies", false));
+            miscMenu.Add("PreventDodgingNearEnemy", new CheckBox("Prevent Dodging Near Enemies", true));
             miscMenu.Add("AdvancedSpellDetection", new CheckBox("Advanced Spell Detection", false));
 
             Menu limiterMenu = menu.AddSubMenuEx("Humanizer", "Limiter");
-            limiterMenu.Add("ClickOnlyOnce", new CheckBox("Click Only Once", false));
+            limiterMenu.Add("ClickOnlyOnce", new CheckBox("Click Only Once", true));
             limiterMenu.Add("EnableEvadeDistance", new CheckBox("Extended Evade", false));
-            limiterMenu.Add("TickLimiter", new Slider("Tick Limiter", 0, 0, 500));
+            limiterMenu.Add("TickLimiter", new Slider("Tick Limiter", 100, 0, 500));
             limiterMenu.Add("SpellDetectionTime", new Slider("Spell Detection Time", 0, 0, 1000));
             limiterMenu.Add("ReactionTime", new Slider("Reaction Time", 0, 0, 500));
             limiterMenu.Add("DodgeInterval", new Slider("Dodge Interval", 0, 0, 2000));
@@ -165,10 +165,10 @@ namespace ezEvade
             Menu bufferMenu = menu.AddSubMenuEx("Extra Buffers", "ExtraBuffers");
             bufferMenu.Add("ExtraPingBuffer", new Slider("Extra Ping Buffer", 65, 0, 200));
             bufferMenu.Add("ExtraCPADistance", new Slider("Extra Collision Distance", 10, 0, 150));
-            bufferMenu.Add("ExtraSpellRadius", new Slider("Extra Spell Radius"));
-            bufferMenu.Add("ExtraEvadeDistance", new Slider("Extra Evade Distance", 0, 0, 300));
+            bufferMenu.Add("ExtraSpellRadius", new Slider("Extra Spell Radius", 0, 0, 100));
+            bufferMenu.Add("ExtraEvadeDistance", new Slider("Extra Evade Distance", 100, 0, 300));
             bufferMenu.Add("ExtraAvoidDistance", new Slider("Extra Avoid Distance", 50, 0, 300));
-            bufferMenu.Add("MinComfortZone", new Slider("Min Distance to Champion", 1000, 0, 1000));
+            bufferMenu.Add("MinComfortZone", new Slider("Min Distance to Champion", 550, 0, 1000));
 
             spellDrawer = new SpellDrawer(menu);
 
