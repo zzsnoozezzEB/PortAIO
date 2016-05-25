@@ -39,6 +39,7 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - Royal Ziggs [https://github.com/princer007/LSResurrected/tree/master/RoyalZiggy]
 - Badao Draven (https://github.com/badao/Draven/)
 - xQx LeBlanc & Irelia & Olaf [https://github.com/CPMSoft/xQx-LeagueSharp]
+- S+ Class Tristana
 - SoloVayne
 
 Utility Ports [Only doing after Champions are completed] :

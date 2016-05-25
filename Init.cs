@@ -321,7 +321,7 @@ namespace PortAIO
                     case "urgot":
                         SebbyLib.Program.GameOnOnGameLoad();
                         break;
-                    case "azir": // Synx Auto Carry
+                    case "azir": // HeavenStrike
                         HeavenStrikeAzir.Program.Game_OnGameLoad();
                         break;
                     case "bard": // Dreamless Wanderer
@@ -485,7 +485,7 @@ namespace PortAIO
                     case "fiddlesticks": // Feedlesticks
                         Feedlesticks.Program.Game_OnGameLoad();
                         break;
-                    case "fiora": // Underrated AIO
+                    case "fiora": // Project Fiora
                         FioraProject.Program.Game_OnGameLoad();
                         break;
                     case "fizz": // Math Fizz
@@ -494,7 +494,7 @@ namespace PortAIO
                     case "galio": // Underrated AIO
                         UnderratedAIO.Champions.Galio.OnLoad();
                         break;
-                    case "gangplank": // Underrated AIO & BadaoKingdom
+                    case "gangplank": // Underrated AIO
                         switch (Loader.gangplank)
                         {
                             case 0:
