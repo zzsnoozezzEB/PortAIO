@@ -34,7 +34,7 @@ namespace ElUtilitySuite.Vendor.SFX
 
     using EloBuddy;
     using LeagueSharp.Common;
-
+    using EloBuddy.SDK;
     public static class IncomingDamageManager
     {
         private static readonly Dictionary<int, float> IncomingDamages = new Dictionary<int, float>();
@@ -65,7 +65,7 @@ namespace ElUtilitySuite.Vendor.SFX
                 var enemy = sender as AIHeroClient;
                 var turret = sender as Obj_AI_Turret;
                 foreach (
-                    var hero in GameObjects.Heroes.Where(h => h.IsValid && IncomingDamages.ContainsKey(h.NetworkId)))
+                    var hero in EntityManager.Heroes.AllHeroes.Where(h => h.IsValid && IncomingDamages.ContainsKey(h.NetworkId)))
                 {
                     if (ShouldReset(hero))
                     {
