@@ -74,7 +74,6 @@ namespace OneKeyToWin_AIO_Sebby
 
         private static void Orbwalker_OnPostAttack(AttackableUnit target, EventArgs args)
         {
-            Jungle();
             if (E.IsReady() && getCheckBoxItem(eMenu, "autoE"))
                 LogicE();
         }
@@ -147,6 +146,7 @@ namespace OneKeyToWin_AIO_Sebby
             if (Program.LagFree(0))
             {
                 SetMana();
+                Jungle();
             }
 
             if (!getCheckBoxItem(miscMenu, "QWlogic") || !Player.HasBuff("gravesbasicattackammo1"))

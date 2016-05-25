@@ -258,14 +258,14 @@ namespace OneKeyToWin_AIO_Sebby
                 {
                     if (args.Target != null && args.Target.NetworkId == Player.NetworkId)
                     {
-                        Zhonya.Cast();
+                        ZhonyaTryCast();
                     }
                     else
                     {
                         var castArea = Player.Distance(args.End)*(args.End - Player.ServerPosition).Normalized() +
                                        Player.ServerPosition;
                         if (castArea.Distance(Player.ServerPosition) < Player.BoundingRadius/2)
-                            Zhonya.Cast();
+                            ZhonyaTryCast();
                     }
                 }
             }
@@ -297,6 +297,20 @@ namespace OneKeyToWin_AIO_Sebby
                     if (ally.Health - dmg < ally.CountEnemiesInRange(700)*ally.Level*40)
                         Player.Spellbook.CastSpell(exhaust, sender);
                 }
+            }
+        }
+
+        private void ZhonyaTryCast()
+        {
+            if (Player.HasBuffOfType(BuffType.PhysicalImmunity) || Player.HasBuffOfType(BuffType.SpellImmunity)
+               || Player.IsZombie || Player.IsInvulnerable || Player.HasBuffOfType(BuffType.Invulnerability) || Player.HasBuff("kindredrnodeathbuff")
+               || Player.HasBuffOfType(BuffType.SpellShield) || Player.AllShield > OktwCommon.GetIncomingDamage(Player))
+            {
+
+            }
+            else
+            {
+                Zhonya.Cast();
             }
         }
 
@@ -334,15 +348,15 @@ namespace OneKeyToWin_AIO_Sebby
                     {
                         if (dmg > Player.Level*35)
                         {
-                            Zhonya.Cast();
+                            ZhonyaTryCast();
                         }
                         else if (Player.Health - dmg < enemys*Player.Level*20)
                         {
-                            Zhonya.Cast();
+                            ZhonyaTryCast();
                         }
                         else if (Player.Health - dmg < Player.Level*10)
                         {
-                            Zhonya.Cast();
+                            ZhonyaTryCast();
                         }
                     }
                 }
@@ -493,7 +507,8 @@ namespace OneKeyToWin_AIO_Sebby
                 {
                     foreach (var mob in mobs)
                     {
-                        if (((mob.BaseSkinName == "SRU_Dragon" && getCheckBoxItem("Rdragon"))
+                        Console.WriteLine(mob.BaseSkinName);
+                        if ((((mob.BaseSkinName.ToLower().Contains("dragon")) && getCheckBoxItem("Rdragon"))
                              || (mob.BaseSkinName == "SRU_Baron" && getCheckBoxItem("Rbaron"))
                              || (mob.BaseSkinName == "SRU_RiftHerald" && getCheckBoxItem("Rherald"))
                              || (mob.BaseSkinName == "SRU_Red" && getCheckBoxItem("Rred"))
@@ -586,7 +601,7 @@ namespace OneKeyToWin_AIO_Sebby
                     time = OktwCommon.GetPassiveTime(Player, "VladimirHemoplague");
                 }
                 if (time < 1 && time > 0)
-                    Zhonya.Cast();
+                    ZhonyaTryCast();
             }
         }
 
