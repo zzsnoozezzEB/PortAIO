@@ -5,6 +5,7 @@
     using System.Linq;
 
     using ElUtilitySuite.Vendor.SFX;
+    using System.Runtime.CompilerServices;
 
     using EloBuddy;
     using LeagueSharp.Common;
@@ -143,7 +144,7 @@
                     return;
                 }
 
-                foreach (var ally in HeroManager.Allies.Where(a => a.LSIsValidTarget(this.HealSpell.Range, false) && !a.LSIsRecalling()))
+                foreach (var ally in HeroManager.Allies)
                 {
                     if (!getCheckBoxItem(this.Menu, string.Format("healon{0}", ally.ChampionName)) || ally.LSIsRecalling() || ally.IsInvulnerable)
                     {
