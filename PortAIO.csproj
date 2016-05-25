@@ -898,11 +898,11 @@
     <Compile Include="Utility\BaseUlt3\BaseUlt.cs" />
     <Compile Include="Utility\ElUtilitySuite\Entry.cs" />
     <Compile Include="Utility\ElUtilitySuite\IPlugin.cs" />
+    <Compile Include="Utility\ElUtilitySuite\Items\Defensive2.cs" />
     <Compile Include="Utility\ElUtilitySuite\Items\DefensiveItems\FaceOfTheMountain.cs" />
     <Compile Include="Utility\ElUtilitySuite\Items\DefensiveItems\Locket.cs" />
-    <Compile Include="Utility\ElUtilitySuite\Items\Defensive2.cs" />
-    <Compile Include="Utility\ElUtilitySuite\Items\DefensiveItems\Seraphs.cs" />
     <Compile Include="Utility\ElUtilitySuite\Items\DefensiveItems\Randuins.cs" />
+    <Compile Include="Utility\ElUtilitySuite\Items\DefensiveItems\Seraphs.cs" />
     <Compile Include="Utility\ElUtilitySuite\Items\DefensiveItems\Talisman.cs" />
     <Compile Include="Utility\ElUtilitySuite\Items\Item.cs" />
     <Compile Include="Utility\ElUtilitySuite\Items\Offensive2.cs" />
@@ -943,7 +943,6 @@
     <Compile Include="Utility\ElUtilitySuite\Vendor\SFX\FontExtension.cs" />
     <Compile Include="Utility\ElUtilitySuite\Vendor\SFX\GameObjects.cs" />
     <Compile Include="Utility\ElUtilitySuite\Vendor\SFX\ImageLoader.cs" />
-    <Compile Include="Utility\ElUtilitySuite\Vendor\SFX\IncomingDamageManager.cs" />
     <Compile Include="Utility\ElUtilitySuite\Vendor\SFX\MDrawing.cs" />
     <Compile Include="Utility\ElUtilitySuite\Vendor\SFX\SpriteExtension.cs" />
     <Compile Include="Utility\ElUtilitySuite\Vendor\SFX\VectorExtensions.cs" />

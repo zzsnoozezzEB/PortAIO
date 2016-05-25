@@ -1,16 +1,13 @@
 ﻿namespace ElUtilitySuite.Summoners
 {
     using System;
-    using System.Drawing;
     using System.Linq;
 
-    using ElUtilitySuite.Vendor.SFX;
-
-    using EloBuddy;
+    using LeagueSharp;
     using LeagueSharp.Common;
     using EloBuddy.SDK.Menu;
+    using EloBuddy;
     using EloBuddy.SDK.Menu.Values;
-
     public class Heal : IPlugin
     {
         #region Public Properties
@@ -48,6 +45,8 @@
 
         #endregion
 
+        #region Public Methods and Operators
+
         public static bool getCheckBoxItem(Menu m, string item)
         {
             return m[item].Cast<CheckBox>().CurrentValue;
@@ -68,15 +67,11 @@
             return m[item].Cast<ComboBox>().CurrentValue;
         }
 
-        #region Public Methods and Operators
-
         /// <summary>
         ///     Creates the menu.
         /// </summary>
         /// <param name="rootMenu">The root menu.</param>
         /// <returns></returns>
-        /// 
-
         public void CreateMenu(Menu rootMenu)
         {
             if (this.Player.GetSpellSlot("summonerheal") == SpellSlot.Unknown)
@@ -88,8 +83,8 @@
             {
                 healMenu.Add("Heal.Activated", new CheckBox("Heal"));
                 healMenu.Add("PauseHealHotkey", new KeyBind("Don't use heal key", false, KeyBind.BindTypes.HoldActive, 'L'));
-                healMenu.Add("min-damage", new Slider("Health percentage", 20, 1));
-                healMenu.Add("min-damage", new Slider("Heal on % incoming damage", 20, 1));
+                healMenu.Add("Heal.HP", new Slider("Health percentage", 20, 1));
+                healMenu.Add("Heal.Damage", new Slider("Heal on % incoming damage", 20, 1));
                 foreach (var x in ObjectManager.Get<AIHeroClient>().Where(x => x.IsAlly))
                 {
                     healMenu.Add("healon" + x.ChampionName, new Slider("Use for " + x.ChampionName));
@@ -98,7 +93,6 @@
 
             this.Menu = healMenu;
         }
-
 
         /// <summary>
         ///     Loads this instance.
@@ -114,66 +108,59 @@
                     return;
                 }
 
-                IncomingDamageManager.RemoveDelay = 500;
-                IncomingDamageManager.Skillshots = true;
-                this.HealSpell = new Spell(healSlot, 850);
-                Game.OnUpdate += this.OnUpdate;
+                this.HealSpell = new Spell(healSlot, 550);
+
+                AttackableUnit.OnDamage += this.AttackableUnit_OnDamage;
             }
             catch (Exception e)
             {
-                Console.WriteLine(@"An error occurred: '{0}'", e);
+                Console.WriteLine("An error occurred: '{0}'", e);
             }
         }
 
-        /// <summary>
-        ///     Fired when the game is updated.
-        /// </summary>
-        /// <param name="args">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-        private void OnUpdate(EventArgs args)
+        #endregion
+
+        #region Methods
+
+        private void AttackableUnit_OnDamage(AttackableUnit sender, AttackableUnitDamageEventArgs args)
         {
             try
             {
-                if (this.Player.IsDead || !this.HealSpell.IsReady() || this.Player.InFountain() || this.Player.LSIsRecalling())
+                if (!getCheckBoxItem(this.Menu, "Heal.Activated"))
                 {
                     return;
                 }
 
-                if (!getCheckBoxItem(this.Menu, "Heal.Activated") || getKeyBindItem(this.Menu, "PauseHealHotkey"))
+                if (getKeyBindItem(this.Menu, "PauseHealHotkey"))
                 {
                     return;
                 }
 
-                foreach (var ally in HeroManager.Allies.Where(a => a.LSIsValidTarget(this.HealSpell.Range, false) && !a.LSIsRecalling()))
+                var source = ObjectManager.GetUnitByNetworkId<GameObject>((uint)args.Source.NetworkId);
+                var obj = ObjectManager.GetUnitByNetworkId<GameObject>((uint)args.Target.NetworkId);
+
+                if (obj.Type != GameObjectType.AIHeroClient || source.Type != GameObjectType.AIHeroClient)
                 {
-                    if (!getCheckBoxItem(this.Menu, string.Format("healon{0}", ally.ChampionName)))
-                    {
-                        return;
-                    }
-
-                    var enemies = ally.LSCountEnemiesInRange(600);
-                    var totalDamage = IncomingDamageManager.GetDamage(ally) * 1.1f;
-                    if (totalDamage > 1)
-                    {
-                        Console.WriteLine(totalDamage);
-                    }
-
-                    if (ally.HealthPercent <= getSliderItem(this.Menu, "min-health") && enemies >= 1)
-                    {
-                        if ((int)(totalDamage / ally.Health) > getSliderItem(this.Menu, "min-damage")
-                            || ally.HealthPercent < getSliderItem(this.Menu, "min-health"))
-                        {
-                            this.Player.Spellbook.CastSpell(this.HealSpell.Slot);
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("[ELUTILITYSUITE - HEAL] Used for: {0} - health percentage: {1}%", ally.ChampionName, (int)ally.HealthPercent);
-                        }
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
+                    return;
                 }
 
+                var hero = (AIHeroClient)obj;
+
+                if (hero.IsEnemy || (!hero.IsMe && !this.HealSpell.IsInRange(obj))
+                    || !getCheckBoxItem(this.Menu, string.Format("healon{0}", hero.ChampionName)))
+                {
+                    return;
+                }
+
+                if (((int)(args.Damage / hero.Health) > getSliderItem(this.Menu, "Heal.Damage"))
+                    || (hero.HealthPercent < getSliderItem(this.Menu, "Heal.HP")))
+                {
+                    this.Player.Spellbook.CastSpell(this.HealSpell.Slot);
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine(@"An error occurred: '{0}'", e);
+                Console.WriteLine("An error occurred: '{0}'", e);
             }
         }
 

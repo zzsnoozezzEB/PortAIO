@@ -446,7 +446,7 @@
 
         private static void CastW(AIHeroClient target, SpellSlot slot, bool isRCombo = false)
         {
-            if (slot == SpellSlot.Unknown || Variables.TickCount - lastW <= 300)
+            if (slot == SpellSlot.Unknown || Variables.TickCount - lastW <= 1000)
             {
                 return;
             }
@@ -571,7 +571,7 @@
             var zedW2 = EvadeSpellDatabase.Spells.FirstOrDefault(i => i.Enable && i.IsReady && i.Slot == SpellSlot.W);
             if (zedW2 != null && wShadow.IsValid() && !Evade.IsAboutToHit(wShadow, 30)
                 && (!wShadow.IsUnderEnemyTurret() || getCheckBoxItem(Config.evadeMenu, zedW2.Name + "Tower"))
-                && skillshot.Any(i => i.DangerLevel >= zedW2.DangerLevel) && W.Cast())
+                && skillshot.Any(i => i.DangerLevel >= zedW2.DangerLevel))
             {
                 sender.Spellbook.CastSpell(zedW2.Slot);
                 return;
@@ -581,7 +581,7 @@
                     i => i.Enable && i.IsReady && i.Slot == SpellSlot.R && i.CheckSpellName == "zedr2");
             if (zedR2 != null && rShadow.IsValid() && !Evade.IsAboutToHit(rShadow, 30) && (!rShadow.IsUnderEnemyTurret() || getCheckBoxItem(Config.evadeMenu, zedR2.Name + "Tower") && skillshot.Any(i => i.DangerLevel >= zedR2.DangerLevel)))
             {
-                R.Cast();
+                sender.Spellbook.CastSpell(zedR2.Slot);
             }
         }
 
@@ -975,7 +975,7 @@
                     .FirstOrDefault();
             if (target != null)
             {
-                R.CastOnUnit(target);
+                Player.Spellbook.CastSpell(zedR1.Slot, target);
             }
         }
 

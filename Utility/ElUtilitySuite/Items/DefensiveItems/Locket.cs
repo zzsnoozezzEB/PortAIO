@@ -3,14 +3,28 @@
     using System;
     using System.Linq;
 
-    using ElUtilitySuite.Vendor.SFX;
-
+    using LeagueSharp;
     using LeagueSharp.Common;
-    using EloBuddy.SDK.Menu.Values;
-    using EloBuddy;
 
+    using ItemData = LeagueSharp.Common.Data.ItemData;
+    using EloBuddy;
+    using EloBuddy.SDK.Menu.Values;
     internal class Locket : Item
     {
+        #region Static Fields
+
+        /// <summary>
+        ///     Targetted ally
+        /// </summary>
+        private static AIHeroClient aggroTarget;
+
+        /// <summary>
+        ///     Incoming hero damage
+        /// </summary>
+        private static float incomingDamage;
+
+        #endregion
+
         #region Constructors and Destructors
 
         /// <summary>
@@ -18,9 +32,8 @@
         /// </summary>
         public Locket()
         {
-            IncomingDamageManager.RemoveDelay = 500;
-            IncomingDamageManager.Skillshots = true;
             Game.OnUpdate += this.Game_OnUpdate;
+            Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
         }
 
         #endregion
@@ -62,21 +75,46 @@
         /// <summary>
         ///     Creates the menu.
         /// </summary>
-        /// 
         public override void CreateMenu()
         {
             this.Menu.AddGroupLabel(Name);
             this.Menu.Add("UseLocketCombo", new CheckBox("Activate"));
             this.Menu.Add("ModeLOCKET", new ComboBox("Activation mode: ", 1, "Use always", "Use in combo"));
-            this.Menu.Add("locket-min-health", new Slider("Health percentage", 50, 1));
-            this.Menu.Add("locket-min-damage", new Slider("Incoming damage percentage", 50, 1));
+            this.Menu.Add("Locket.HP", new Slider("Health percentage", 50, 1));
+            this.Menu.Add("Locket.Damage", new Slider("Incoming damage percentage", 50, 1));
             this.Menu.AddSeparator();
         }
-
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        ///     Gets the allies, old sucks need to rewrite soontm
+        /// </summary>
+        /// <returns>Allies</returns>
+        private AIHeroClient Allies()
+        {
+            try
+            {
+                var target = this.Player;
+
+                foreach (
+                    var unit in
+                        HeroManager.Allies.Where(x => x.LSIsValidTarget(900, false))
+                            .OrderByDescending(h => h.Health / h.MaxHealth * 100))
+                {
+                    target = unit;
+                }
+
+                return target;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occurred: '{0}'", e);
+            }
+            return null;
+        }
 
         /// <summary>
         ///     Called when the game updates
@@ -86,7 +124,12 @@
         {
             try
             {
-                if (!getCheckBoxItem(this.Menu, "UseLocketCombo") || !Items.HasItem((int)this.Id) || !Items.CanUseItem((int)this.Id))
+                if (!getCheckBoxItem(this.Menu, "UseLocketCombo"))
+                {
+                    return;
+                }
+
+                if (!Items.HasItem((int)this.Id) || !Items.CanUseItem((int)this.Id))
                 {
                     return;
                 }
@@ -96,29 +139,102 @@
                     return;
                 }
 
-                foreach (var ally in HeroManager.Allies.Where(a => a.LSIsValidTarget(600f, false) && !a.LSIsRecalling()))
-                {
-                    var enemies = ally.LSCountEnemiesInRange(600f);
-                    var totalDamage = IncomingDamageManager.GetDamage(ally) * 1.1f;
+                this.UseItem(600f);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occurred: '{0}'", e);
+            }
+        }
 
-                    if (ally.HealthPercent <= getSliderItem(this.Menu, "locket-min-health")
-                        && enemies >= 1)
+        /// <summary>
+        ///     Fired when the game processes a spell cast.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="GameObjectProcessSpellCastEventArgs" /> instance containing the event data.</param>
+        private void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        {
+            try
+            {
+                if (!Items.HasItem((int)this.Id) || !Items.CanUseItem((int)this.Id)
+                    || !getCheckBoxItem(this.Menu, "UseLocketCombo"))
+                {
+                    return;
+                }
+
+                if (!sender.IsEnemy && sender.Type != GameObjectType.AIHeroClient)
+                {
+                    return;
+                }
+
+                var heroSender = ObjectManager.Get<AIHeroClient>().First(x => x.NetworkId == sender.NetworkId);
+                if (heroSender.GetSpellSlot(args.SData.Name) == SpellSlot.Unknown
+                    && args.Target.Type == this.Player.Type)
+                {
+                    aggroTarget = ObjectManager.GetUnitByNetworkId<AIHeroClient>((uint)args.Target.NetworkId);
+                    incomingDamage = (float)heroSender.LSGetAutoAttackDamage(aggroTarget);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occurred: '{0}'", e);
+            }
+        }
+
+        /// <summary>
+        ///     Old use item, need to rewrite this soontm
+        /// </summary>
+        /// <param name="itemRange"></param>
+        private void UseItem(float itemRange = float.MaxValue)
+        {
+            try
+            {
+                if (this.Player.InFountain())
+                {
+                    return;
+                }
+
+                if (!Items.HasItem((int)this.Id) || !Items.CanUseItem((int)this.Id))
+                {
+                    return;
+                }
+
+                var target = itemRange > 5000 ? this.Player : this.Allies();
+                if (target.LSDistance(this.Player.ServerPosition, true) > itemRange * itemRange)
+                {
+                    return;
+                }
+
+                var allyHealthPercent = (int)((target.Health / target.MaxHealth) * 100);
+                var incomingDamagePercent = (int)(incomingDamage / target.MaxHealth * 100);
+
+                if (target.LSIsRecalling())
+                {
+                    return;
+                }
+
+                if (allyHealthPercent <= getSliderItem(this.Menu, "Locket.HP"))
+                {
+                    if ((incomingDamagePercent >= 1 || incomingDamage >= target.Health))
                     {
-                        if ((int)(totalDamage / ally.Health)
-                            > getSliderItem(this.Menu, "locket-min-damage")
-                            || ally.HealthPercent < getSliderItem(this.Menu, "locket-min-health"))
+                        if (aggroTarget.NetworkId == target.NetworkId)
                         {
-                            Items.UseItem((int)this.Id, ally);
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("[ELUTILITYSUITE - LOCKET] Used for: {0} - health percentage: {1}%", ally.ChampionName, (int)ally.HealthPercent);
+                            Items.UseItem((int)this.Id);
                         }
-                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+
+                    if (incomingDamagePercent >= getSliderItem(this.Menu, "Locket.Damage") * 100)
+                    {
+                        if (aggroTarget.NetworkId == target.NetworkId)
+                        {
+                            Items.UseItem((int)this.Id);
+                        }
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(@"An error occurred: '{0}'", e);
+                Console.WriteLine("An error occurred: '{0}'", e);
             }
         }
 
