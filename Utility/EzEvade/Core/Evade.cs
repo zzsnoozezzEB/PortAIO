@@ -121,8 +121,8 @@ namespace ezEvade
             mainMenu.Add("DodgeCircularSpells", new CheckBox("Dodge Circular SkillShots"));
             mainMenu.AddSeparator();
             mainMenu.Add("DodgeDangerousKeyEnabled", new CheckBox("Enable Dodge Only Dangerous Keys", false));
-            mainMenu.Add("DodgeDangerousKey", new KeyBind("Dodge Only Dangerous Key", false, KeyBind.BindTypes.HoldActive, 32));
-            mainMenu.Add("DodgeDangerousKey2", new KeyBind("Dodge Only Dangerous Key 2", false, KeyBind.BindTypes.HoldActive, 'V'));
+            mainMenu.Add("DodgeDangerousKey", new KeyBind("Dodge Only Dangerous Key (Toggle)", false, KeyBind.BindTypes.PressToggle, 'Z'));
+            mainMenu.Add("DodgeDangerousKey2", new KeyBind("Dodge Only Dangerous Key (Hold active)", false, KeyBind.BindTypes.HoldActive, 'V'));
             mainMenu.AddSeparator();
             mainMenu.AddGroupLabel("Evade Mode");
             var sliderEvadeMode = mainMenu.Add("EvadeMode", new Slider("Smooth", 0, 0, 2));
