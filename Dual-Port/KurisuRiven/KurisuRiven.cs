@@ -109,7 +109,7 @@ namespace KurisuRiven
             {
                 if (target.LSDistance(player.ServerPosition) <= 600)
                 {
-                    if (cc <= Getslidervalue(r1Menu, "userq")  && q.IsReady() && Getcheckboxvalue(r1Menu, "useignote"))
+                    if (cc <= Getslidervalue(r1Menu, "userq") && q.IsReady() && Getcheckboxvalue(r1Menu, "useignote"))
                     {
                         if (ComboDamage(target) >= target.Health &&
                             target.Health / target.MaxHealth * 100 > Getslidervalue(r1Menu, "overk") ||
@@ -537,7 +537,7 @@ namespace KurisuRiven
             r2Menu.Add("usews", new CheckBox("Use R2 in Combo"));
             r2Menu.Add("saver", new CheckBox("Save R2 (When in AA Range)", false));
             r2Menu.Add("overaa", new Slider("Dont R2 if target will die in AA", 2, 1, 6));
-            r2Menu.Add("wsmode", new ComboBox("Use R2 when", 1, "Kill Only", "Max Damage"));            
+            r2Menu.Add("wsmode", new ComboBox("Use R2 when", 1, "Kill Only", "Max Damage"));
             r2Menu.Add("keepr", new CheckBox("Use R2 Before Expiry"));
 
 

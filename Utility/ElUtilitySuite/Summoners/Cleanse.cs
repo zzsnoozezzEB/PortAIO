@@ -872,29 +872,9 @@ namespace ElUtilitySuite.Summoners
         /// <param name="ally">The ally.</param>
         /// <param name="buff">The buff.</param>
         /// <returns></returns>
-        private static Spell GetBestCleanseItem(GameObject ally, BuffInstance buff)
+        private static LeagueSharp.Common.Spell GetBestCleanseItem(GameObject ally, BuffInstance buff)
         {
-            foreach (var item in Items.OrderBy(x => x.Priority))
-            {
-                if (!item.WorksOn.Any(x => buff.Type.HasFlag(x)))
-                {
-                    continue;
-                }
-
-                if (!(ally.IsMe || item.WorksOnAllies))
-                {
-                    continue;
-                }
-
-                if (!item.Spell.IsReady() || !item.Spell.IsInRange(ally) || item.Spell.Slot == SpellSlot.Unknown)
-                {
-                    continue;
-                }
-
-                return item.Spell;
-            }
-
-            return null;
+            return (from item in Items.OrderBy(x => x.Priority) where item.WorksOn.Any(x => buff.Type.HasFlag(x)) where ally.IsMe || item.WorksOnAllies where item.Spell.IsInRange(ally) && item.Spell.Slot != SpellSlot.Unknown select item.Spell).FirstOrDefault();
         }
 
         /// <summary>

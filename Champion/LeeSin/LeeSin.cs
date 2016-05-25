@@ -363,8 +363,6 @@
                 return;
             }
 
-            var predA = Q.GetPrediction(target, false, -1, LeagueSharp.SDK.CollisionableObjects.YasuoWall);
-            var colA = predA.GetCollision();
             if (pred.HitChance >= EloBuddy.SDK.Enumerations.HitChance.High && pred.HitChance != EloBuddy.SDK.Enumerations.HitChance.Collision)
             {
                 QELO.Cast(target);
