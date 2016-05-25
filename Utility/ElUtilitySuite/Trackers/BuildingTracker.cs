@@ -49,6 +49,7 @@
             var buildingMenu = rootMenu.AddSubMenu("Tower and Inhib tracker", "healthbuilding");
             {
                 buildingMenu.Add("DrawHealth", new CheckBox("Activated"));
+                buildingMenu.Add("DrawPercent", new CheckBox("Display percent"));
                 buildingMenu.Add("DrawTurrets", new CheckBox("Turrets"));
                 buildingMenu.Add("DrawInhibs", new CheckBox("Inhibitors"));
                 buildingMenu.Add("Turret.FontSize", new Slider("Tower Font size", 13, 13, 30));
@@ -111,6 +112,8 @@
                 {
                     return;
                 }
+
+                var percent = getCheckBoxItem(this.Menu, "DrawPercent");
 
                 if (getCheckBoxItem(this.Menu, "DrawTurrets"))
                 {
