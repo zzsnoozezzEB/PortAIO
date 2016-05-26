@@ -1409,9 +1409,12 @@ namespace KurisuRiven
                         lastq = Utils.GameTimeTickCount;
                         canmv = false;
 
-                        var dd = new[] { 280 - Game.Ping, 290 - Game.Ping, 380 - Game.Ping };
+                        var dd = new[] { (291 - Getslidervalue(qMenu, "Qld") - (Game.Ping - Getslidervalue(qMenu, "Qd"))), (290 - Getslidervalue(qMenu, "Qld") - (Game.Ping - Getslidervalue(qMenu, "Qd"))), (343 - Getslidervalue(qMenu, "Qld") - (Game.Ping - Getslidervalue(qMenu, "Qd"))) };
+
                         Utility.DelayAction.Add(dd[Math.Max(cc, 1) - 1], () =>
                         {
+                            Orbwalker.ResetAutoAttack();
+
                             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None) ||
                                 Getkeybindvalue(keybindsMenu, "shycombo"))
                                 Player.DoEmote(Emote.Dance);
