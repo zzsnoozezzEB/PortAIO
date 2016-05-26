@@ -534,8 +534,19 @@ namespace PortAIO
                     case "illaoi": // Tentacle Kitty
                         Illaoi___Tentacle_Kitty.Program.Game_OnGameLoad();
                         break;
-                    case "irelia": // Challenger Series Irelia
-                        Challenger_Series.Irelia.OnLoad();
+                    case "irelia": // Challenger Series Irelia & IreliaGod
+                        switch (Loader.irelia)
+                        {
+                            case 0:
+                                Challenger_Series.Irelia.OnLoad();
+                                break;
+                            case 1:
+                                IreliaGod.Program.OnGameLoad();
+                                break;
+                            default:
+                                Challenger_Series.Irelia.OnLoad();
+                                break;
+                        }
                         break;
                     case "janna": // LCS Janna & FreshBooster
                         switch (Loader.janna)

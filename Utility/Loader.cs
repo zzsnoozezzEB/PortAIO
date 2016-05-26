@@ -84,6 +84,7 @@ namespace PortAIO.Utility
         public static int anivia { get { return Miscc["anivia"].Cast<ComboBox>().CurrentValue; } }
         public static int taliyah { get { return Miscc["taliyah"].Cast<ComboBox>().CurrentValue; } }
         public static int janna { get { return Miscc["janna"].Cast<ComboBox>().CurrentValue; } }
+        public static int irelia { get { return Miscc["irelia"].Cast<ComboBox>().CurrentValue; } }
 
         public static Menu Miscc;
 
@@ -147,6 +148,7 @@ namespace PortAIO.Utility
             "Anivia", //49
             "Taliyah", //50
             "Janna", //51
+            "Irelia", //52
         });
 
         public static void Menu()
@@ -363,7 +365,11 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[51]))
                 {
-                    Miscc.Add("janna", new ComboBox("Use addon for Janna : ", 0, "LSC Janna", "FreshBooster"));
+                    Miscc.Add("janna", new ComboBox("Use addon for Janna : ", 0, "LCS Janna", "FreshBooster"));
+                }
+                if (Player.ChampionName.Equals(Champion[52]))
+                {
+                    Miscc.Add("irelia", new ComboBox("Use addon for Irelia : ", 0, "ChallengerSeries", "IreliaGOD"));
                 }
             }
             else
