@@ -1,6 +1,5 @@
 ﻿To-Do :
 - Fix Valvrave
-- Check out Nocturne
 - hi im gosu Null Ref [http://i.hizliresim.com/4lZjZL.png]
 - Check out UnderratedShaco
 - Fix Karthus LaneClear

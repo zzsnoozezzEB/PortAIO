@@ -89,7 +89,7 @@
             {
                 healMenu.Add("Heal.Activated", new CheckBox("Heal"));
                 healMenu.Add("PauseHealHotkey", new KeyBind("Don't use heal key", false, KeyBind.BindTypes.HoldActive, 'L'));
-                healMenu.Add("min-damage", new Slider("Health percentage", 20, 1));
+                healMenu.Add("min-health", new Slider("Health percentage", 20, 1));
                 healMenu.Add("min-damage", new Slider("Heal on % incoming damage", 20, 1));
                 foreach (var x in ObjectManager.Get<AIHeroClient>().Where(x => x.IsAlly))
                 {
