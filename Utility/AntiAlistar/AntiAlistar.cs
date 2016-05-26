@@ -73,6 +73,12 @@
             return ObjectManager.Player.ServerPosition.LSExtend(pos, -range);
         }
 
+        private static bool AliInGame()
+        {
+            return HeroManager.Enemies.Any(h => !h.IsMe && h.ChampionName.Equals("Alistar"));
+        }
+
+    
         public static bool IsTargeted()
         {
             switch (ObjectManager.Player.ChampionName)
@@ -146,6 +152,11 @@
 
         public static void OnLoad()
         {
+            if (!AliInGame())
+            {
+                return;
+            }
+
             FlashSlot = ObjectManager.Player.GetSpellSlot("summonerflash");
 
             if (SupportedChampions.Contains(ObjectManager.Player.ChampionName))

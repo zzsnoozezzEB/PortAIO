@@ -238,6 +238,7 @@ namespace iLucian
                 SkillshotType.SkillshotLine);
             Variables.Spell[Variables.Spells.W].SetSkillshot(0.30f, 70f, 1600f, true, SkillshotType.SkillshotLine);
             Variables.Spell[Variables.Spells.R].SetSkillshot(0.2f, 110f, 2500, true, SkillshotType.SkillshotLine);
+            Variables.Spell[Variables.Spells.Q3].SetSkillshot(0.25f, 70, 3000, false, SkillshotType.SkillshotLine);
         }
 
         public void Killsteal()
@@ -628,9 +629,9 @@ namespace iLucian
                 var minions = MinionManager.GetMinions(ObjectManager.Player.ServerPosition, 675, MinionTypes.All, MinionTeam.NotAlly);
                 foreach (var minion in minions)
                 {
-                    if (Variables.Spell[Variables.Spells.Q2].WillHit(unit, ObjectManager.Player.ServerPosition.LSExtend(minion.ServerPosition, 1150), 0, HitChance.VeryHigh))
+                    if (Variables.Spell[Variables.Spells.Q3].WillHit(unit, ObjectManager.Player.ServerPosition.LSExtend(minion.ServerPosition, 1150), 0, HitChance.VeryHigh))
                     {
-                        Variables.Spell[Variables.Spells.Q].CastOnUnit(minion);
+                        Variables.Spell[Variables.Spells.Q3].CastOnUnit(minion);
                     }
                 }
             }
