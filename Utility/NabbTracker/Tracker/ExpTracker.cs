@@ -46,10 +46,11 @@ namespace NabbTracker
                         (e.IsMe && getCheckBoxItem(Variables.Menu, "me") || e.IsEnemy && getCheckBoxItem(Variables.Menu, "enemiesEXP") || e.IsAlly && !e.IsMe && getCheckBoxItem(Variables.Menu, "alliesEXP"))))
                 {
 
-                    if (unit.Level == 18)
+                    if (unit.Level >= 18)
                     {
                         return;
                     }
+
                     var actualExp = unit.Experience.XP;
                     var neededExp = 180 + (100 * unit.Level);
 
