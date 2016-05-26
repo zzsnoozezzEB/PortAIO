@@ -31,9 +31,15 @@ namespace NabbTracker
             /// The general Menu.
             /// </summary>
             Variables.Menu = MainMenu.AddMenu(Variables.MainMenuCodeName, Variables.MainMenuName);
+            Variables.Menu.AddGroupLabel("Spell Tracker");
             Variables.Menu.Add("allies", new CheckBox("Enable Allies"));
             Variables.Menu.Add("enemies", new CheckBox("Enable Enemies"));
+            Variables.Menu.AddGroupLabel("Ward Tracker");
             Variables.Menu.Add("ward", new CheckBox("Enable Ward Tracker"));
+            Variables.Menu.AddGroupLabel("EXP Tracker");
+            Variables.Menu.Add("me", new CheckBox("Enable Me"));
+            Variables.Menu.Add("alliesEXP", new CheckBox("Enable Allies"));
+            Variables.Menu.Add("enemiesEXP", new CheckBox("Enable Enemies"));
         }
     }
 }

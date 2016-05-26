@@ -716,6 +716,14 @@
     <Compile Include="Libraries\DZLib\Positioning\PositioningHelper.cs" />
     <Compile Include="Libraries\DZLib\Positioning\SafePosition.cs" />
     <Compile Include="Libraries\ElEasy\IPlugin.cs" />
+    <Compile Include="Libraries\ExorSDK\AIO\Bootstrap.cs" />
+    <Compile Include="Libraries\ExorSDK\AIO\Utilities\Bools.cs" />
+    <Compile Include="Libraries\ExorSDK\AIO\Utilities\Helpers\Drawings.cs" />
+    <Compile Include="Libraries\ExorSDK\AIO\Utilities\Helpers\Geometry.cs" />
+    <Compile Include="Libraries\ExorSDK\AIO\Utilities\Helpers\Healthbars.cs" />
+    <Compile Include="Libraries\ExorSDK\AIO\Utilities\Helpers\ManaManager.cs" />
+    <Compile Include="Libraries\ExorSDK\AIO\Utilities\Vars.cs" />
+    <Compile Include="Libraries\ExorSDK\ExorAIO.cs" />
     <Compile Include="Libraries\Sebby-OKTW\Movement.cs" />
     <Compile Include="Libraries\ValvraveSharp\Core\Common.cs" />
     <Compile Include="Libraries\ValvraveSharp\Evade\Collision.cs" />
@@ -1002,6 +1010,7 @@
     <Compile Include="Utility\Loader.cs" />
     <Compile Include="Utility\NabbTracker\NabbTracker.cs" />
     <Compile Include="Utility\NabbTracker\Program.cs" />
+    <Compile Include="Utility\NabbTracker\Tracker\ExpTracker.cs" />
     <Compile Include="Utility\NabbTracker\Utilities\Entities\GameObjects.cs" />
     <Compile Include="Utility\NabbTracker\Utilities\Entities\Jungle.cs" />
     <Compile Include="Utility\NabbTracker\Utilities\Helpers\Drawings.cs" />
