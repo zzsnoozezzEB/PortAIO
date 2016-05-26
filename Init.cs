@@ -855,8 +855,19 @@ namespace PortAIO
                     case "maokai": // Underrated AIO
                         new UnderratedAIO.Champions.Maokai();
                         break;
-                    case "masteryi": // MasterSharp
-                        MasterSharp.MasterSharp.OnLoad();
+                    case "masteryi": // MasterSharp & Hoola Yi
+                        switch (Loader.masteryi)
+                        {
+                            case 0:
+                                MasterSharp.MasterSharp.OnLoad();
+                                break;
+                            case 1:
+                                HoolaMasterYi.Program.OnGameLoad();
+                                break;
+                            default:
+                                MasterSharp.MasterSharp.OnLoad();
+                                break;
+                        }
                         break;
                     case "mordekaiser": // How to Train your dragon
                         Mordekaiser.Program.Game_OnGameLoad();
