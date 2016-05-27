@@ -127,6 +127,11 @@ namespace PortAIO
                     AntiAlistar.AntiAlistar.OnLoad();
                 }
 
+                if (Loader.traptrack)
+                {
+                    AntiTrap.Program.Game_OnGameLoad();
+                }
+
                 /*
                 if (Loader.stream)
                 {

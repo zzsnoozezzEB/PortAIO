@@ -77,6 +77,7 @@ namespace PortAIO.Utility
         public static int ahri { get { return Miscc["ahri"].Cast<ComboBox>().CurrentValue; } }
         public static bool banwards { get { return Miscc["banwards"].Cast<CheckBox>().CurrentValue; } }
         public static bool antialistar { get { return Miscc["antialistar"].Cast<CheckBox>().CurrentValue; } }
+        public static bool traptrack { get { return Miscc["traptrack"].Cast<CheckBox>().CurrentValue; } }
         public static int elise { get { return Miscc["elise"].Cast<ComboBox>().CurrentValue; } }
         public static int rengar { get { return Miscc["rengar"].Cast<ComboBox>().CurrentValue; } }
         public static int zed { get { return Miscc["zed"].Cast<ComboBox>().CurrentValue; } }
@@ -404,6 +405,7 @@ namespace PortAIO.Utility
             Miscc.Add("cheat", new CheckBox("Enable TheCheater?", false));
             Miscc.Add("banwards", new CheckBox("Enable Sebby BanWars?", false));
             Miscc.Add("antialistar", new CheckBox("Enable AntiAlistar?", true));
+            Miscc.Add("traptrack", new CheckBox("Enable TrapTracker?", false));
 
             /*
             Miscc.Add("stream", new CheckBox("Enable StreamBuddy?", false));
