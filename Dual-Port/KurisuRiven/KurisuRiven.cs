@@ -1454,6 +1454,14 @@ namespace KurisuRiven
                         }
 
 
+                        if (Getkeybindvalue(keybindsMenu, "shycombo"))
+                        {
+                            if (cc == 2 && !uo && r.IsReady())
+                            {
+                                checkr();
+                                LeagueSharp.Common.Utility.DelayAction.Add(240 - Game.Ping, () => q.Cast(Game.CursorPos));
+                            }
+                        }
 
 
                         if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
