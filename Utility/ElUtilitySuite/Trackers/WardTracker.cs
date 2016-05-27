@@ -19,7 +19,6 @@
     using EloBuddy.SDK.Menu.Values;
     using PortAIO.Properties;
     using EloBuddy.SDK.Menu;
-    [PermissionSet(SecurityAction.Assert, Unrestricted = true)]
     internal class WardTracker : IPlugin
     {
         #region Constants
