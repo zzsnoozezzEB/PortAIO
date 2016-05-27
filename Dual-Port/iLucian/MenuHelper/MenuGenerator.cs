@@ -26,7 +26,7 @@ namespace iLucian.MenuHelper
             comboOptions.Add("com.ilucian.combo.startE", new CheckBox("Start Combo With E", true));
             comboOptions.Add("com.ilucian.combo.eRange", new Slider("E Dash Range", 65, 50, 475));
             comboOptions.Add("com.ilucian.combo.eMode", new ComboBox("E Mode", 5, "Kite", "Side", "Cursor", "Enemy", "Fast Mode", "Smart E", "URF"));
-            comboOptions.Add("com.ilucian.combo.forceR", new KeyBind("Semi Ult Key", false, KeyBind.BindTypes.PressToggle, 'T'));
+            comboOptions.Add("com.ilucian.combo.forceR", new KeyBind("Semi Ult Key", false, KeyBind.BindTypes.HoldActive, 'T'));
 
             harassOptions = Variables.Menu.AddSubMenu(":: iLucian - Harass Options", "com.ilucian.harass");
             harassOptions.AddGroupLabel("Auto Harass : ");
