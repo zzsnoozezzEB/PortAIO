@@ -459,7 +459,7 @@
                         }
 
                         var x = (int)hero.HPBarPosition.X - (hero.IsMe ? 0 : 10);
-                        var y = (int)hero.HPBarPosition.Y + (hero.IsEnemy ? 3 : (hero.IsMe ? -2 : 0));
+                        var y = (int)hero.HPBarPosition.Y + (hero.IsEnemy ? 3 : (hero.IsMe ? -9 : 0));
 
                         this._sprite.Begin(SpriteFlags.AlphaBlend);
                         var summonerData = this._summonerDatas[hero.NetworkId];
