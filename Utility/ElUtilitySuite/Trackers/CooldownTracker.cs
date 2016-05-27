@@ -506,7 +506,7 @@ namespace ElUtilitySuite.Trackers
         /// <returns></returns>
         public void CreateMenu(Menu rootMenu)
         {
-            var drawingMenu = rootMenu.AddSubMenu("Ability tracker", "cdtracker");
+            var drawingMenu = rootMenu.AddSubMenu("Spell duration tracker", "cdtracker");
             {
                 drawingMenu.Add("OffsetTop", new Slider("Offset Top", 0));
                 drawingMenu.Add("OffsetLeft", new Slider("Offset Left", 0));
