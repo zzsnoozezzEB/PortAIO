@@ -49,7 +49,15 @@ namespace SebbyLib
 
         public static bool None
         {
-            get { return Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None); }
+            get
+            {
+                return !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear) &&
+                       !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.JungleClear) &&
+                       !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass) && 
+                       !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) &&
+                       !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Flee) &&
+                       !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LastHit);
+            }
         }
 
         public static bool LaneClear
