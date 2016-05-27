@@ -120,6 +120,11 @@ namespace PortAIO
                     Sebby_Ban_War.Program.Game_OnGameLoad();
                 }
 
+                if (Loader.antialistar)
+                {
+                    AntiAlistar.AntiAlistar.OnLoad();
+                }
+
                 /*
                 if (Loader.stream)
                 {

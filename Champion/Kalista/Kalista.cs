@@ -55,6 +55,7 @@ namespace iKalistaReborn
             LoadModules();
             Game.OnUpdate += OnUpdate;
             Drawing.OnDraw += OnDraw;
+            CustomDamageIndicator.DamageToUnit = Helper.GetRendDamage;
             Obj_AI_Base.OnProcessSpellCast += OnProcessSpell;
             Spellbook.OnCastSpell += (sender, args) =>
             {
@@ -148,6 +149,9 @@ namespace iKalistaReborn
             {
                 jungleStealMenu.Add(minion.Key, new CheckBox(minion.Value, true));
             }
+            jungleStealMenu.Add("com.ikalista.jungleSteal.small", new CheckBox("Kill Small Minions", true));
+            jungleStealMenu.Add("com.ikalista.jungleSteal.large", new CheckBox("Kill Large Minions", true));
+            jungleStealMenu.Add("com.ikalista.jungleSteal.legendary", new CheckBox("Kill Legendary Minions", true));
 
             miscMenu = Menu.AddSubMenu("iKalista: Reborn - Misc", "com.ikalista.Misc");
             miscMenu.Add("com.ikalista.misc.reduceE", new Slider("Reduce Rend Damage", 90, 0, 300));
@@ -180,7 +184,8 @@ namespace iKalistaReborn
 
             drawingMenu = Menu.AddSubMenu("iKalista: Reborn - Drawing", "com.ikalista.drawing");
             drawingMenu.Add("com.ikalista.drawing.spellRanges", new CheckBox("Draw Spell Ranges"));
-            drawingMenu.Add("com.ikalista.drawing.eDamage", new CheckBox("Draw E Damage"));//.SetValue(new Circle(true, Color.DarkOliveGreen)));
+            drawingMenu.Add("com.ikalista.drawing.eDamage", new CheckBox("Draw E Damage to Enemies"));//.SetValue(new Circle(true, Color.DarkOliveGreen)));
+            drawingMenu.Add("com.ikalista.drawing.eDamageJ", new CheckBox("Draw E Damage to Jungle Minions"));//.SetValue(new Circle(true, Color.DarkOliveGreen)));
             drawingMenu.Add("com.ikalista.drawing.damagePercent", new CheckBox("Draw Percent Damage"));//.SetValue(new Circle(true, Color.DarkOliveGreen)));
         }
 
@@ -414,7 +419,7 @@ namespace iKalistaReborn
                 if (minions.Count < 0)
                     return;
 
-                var siegeMinion = minions.FirstOrDefault(x => x.Name.Contains("siege") && x.IsRendKillable());
+                var siegeMinion = minions.FirstOrDefault(x => x.CharData.BaseSkinName == "MinionSiege" && x.IsRendKillable());
 
                 if (getCheckBoxItem(laneclearMenu, "com.ikalista.laneclear.eSiege") && siegeMinion != null)
                 {

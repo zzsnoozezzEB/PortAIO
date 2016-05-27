@@ -302,7 +302,7 @@ namespace OneKeyToWin_AIO_Sebby
 
         private void ZhonyaTryCast()
         {
-            if (Player.HasBuffOfType(BuffType.PhysicalImmunity) || Player.HasBuffOfType(BuffType.SpellImmunity)
+            if (Player.HasBuffOfType(BuffType.PhysicalImmunity) || Player.HasBuffOfType(BuffType.SpellImmunity) || (!Player.Spellbook.Spells[3].IsReady() && Player.ChampionName == "Kayle")
                || Player.IsZombie || Player.IsInvulnerable || Player.HasBuffOfType(BuffType.Invulnerability) || Player.HasBuff("kindredrnodeathbuff")
                || Player.HasBuffOfType(BuffType.SpellShield) || Player.AllShield > OktwCommon.GetIncomingDamage(Player))
             {
