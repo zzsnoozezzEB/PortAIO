@@ -34,7 +34,7 @@ namespace ExorSDK.Champions.Sivir
                     t =>
                         Bools.IsImmobile(t) &&
                         !Invulnerable.Check(t) &&
-                        t.IsValidTarget(Vars.Q.Range)))
+                        t.LSIsValidTarget(Vars.Q.Range)))
                 {
                     Vars.Q.Cast(target.ServerPosition);
                 }
@@ -122,7 +122,7 @@ namespace ExorSDK.Champions.Sivir
                 }
 
                 if (!sender.IsEnemy ||
-                    !(sender as AIHeroClient).IsValidTarget())
+                    !(sender as AIHeroClient).LSIsValidTarget())
                 {
                     return;
                 }

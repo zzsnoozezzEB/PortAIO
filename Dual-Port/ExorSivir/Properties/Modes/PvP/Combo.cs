@@ -18,7 +18,7 @@ namespace ExorSDK.Champions.Sivir
         public static void Combo(EventArgs args)
         {
             if (Bools.HasSheenBuff() ||
-                !Targets.Target.IsValidTarget() ||
+                !Targets.Target.LSIsValidTarget() ||
                 Invulnerable.Check(Targets.Target))
             {
                 return;
@@ -27,9 +27,9 @@ namespace ExorSDK.Champions.Sivir
             /// <summary>
             ///     The Q Combo Logic.
             /// </summary>
-            if (Vars.Q.IsReady() && Targets.Target.IsValidTarget(Vars.Q.Range) && Menus.getCheckBoxItem(Vars.QMenu, "combo"))
+            if (Vars.Q.IsReady() && Targets.Target.LSIsValidTarget(Vars.Q.Range) && Menus.getCheckBoxItem(Vars.QMenu, "combo"))
             {
-                if (!Targets.Target.IsValidTarget(Vars.AARange) &&
+                if (!Targets.Target.LSIsValidTarget(Vars.AARange) &&
                     Vars.Q.GetPrediction(Targets.Target).Hitchance >= HitChance.High)
                 {
                     Vars.Q.Cast(

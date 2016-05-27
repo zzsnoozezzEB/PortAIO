@@ -29,8 +29,8 @@ namespace ExorSDK.Champions.Sivir
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
                         !Invulnerable.Check(t) &&
-                        !t.IsValidTarget(Vars.AARange) &&
-                        t.IsValidTarget(Vars.Q.Range - 100f) &&
+                        !t.LSIsValidTarget(Vars.AARange) &&
+                        t.LSIsValidTarget(Vars.Q.Range - 100f) &&
                         Vars.GetRealHealth(t) <
                             (float)GameObjects.Player.LSGetSpellDamage(t, SpellSlot.Q)*2))
                 {

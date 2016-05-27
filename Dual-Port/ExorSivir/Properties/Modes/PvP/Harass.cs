@@ -17,7 +17,7 @@ namespace ExorSDK.Champions.Sivir
         /// <param name="args">The <see cref="EventArgs" /> instance containing the event data.</param>
         public static void Harass(EventArgs args)
         {
-            if (!Targets.Target.IsValidTarget() ||
+            if (!Targets.Target.LSIsValidTarget() ||
                 Invulnerable.Check(Targets.Target))
             {
                 return;
@@ -27,7 +27,7 @@ namespace ExorSDK.Champions.Sivir
             ///     The Q Harass Logic.
             /// </summary>
             if (Vars.Q.IsReady() &&
-                Targets.Target.IsValidTarget(Vars.Q.Range) &&
+                Targets.Target.LSIsValidTarget(Vars.Q.Range) &&
                 GameObjects.Player.ManaPercent >
                     ManaManager.GetNeededMana(Vars.Q.Slot, Menus.getSliderItem(Vars.QMenu, "harass")) &&
                 Menus.getSliderItem(Vars.QMenu, "harass") != 101)
