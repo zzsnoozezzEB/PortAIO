@@ -10,6 +10,7 @@ using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 using Utility = LeagueSharp.Common.Utility;
 using EloBuddy.SDK;
+using EloBuddy.SDK.Events;
 using Spell = LeagueSharp.Common.Spell;
 using Damage = LeagueSharp.Common.Damage;
 
@@ -17,7 +18,10 @@ namespace HoolaMasterYi
 {
     public class Program
     {
-        private static Menu Menu, comboMenu, harassMenu, clearMenu, jungleMenu, miscMenu, drawMenu, ksMenu;
+        private static Menu Menu { get; set; }
+
+        public static Menu comboMenu, harassMenu, ksMenu, clearMenu, miscMenu, jungleMenu, drawMenu;
+
         private static readonly AIHeroClient Player = ObjectManager.Player;
         private static readonly HpBarIndicator Indicator = new HpBarIndicator();
         private static Spell Q, W, E, R;
@@ -88,8 +92,14 @@ namespace HoolaMasterYi
         private static void DetectSpell(EventArgs args)
         {
             var target = TargetSelector.GetTarget(Q.Range, DamageType.Physical);
-            if (target.LSIsDashing() && (((Player.LSDistance(target.GetWaypoints().Last()) >= Q.Range) && AutoQOnly) || !AutoQOnly) && Q.IsReady() && AutoQ && Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Combo || Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Harass)
+            if (target.IsDashing() &&
+                (((Player.LSDistance(target.GetWaypoints().Last()) >= Q.Range) && AutoQOnly) || !AutoQOnly) &&
+                Q.IsReady() && AutoQ && Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Combo ||
+                Orbwalker.ActiveModesFlags == Orbwalker.ActiveModes.Harass)
+            {
                 Q.Cast(target);
+            }
+                
         }
 
         static void OnDraw(EventArgs args)
@@ -289,7 +299,7 @@ namespace HoolaMasterYi
             clearMenu.Add("LE", new CheckBox("Use E", false));
             clearMenu.Add("LI", new CheckBox("Use Tiamat/Hydra", false));
 
-            jungleMenu = Menu.AddSubMenu("Laneclear", "Laneclear");
+            jungleMenu = Menu.AddSubMenu("JungleClear", "JungleClear");
             jungleMenu.Add("JQ", new CheckBox("Use Q", true));
             jungleMenu.Add("JW", new CheckBox("Use W", false));
             jungleMenu.Add("JE", new CheckBox("Use E", true));
