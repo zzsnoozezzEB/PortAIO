@@ -93,7 +93,7 @@
                 healMenu.Add("min-damage", new Slider("Heal on % incoming damage", 20, 1));
                 foreach (var x in ObjectManager.Get<AIHeroClient>().Where(x => x.IsAlly))
                 {
-                    healMenu.Add("healon" + x.ChampionName, new Slider("Use for " + x.ChampionName));
+                    healMenu.Add("healon" + x.ChampionName, new CheckBox("Use for " + x.ChampionName));
                 }
             }
 
