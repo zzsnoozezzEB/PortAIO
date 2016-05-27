@@ -93,19 +93,12 @@
                 }
                 Console.ForegroundColor = ConsoleColor.White;
 
-                menu.Add("usecombo", new KeyBind("Combo (Active)", false, KeyBind.BindTypes.HoldActive, 32));
-
                 Menu = menu;
             }
             catch (Exception e)
             {
                 Console.WriteLine(@"An error occurred: '{0}'", e);
             }
-        }
-
-        public static bool getCombo()
-        {
-            return Menu["usecombo"].Cast<KeyBind>().CurrentValue;
         }
 
         #endregion
