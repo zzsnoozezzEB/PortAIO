@@ -151,14 +151,12 @@ namespace ElSejuani
 
             if (comboR && spells[Spells.R].IsReady())
             {
-                foreach (
-                    var x in
-                        HeroManager.Enemies.Where(hero => !hero.IsDead && hero.LSIsValidTarget(spells[Spells.R].Range)))
+                foreach (var x in HeroManager.Enemies.Where(hero => !hero.IsDead && hero.LSIsValidTarget(spells[Spells.R].Range)))
                 {
                     var pred = spells[Spells.R].GetPrediction(x);
                     if (pred.AoeTargetsHitCount >= countEnemyR)
                     {
-                        spells[Spells.R].Cast(x);
+                        spells[Spells.R].Cast(pred.CastPosition);
                     }
                 }
             }
