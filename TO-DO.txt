@@ -1,6 +1,4 @@
 ﻿To-Do :
-- hi im gosu Null Ref [http://i.hizliresim.com/4lZjZL.png]
-- Gosu Yas - Doesn't E on C - Fix GapClose on minions
 - Shen Q Clearing
 - Akali Q Last Hit
 - Veigar R in Zhonya
