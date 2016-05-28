@@ -313,8 +313,7 @@ namespace PortAIO
                                 SebbyLib.Program.GameOnOnGameLoad();
                                 break;
                             case 1:
-                                ExorAIO.Core.Bootstrap.BuildMenu();
-                                ExorAIO.Core.Bootstrap.LoadChampion();
+                                ExorSDK.AIO.OnLoad();
                                 break;
                             default:
                                 SebbyLib.Program.GameOnOnGameLoad();
