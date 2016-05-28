@@ -350,6 +350,15 @@
     <Compile Include="Dual-Port\OKTWTwistedFate\TwistedFate.cs" />
     <Compile Include="Dual-Port\SimpleSion\Sion.cs" />
     <Compile Include="Champion\Taliyah\Program.cs" />
+    <Compile Include="Dual-Port\SluttyRyze\AutoLevelManager.cs" />
+    <Compile Include="Dual-Port\SluttyRyze\Champion.cs" />
+    <Compile Include="Dual-Port\SluttyRyze\DrawManager.cs" />
+    <Compile Include="Dual-Port\SluttyRyze\GlobalManager.cs" />
+    <Compile Include="Dual-Port\SluttyRyze\Humanizer.cs" />
+    <Compile Include="Dual-Port\SluttyRyze\ItemManager.cs" />
+    <Compile Include="Dual-Port\SluttyRyze\LaneOptions.cs" />
+    <Compile Include="Dual-Port\SluttyRyze\MenuManager.cs" />
+    <Compile Include="Dual-Port\SluttyRyze\Program.cs" />
     <Compile Include="Dual-Port\TophSharp\MenuConfig.cs" />
     <Compile Include="Dual-Port\TophSharp\Taliyah.cs" />
     <Compile Include="Dual-Port\Tyler1\Program.cs" />

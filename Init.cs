@@ -445,6 +445,9 @@ namespace PortAIO
                                 ElEasy.Plugins.Ryze f = new ElEasy.Plugins.Ryze();
                                 f.Load();
                                 break;
+                            case 2:
+                                Slutty_ryze.Program.OnLoad();
+                                break;
                             default:
                                 ExorAIO.Core.Bootstrap.BuildMenu();
                                 ExorAIO.Core.Bootstrap.LoadChampion();
