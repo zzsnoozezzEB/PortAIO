@@ -60,7 +60,7 @@ namespace ElSejuani
 
             Console.WriteLine("Injected");
 
-            spells[Spells.Q].SetSkillshot(0, 70, 1600, true, SkillshotType.SkillshotLine);
+            spells[Spells.Q].SetSkillshot(0, 70, 1600, false, SkillshotType.SkillshotLine);
             spells[Spells.R].SetSkillshot(250, 110, 1600, false, SkillshotType.SkillshotLine);
 
             _ignite = Player.GetSpellSlot("summonerdot");
@@ -79,7 +79,7 @@ namespace ElSejuani
 
         private static void AntiGapcloser_OnEnemyGapcloser(ActiveGapcloser gapcloser)
         {
-            if (!gapcloser.Sender.IsValidTarget(spells[Spells.Q].Range))
+            if (!gapcloser.Sender.LSIsValidTarget(spells[Spells.Q].Range))
             {
                 return;
             }
@@ -92,7 +92,7 @@ namespace ElSejuani
             var useQ = ElSejuaniMenu.getCheckBoxItem(ElSejuaniMenu.interuptMenu, "ElSejuani.Interupt.Q");
             var useR = ElSejuaniMenu.getCheckBoxItem(ElSejuaniMenu.interuptMenu, "ElSejuani.Interupt.R");
 
-            if (gapcloser.Sender.IsValidTarget(spells[Spells.Q].Range))
+            if (gapcloser.Sender.LSIsValidTarget(spells[Spells.Q].Range))
             {
                 if (useQ && spells[Spells.Q].IsReady())
                 {
@@ -120,17 +120,22 @@ namespace ElSejuani
             var comboR = ElSejuaniMenu.getCheckBoxItem(ElSejuaniMenu.cMenu, "ElSejuani.Combo.R");
             var countEnemyR = ElSejuaniMenu.getSliderItem(ElSejuaniMenu.cMenu, "ElSejuani.Combo.R.Count");
 
-            if (comboQ && spells[Spells.Q].IsReady() && target.IsValidTarget(spells[Spells.Q].Range))
+            var predA = spells[Spells.Q].GetPrediction(target);
+
+            if (comboQ && spells[Spells.Q].IsReady() && spells[Spells.Q].IsInRange(target))
             {
-                spells[Spells.Q].Cast(target);
+                if (predA.Hitchance >= HitChance.High)
+                {
+                    spells[Spells.Q].Cast(predA.CastPosition);
+                }
             }
 
-            if (comboW && spells[Spells.W].IsReady() && target.IsValidTarget(spells[Spells.W].Range))
+            if (comboW && spells[Spells.W].IsReady() && target.LSIsValidTarget(spells[Spells.W].Range))
             {
                 spells[Spells.W].Cast();
             }
 
-            if (comboE && spells[Spells.E].IsReady() && IsFrozen(target) && target.IsValidTarget(spells[Spells.E].Range))
+            if (comboE && spells[Spells.E].IsReady() && IsFrozen(target) && target.LSIsValidTarget(spells[Spells.E].Range))
             {
                 if (IsFrozen(target))
                 {
@@ -148,7 +153,7 @@ namespace ElSejuani
             {
                 foreach (
                     var x in
-                        HeroManager.Enemies.Where(hero => !hero.IsDead && hero.IsValidTarget(spells[Spells.R].Range)))
+                        HeroManager.Enemies.Where(hero => !hero.IsDead && hero.LSIsValidTarget(spells[Spells.R].Range)))
                 {
                     var pred = spells[Spells.R].GetPrediction(x);
                     if (pred.AoeTargetsHitCount >= countEnemyR)
@@ -194,17 +199,17 @@ namespace ElSejuani
                 return;
             }
 
-            if (harassQ && spells[Spells.Q].IsReady() && target.IsValidTarget(spells[Spells.Q].Range))
+            if (harassQ && spells[Spells.Q].IsReady() && target.LSIsValidTarget(spells[Spells.Q].Range))
             {
                 spells[Spells.Q].Cast(target);
             }
 
-            if (harassW && spells[Spells.W].IsReady() && target.IsValidTarget(spells[Spells.W].Range))
+            if (harassW && spells[Spells.W].IsReady() && target.LSIsValidTarget(spells[Spells.W].Range))
             {
                 spells[Spells.W].Cast();
             }
 
-            if (harassE && spells[Spells.E].IsReady() && target.IsValidTarget(spells[Spells.E].Range))
+            if (harassE && spells[Spells.E].IsReady() && target.LSIsValidTarget(spells[Spells.E].Range))
             {
                 if (IsFrozen(target) && spells[Spells.E].GetDamage(target) > target.Health)
                 {
@@ -229,7 +234,7 @@ namespace ElSejuani
                 return;
             }
 
-            if (sender.IsValidTarget(spells[Spells.Q].Range) && args.DangerLevel == Interrupter2.DangerLevel.High
+            if (sender.LSIsValidTarget(spells[Spells.Q].Range) && args.DangerLevel == Interrupter2.DangerLevel.High
                 && spells[Spells.Q].IsReady())
             {
                 spells[Spells.Q].Cast(sender);
@@ -359,6 +364,7 @@ namespace ElSejuani
 
             if (ElSejuaniMenu.getKeyBindItem(ElSejuaniMenu.cMenu, "ElSejuani.Combo.Semi.R"))
             {
+                Orbwalker.MoveTo(Game.CursorPos);
                 SemiR();
             }
         }
@@ -372,7 +378,7 @@ namespace ElSejuani
                 return;
             }
 
-            if (!spells[Spells.R].IsReady() || !target.IsValidTarget(spells[Spells.R].Range))
+            if (!spells[Spells.R].IsReady() || !target.LSIsValidTarget(spells[Spells.R].Range))
             {
                 return;
             }
@@ -380,7 +386,7 @@ namespace ElSejuani
             var prediction = spells[Spells.R].GetPrediction(target);
             if (prediction.Hitchance >= HitChance.High)
             {
-                spells[Spells.R].Cast(target);
+                spells[Spells.R].Cast(prediction.CastPosition);
             }
         }
 
