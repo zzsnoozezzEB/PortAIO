@@ -19,6 +19,7 @@ namespace PortAIO.Utility
 
         public static bool useActivator { get { return Miscc["activator"].Cast<CheckBox>().CurrentValue; } }
         public static bool cheat { get { return Miscc["cheat"].Cast<CheckBox>().CurrentValue; } }
+        public static bool autoSharp { get { return Miscc["autoSharp"].Cast<CheckBox>().CurrentValue; } }
         public static bool useTracker { get { return Miscc["tracker"].Cast<CheckBox>().CurrentValue; } }
         public static bool useRecall { get { return Miscc["recall"].Cast<CheckBox>().CurrentValue; } }
         public static bool useSkin { get { return Miscc["skin"].Cast<CheckBox>().CurrentValue; } }
@@ -393,18 +394,19 @@ namespace PortAIO.Utility
             Miscc.Add("activator", new CheckBox("Enable ElUtilitySuite?"));
             Miscc.Add("tracker", new CheckBox("Enable NabbTracker?"));
             Miscc.Add("recall", new CheckBox("Enable Recall Tracker?"));
-            Miscc.AddSeparator();
             Miscc.Add("skin", new CheckBox("Enable Skin Hack?"));
+            Miscc.AddSeparator();
             Miscc.Add("evade", new CheckBox("Enable Evade?", false));
             Miscc.Add("godTracker", new CheckBox("Enable God Jungle Tracker?", false));
-            Miscc.AddSeparator();
             Miscc.Add("ping", new CheckBox("Enable Ping Block?", false));
             Miscc.Add("human", new CheckBox("Enable Humanizer?", false));
-            Miscc.Add("gank", new CheckBox("Enable GankAlerter?", false));
             Miscc.AddSeparator();
+            Miscc.Add("gank", new CheckBox("Enable GankAlerter?", false));
             Miscc.Add("cheat", new CheckBox("Enable TheCheater?", false));
             Miscc.Add("banwards", new CheckBox("Enable Sebby BanWars?", false));
             Miscc.Add("antialistar", new CheckBox("Enable AntiAlistar?", true));
+            Miscc.AddSeparator();
+            Miscc.Add("autoSharp", new CheckBox("Enable Auto Sharp?", false));
             Miscc.Add("traptrack", new CheckBox("Enable TrapTracker?", false));
 
             /*
