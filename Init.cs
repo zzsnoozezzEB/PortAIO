@@ -334,9 +334,22 @@ namespace PortAIO
                                 break;
                         }
                         break;
+                    case "braum":
+                        switch (Loader.braum)
+                        {
+                            case 0:
+                                SebbyLib.Program.GameOnOnGameLoad();
+                                break;
+                            case 1:
+                                new FreshBooster.Champion.Braum();
+                                break;
+                            default:
+                                SebbyLib.Program.GameOnOnGameLoad();
+                                break;
+                        }
+                        break;
                     case "thresh": // OKTW - Sebby - All Seeby champs go down here
                     case "annie":
-                    case "braum":
                     case "jinx":
                     case "karthus":
                     case "missfortune":
