@@ -1,11 +1,6 @@
 ﻿To-Do :
-- Fix Valvrave
 - hi im gosu Null Ref [http://i.hizliresim.com/4lZjZL.png]
-- Check out UnderratedShaco
-- Fix Karthus LaneClear
 - Gosu Yas - Doesn't E on C - Fix GapClose on minions
-- Check Liss
-- Check out ElVarus
 - Shen Q Clearing
 - Akali Q Last Hit
 - Veigar R in Zhonya
@@ -23,7 +18,7 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - SkyLv Tristana/AurelionSol [https://github.com/EloFactory/SkyLv_SoLuTiON]
 - J4 [https://github.com/diabaths/Mycodes]
 - STahmKench [https://github.com/Screeder/LeagueSharp/blob/master/Common/SStandalone/SChampions/STahmKench/Champions/TahmKench.cs]
-- ExorAshe/Mundo/Graves/Jax/Jhin/Jax/Quinn/Sivir/Karma [https://github.com/nabbhacker/ExoryREPO/tree/master/ExorAIO] (After porting common version, remember to update to SDK version)
+- ExorAshe/Mundo/Graves/Jax/Jhin/Jax/Quinn/Karma [https://github.com/nabbhacker/ExoryREPO/tree/master/ExorAIO] (After porting common version, remember to update to SDK version)
 - FreshBooster Braum & LeBlanc [https://github.com/NaviFly/LeagueSharp/tree/master/FreshBooster]
 - Nocturne is Back https://github.com/xQxCPMxQx/LeagueSharp2/tree/master/Nocturne
 - Sharpy AIO Zed [https://github.com/deop7138/Sharpy-AIO/tree/master/Sharpy%20AIO]
@@ -56,8 +51,5 @@ Utility Ports [Only doing after Champions are completed] :
 - AntiMelee Standalon [https://github.com/strcow/LeagueSharp/tree/master/CowAntiMelee/CowAntiMelee]
 - StreamSharp [https://github.com/Nouser/Leaguesharp/tree/master/LeagueSharp/StreamSharp/StreamSharp]
 - OKTW Ward Standalone [Already in PortAIO]
-
-Library Ports [Only doing if I need it for an addon] :
-- ExorAIO Series SDK
 
 ------------------------------------------------------------------------
