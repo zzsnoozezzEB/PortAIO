@@ -128,8 +128,6 @@ namespace Slutty_ryze
 
             var stackSliders = getSliderItem(MenuManager.passiveMenu, "stackSlider");
             if (GlobalManager.GetHero.InFountain()) return;
-            if (getSliderItem(MenuManager.passiveMenu, "stackMana") > GlobalManager.GetHero.ManaPercent)
-                return;
 
             if (GlobalManager.GetPassiveBuff >= stackSliders)
                 return;

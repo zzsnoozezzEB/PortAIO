@@ -123,7 +123,6 @@ namespace Slutty_ryze
                 passiveMenu.Add("autoPassive", new KeyBind("Stack Passive", false, KeyBind.BindTypes.PressToggle, 'Z'));
                 passiveMenu.Add("stackSlider", new Slider("Keep Passive Count At", 3, 1, 4));
                 passiveMenu.Add("autoPassiveTimer", new Slider("Refresh Passive Every (s)", 5, 1, 10));
-                passiveMenu.Add("stackMana", new Slider("Min. % Mana", 50));
             }
 
             itemMenu = _config.AddSubMenu("Items", "itemsettings");
