@@ -446,6 +446,11 @@
                                      ChampionName = "vladimir", SDataName = "vladimirhemoplague", MissileName = "",
                                      Delay = 250, MissileSpeed = int.MaxValue, CastRange = 875f
                                  },
+                              new ZhonyaSpell
+                                 {
+                                     ChampionName = "Yasuo", SDataName = "yasuorknockupcombow", MissileName = "",
+                                     Delay = 1000, MissileSpeed = int.MaxValue, CastRange = 875f
+                                 },
                              new ZhonyaSpell
                                  {
                                      ChampionName = "mordekaiser", SDataName = "mordekaiserchildrenofthegrave",
