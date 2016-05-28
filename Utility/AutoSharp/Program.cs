@@ -24,6 +24,8 @@ namespace AutoSharp
 
         public static void Init()
         {
+            Orbwalker.DisableMovement = true;
+
             Map = LeagueSharp.Common.Utility.Map.GetMap().Type;
             Config = MainMenu.AddMenu("AutoSharp: " + ObjectManager.Player.ChampionName, "autosharp." + ObjectManager.Player.ChampionName);
 
