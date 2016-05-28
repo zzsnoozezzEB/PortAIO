@@ -216,6 +216,7 @@
     <Compile Include="Dual-Port\D-Corki\Program.cs" />
     <Compile Include="Dual-Port\D-Elise\Program.cs" />
     <Compile Include="Dual-Port\D-Graves\Program.cs" />
+    <Compile Include="Dual-Port\D-Jarvan\Program.cs" />
     <Compile Include="Dual-Port\D-Rengar\Program.cs" />
     <Compile Include="Dual-Port\e.MotionKatarina\Program.cs" />
     <Compile Include="Dual-Port\ElEasy Ryze\Ryze.cs" />

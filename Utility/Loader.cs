@@ -89,6 +89,7 @@ namespace PortAIO.Utility
         public static int janna { get { return Miscc["janna"].Cast<ComboBox>().CurrentValue; } }
         public static int irelia { get { return Miscc["irelia"].Cast<ComboBox>().CurrentValue; } }
         public static int sivir { get { return Miscc["sivir"].Cast<ComboBox>().CurrentValue; } }
+        public static int jarvan { get { return Miscc["jarvan"].Cast<ComboBox>().CurrentValue; } }
 
         public static Menu Miscc;
 
@@ -154,6 +155,7 @@ namespace PortAIO.Utility
             "Janna", //51
             "Irelia", //52
             "Sivir", //53
+            "JarvanIV", // 54
         });
 
         public static void Menu()
@@ -379,6 +381,10 @@ namespace PortAIO.Utility
                 if (Player.ChampionName.Equals(Champion[53]))
                 {
                     Miscc.Add("sivir", new ComboBox("Use addon for Sivir : ", 0, "OKTW", "ExorAIO SDK"));
+                }
+                if (Player.ChampionName.Equals(Champion[54]))
+                {
+                    Miscc.Add("jarvan", new ComboBox("Use addon for Jarvan : ", 0, "BrianSharp", "D_Jarvan"));
                 }
             }
             else

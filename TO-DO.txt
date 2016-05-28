@@ -14,7 +14,6 @@ Anivia, Darius, Nautlius, Nunu, Olaf, Pantheon, Renekton, Tryndamere, Ryze = Por
 
 Champion Ports [Starting 5/19, I'm going to start checking these in game via L# to see which actually work before porting]:
 - SkyLv Tristana/AurelionSol [https://github.com/EloFactory/SkyLv_SoLuTiON]
-- J4 [https://github.com/diabaths/Mycodes]
 - STahmKench [https://github.com/Screeder/LeagueSharp/blob/master/Common/SStandalone/SChampions/STahmKench/Champions/TahmKench.cs]
 - ExorAshe/Mundo/Graves/Jax/Jhin/Jax/Quinn/Karma [https://github.com/nabbhacker/ExoryREPO/tree/master/ExorAIO] (After porting common version, remember to update to SDK version)
 - FreshBooster Braum & LeBlanc [https://github.com/NaviFly/LeagueSharp/tree/master/FreshBooster]

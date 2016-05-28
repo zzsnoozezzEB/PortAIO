@@ -593,8 +593,19 @@ namespace PortAIO
                                 break;
                         }
                         break;
-                    case "jarvaniv": // BrianSharp
-                        BrianSharp.Plugin.JarvanIV.OnLoad();
+                    case "jarvaniv": // BrianSharp & D_Jarvan
+                        switch (Loader.jarvan)
+                        {
+                            case 0:
+                                BrianSharp.Plugin.JarvanIV.OnLoad();
+                                break;
+                            case 1:
+                                D_Jarvan.Program.Game_OnGameLoad();
+                                break;
+                            default:
+                                BrianSharp.Plugin.JarvanIV.OnLoad();
+                                break;
+                        }
                         break;
                     case "jax": // xqx
                         switch (Loader.jax)
