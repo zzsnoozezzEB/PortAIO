@@ -344,7 +344,7 @@ namespace FreshBooster.Champion
                 return 0f;
 
             var rDam = 0f;
-            var percMissingHP = (100 - ((target.Health / target.MaxHealth) * 100));
+            var percMissingHP = (int)Math.Floor((100 - ((target.Health / target.MaxHealth) * 100)));
 
             if (target.HealthPercent <= 33.4) // deals 2x damage if target lower than 33.4%
             {
