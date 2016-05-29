@@ -292,7 +292,11 @@ namespace FreshBooster.Champion
                                 break;
 
                         }
-                        _Q.CastIfHitchanceEquals(QTarget, HC, true);
+                        var prediction = _Q.GetPrediction(QTarget);
+                        if (prediction.Hitchance >= HC)
+                        {
+                            _Q.Cast(prediction.CastPosition);
+                        }
                         QTime = TickCount(2000);
                     }
 
