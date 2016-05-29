@@ -272,6 +272,7 @@
     <Compile Include="Dual-Port\FreshBooster LeeSin\LeeSin.cs" />
     <Compile Include="Dual-Port\FreshBoosterBraum\Braum.cs" />
     <Compile Include="Dual-Port\FreshBoosterJanna\Program.cs" />
+    <Compile Include="Dual-Port\FreshBoosterLeBlanc\Program.cs" />
     <Compile Include="Dual-Port\GosuMechanics Yasuo\Collision.cs" />
     <Compile Include="Dual-Port\GosuMechanics Yasuo\Config.cs" />
     <Compile Include="Dual-Port\GosuMechanics Yasuo\EvadeSpellData.cs" />

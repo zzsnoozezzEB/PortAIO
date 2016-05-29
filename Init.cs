@@ -747,6 +747,9 @@ namespace PortAIO
                             case 1:
                                 Leblanc.Program.Game_OnGameLoad();
                                 break;
+                            case 2:
+                                new FreshBooster.Champion.Leblanc();
+                                break;
                             default:
                                 PopBlanc.Program.OnLoad();
                                 break;
