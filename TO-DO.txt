@@ -14,7 +14,6 @@ Darius, Nautlius, Nunu, Olaf, Pantheon, Renekton, Tryndamere, Ryze, Ashe, Mundo,
 
 Champion Ports [Starting 5/19, I'm going to start checking these in game via L# to see which actually work before porting]:
 - SkyLv Tristana/AurelionSol [https://github.com/EloFactory/SkyLv_SoLuTiON]
-- FreshBooster LeBlanc [https://github.com/NaviFly/LeagueSharp/tree/master/FreshBooster]
 - Nocturne is Back https://github.com/xQxCPMxQx/LeagueSharp2/tree/master/Nocturne
 - Sharpy AIO Zed [https://github.com/deop7138/Sharpy-AIO/tree/master/Sharpy%20AIO]
 - Swiftly Teemo [https://github.com/Nechrito/SDK/tree/master/Swiftly%20Teemo]
