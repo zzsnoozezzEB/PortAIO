@@ -574,6 +574,7 @@ namespace IreliaGod
                                         m =>
                                             m.IsEnemy && m.Position.LSDistance(ObjectManager.Player.ServerPosition) < 650 &&
                                             m.Position.LSDistance(ObjectManager.Player.Position) >
+                                            ObjectManager.Player.AttackRange && m.LSIsValidTarget() &&
                                             m.Health < 25);
                             if (unkillableMinion != null)
                             {
@@ -588,6 +589,7 @@ namespace IreliaGod
                                     .FirstOrDefault(
                                         m =>
                                             m.IsEnemy && m.Position.LSDistance(ObjectManager.Player.ServerPosition) < 650 &&
+                                            m.LSIsValidTarget() && m.Health < Spells.Q.GetDamage(m));
                             if (killableMinion != null)
                             {
                                 Spells.Q.Cast(killableMinion);
