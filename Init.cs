@@ -645,6 +645,9 @@ namespace PortAIO
                             case 1:
                                 SebbyLib.Program.GameOnOnGameLoad();
                                 break;
+                            case 2:
+                                hJhin.Program.Load();
+                                break;
                             default:
                                 Jhin___The_Virtuoso.Jhin.JhinOnLoad();
                                 break;

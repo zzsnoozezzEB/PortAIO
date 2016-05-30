@@ -298,6 +298,17 @@
     <Compile Include="Dual-Port\GosuMechanics Yasuo\Yasuo.cs" />
     <Compile Include="Dual-Port\HeavenStrikeReksaj\Program.cs" />
     <Compile Include="Dual-Port\hi_im_gosu\Program.cs" />
+    <Compile Include="Dual-Port\hJhin\Champions\Jhin.cs" />
+    <Compile Include="Dual-Port\hJhin\Extensions\Config.cs" />
+    <Compile Include="Dual-Port\hJhin\Extensions\Provider.cs" />
+    <Compile Include="Dual-Port\hJhin\Extensions\Qss.cs" />
+    <Compile Include="Dual-Port\hJhin\Extensions\Spells.cs" />
+    <Compile Include="Dual-Port\hJhin\Modes\Clear.cs" />
+    <Compile Include="Dual-Port\hJhin\Modes\Combo.cs" />
+    <Compile Include="Dual-Port\hJhin\Modes\Harass.cs" />
+    <Compile Include="Dual-Port\hJhin\Modes\Jungle.cs" />
+    <Compile Include="Dual-Port\hJhin\Modes\Ultimate.cs" />
+    <Compile Include="Dual-Port\hJhin\Program.cs" />
     <Compile Include="Dual-Port\iDzEzreal\Ezreal.cs" />
     <Compile Include="Dual-Port\iDzEzreal\EzrealBootstrap.cs" />
     <Compile Include="Dual-Port\iDzEzreal\MenuHelper\MenuGenerator.cs" />
