@@ -30,6 +30,7 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - xQx LeBlanc & Olaf & Wukong [https://github.com/CPMSoft/xQx-LeagueSharp]
 - S+ Class Tristana
 - SoloVayne
+- YasuoSharpV2
 
 Utility Ports [Only doing after Champions are completed] :
 - Universal Leveler [https://github.com/TheSaltyWaffle/LeagueSharp/tree/master/UniversalLeveler]
@@ -45,5 +46,6 @@ Utility Ports [Only doing after Champions are completed] :
 - AntiMelee Standalon [https://github.com/strcow/LeagueSharp/tree/master/CowAntiMelee/CowAntiMelee]
 - StreamSharp [https://github.com/Nouser/Leaguesharp/tree/master/LeagueSharp/StreamSharp/StreamSharp]
 - OKTW Ward Standalone [Already in PortAIO]
+- Evade+
 
 ------------------------------------------------------------------------
