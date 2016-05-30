@@ -124,11 +124,6 @@
                                  },
                              new Smite
                                  {
-                                     ChampionName = "Shen", Range = 520f, Slot = SpellSlot.E, Stage = 0,
-                                     TargetType = SpellDataTargetType.Unit
-                                 },
-                             new Smite
-                                 {
                                      ChampionName = "Diana", Range = 895f, Slot = SpellSlot.Q, Stage = 0,
                                      TargetType = SpellDataTargetType.Unit
                                  },
