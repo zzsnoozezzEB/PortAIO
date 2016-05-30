@@ -33,7 +33,6 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - YasuoSharpV2
 - Spirit Karma
 - TroopAIO
-- hJhin
 - Dicaste's Ashe/Urgot
 - Arcane Ryze
 - hVayne
