@@ -1,7 +1,8 @@
+using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
-using ExorAIO.Utilities;
+using ExorSDK.Utilities;
 
-namespace ExorAIO.Champions.Darius
+namespace ExorSDK.Champions.Darius
 {
     /// <summary>
     ///     The menu class.
@@ -14,36 +15,53 @@ namespace ExorAIO.Champions.Darius
         public static void Initialize()
         {
             /// <summary>
-            /// Sets the prediction menu.
+            ///     Sets the menu for the Q.
             /// </summary>
+            Vars.QMenu = Vars.Menu.AddSubMenu("q", "Use Q to:");
+            {
+                Vars.QMenu.Add("logical", new CheckBox("Logical", true));
+                Vars.QMenu.Add("harass", new Slider("Harass / If Mana >= x%", 50, 0, 101));
+                Vars.QMenu.Add("clear", new Slider("Clear / If Mana >= x%", 50, 0, 101));
+            }
 
             /// <summary>
-            /// Sets the spells menu.
+            ///     Sets the menu for the W.
             /// </summary>
-            Variables.QMenu = Variables.Menu.AddSubMenu("Q Config");
-            Variables.QMenu.Add("qspell.combo", new CheckBox("Combo"));
-            Variables.QMenu.Add("qspell.harass", new CheckBox("Harass"));
-            Variables.QMenu.Add("qspell.farm", new CheckBox("Clear"));
-            Variables.QMenu.Add("qspell.mana", new Slider("Harass/Clear: Mana >= x%", 50, 0, 99));
-
-            Variables.WMenu = Variables.Menu.AddSubMenu("W Config");
-            Variables.WMenu.Add("wspell.combo", new CheckBox("Combo"));
-
-            Variables.EMenu = Variables.Menu.AddSubMenu("E Config");
-            Variables.EMenu.Add("espell.combo", new CheckBox("Combo"));
-            Variables.EMenu.Add("espell.gp", new CheckBox("Anti-Gapcloser"));
-
-            Variables.RMenu = Variables.Menu.AddSubMenu("R Config");
-            Variables.RMenu.Add("rspell.ks", new CheckBox("KillSteal"));
+            Vars.WMenu = Vars.Menu.AddSubMenu("w", "Use W to:");
+            {
+                Vars.WMenu.Add("combo", new CheckBox("Combo", true));
+                Vars.WMenu.Add("buildings", new Slider("Buildings / If Mana >= x%", 50, 0, 101));
+                Vars.WMenu.Add("jungleclear", new Slider("JungleClear / If Mana >= x%", 50, 0, 101));
+            }
 
             /// <summary>
-            /// Sets the drawings menu.
+            ///     Sets the menu for the E.
             /// </summary>
-            Variables.DrawingsMenu = Variables.Menu.AddSubMenu("Drawings");
-            Variables.DrawingsMenu.Add("drawings.q", new CheckBox("Q Range"));
-            Variables.DrawingsMenu.Add("drawings.w", new CheckBox("W Range"));
-            Variables.DrawingsMenu.Add("drawings.e", new CheckBox("E Range"));
-            Variables.DrawingsMenu.Add("drawings.r", new CheckBox("R Range"));
+            Vars.EMenu = Vars.Menu.AddSubMenu("e", "Use E to:");
+            {
+                Vars.EMenu.Add("combo", new CheckBox("Combo", true));
+                Vars.EMenu.Add("gapcloser", new CheckBox("Anti-Gapcloser", true));
+                Vars.EMenu.Add("interrupter", new CheckBox("Interrupt Enemy Channels", true));
+            }
+
+            /// <summary>
+            ///     Sets the drawing menu for the R.
+            /// </summary>
+            Vars.RMenu = Vars.Menu.AddSubMenu("r", "Use R to:");
+            {
+                Vars.RMenu.Add("killsteal", new CheckBox("KillSteal", true));
+            }
+
+            /// <summary>
+            ///     Sets the drawings menu.
+            /// </summary>
+            Vars.DrawingsMenu = Vars.Menu.AddSubMenu("drawings", "Drawings");
+            {
+                Vars.DrawingsMenu.Add("q", new CheckBox("Q Range"));
+                Vars.DrawingsMenu.Add("w", new CheckBox("W Range"));
+                Vars.DrawingsMenu.Add("e", new CheckBox("E Range"));
+                Vars.DrawingsMenu.Add("r", new CheckBox("R Range"));
+            }
         }
     }
 }

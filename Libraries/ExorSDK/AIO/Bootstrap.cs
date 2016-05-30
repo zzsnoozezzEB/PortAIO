@@ -1,5 +1,6 @@
 using ExorSDK.Champions.Anivia;
 using ExorSDK.Champions.Caitlyn;
+using ExorSDK.Champions.Darius;
 using ExorSDK.Champions.Sivir;
 using ExorSDK.Utilities;
 using LeagueSharp;
@@ -27,6 +28,9 @@ namespace ExorSDK.Core
                     break;
                 case "Anivia":
                     new Anivia().OnLoad();
+                    break;
+                case "Darius":
+                    new Darius().OnLoad();
                     break;
                 default:
                     Vars.IsLoaded = false;

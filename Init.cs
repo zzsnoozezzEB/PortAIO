@@ -425,15 +425,13 @@ namespace PortAIO
                         switch (Loader.darius)
                         {
                             case 0:
-                                ExorAIO.Core.Bootstrap.BuildMenu();
-                                ExorAIO.Core.Bootstrap.LoadChampion();
+                                ExorSDK.AIO.OnLoad();
                                 break;
                             case 1:
                                 SebbyLib.Program.GameOnOnGameLoad();
                                 break;
                             default:
-                                ExorAIO.Core.Bootstrap.BuildMenu();
-                                ExorAIO.Core.Bootstrap.LoadChampion();
+                                ExorSDK.AIO.OnLoad();
                                 break;
                         }
                         break;
