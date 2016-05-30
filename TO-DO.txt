@@ -31,6 +31,7 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - S+ Class Tristana
 - SoloVayne
 - YasuoSharpV2
+- Spirit Karma
 
 Utility Ports [Only doing after Champions are completed] :
 - Universal Leveler [https://github.com/TheSaltyWaffle/LeagueSharp/tree/master/UniversalLeveler]
