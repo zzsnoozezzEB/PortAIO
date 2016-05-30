@@ -39,7 +39,7 @@
 
         public static Menu config = _MainMenu;
 
-        private static bool haveQ3, haveR;
+        private static bool haveQ3;
 
         private static bool isDash;
 
