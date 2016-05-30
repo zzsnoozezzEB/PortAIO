@@ -1,6 +1,5 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK.Menu;
-using ExorAIO.Champions.Nautilus;
 using ExorAIO.Champions.Nunu;
 using ExorAIO.Champions.Olaf;
 using ExorAIO.Champions.Pantheon;
@@ -34,9 +33,6 @@ namespace ExorAIO.Core
         {
             switch (ObjectManager.Player.ChampionName)
             {
-                case "Nautilus":
-                    Nautilus.OnLoad();
-                    break;
                 case "Nunu":
                     Nunu.OnLoad();
                     break;

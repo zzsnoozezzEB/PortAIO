@@ -1,8 +1,9 @@
+using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
-using ExorAIO.Utilities;
-using LeagueSharp.Common;
+using ExorSDK.Utilities;
+using LeagueSharp.SDK;
 
-namespace ExorAIO.Champions.Nautilus
+namespace ExorSDK.Champions.Nautilus
 {
     /// <summary>
     ///     The menu class.
@@ -14,46 +15,66 @@ namespace ExorAIO.Champions.Nautilus
         /// </summary>
         public static void Initialize()
         {
-
             /// <summary>
-            /// Sets the spells menu.
+            ///     Sets the menu for the Q.
             /// </summary>
-            Variables.QMenu = Variables.Menu.AddSubMenu("Use Q to:", "qmenu");
-            Variables.QMenu.Add("qspell.combo", new CheckBox("Combo"));
-            Variables.QMenu.Add("qspell.ks", new CheckBox("KillSteal"));
-
-            Variables.WMenu = Variables.Menu.AddSubMenu("Use W to:", "wmenu");
-            Variables.WMenu.Add("wspell.combo", new CheckBox("Combo"));
-
-            Variables.EMenu = Variables.Menu.AddSubMenu("Use E to:", "emenu");
-            Variables.EMenu.Add("espell.combo", new CheckBox("Combo"));
-            Variables.EMenu.Add("espell.harass", new CheckBox("Harass"));
-            Variables.EMenu.Add("espell.farm", new CheckBox("Clear"));
-            Variables.EMenu.Add("espell.mana", new Slider("Clear: Mana >= x%", 50, 0, 99));
-
-            Variables.RMenu = Variables.Menu.AddSubMenu("Use R to:", "rmenu");
-            Variables.RMenu.Add("rspell.combo", new CheckBox("Combo"));
-            Variables.RMenu.Add("rspell.ks", new CheckBox("KillSteal"));
-
-            Variables.WhiteListMenu = Variables.Menu.AddSubMenu("Ultimate: Whitelist Menu", "rmenu.whitelistmenu");
-            foreach (var champ in HeroManager.Enemies)
+            Vars.QMenu = Vars.Menu.AddSubMenu("q", "Use Q to:");
             {
-                Variables.WhiteListMenu.Add("rspell.whitelist." + champ.NetworkId,
-                    new CheckBox("Use against: " + champ.ChampionName));
+                Vars.QMenu.Add("combo", new CheckBox("Combo", true));
+                Vars.QMenu.Add("killsteal", new CheckBox("KillSteal", true));
             }
 
             /// <summary>
-            /// Sets the drawings menu.
+            ///     Sets the menu for the W.
             /// </summary>
-            Variables.DrawingsMenu = Variables.Menu.AddSubMenu("Drawings", "drawingsmenu");
-            Variables.DrawingsMenu.Add("drawings.q", new CheckBox("Q Range"));
-                //.SetValue(false).SetFontStyle(FontStyle.Regular, Color.Green);
-            Variables.DrawingsMenu.Add("drawings.w", new CheckBox("W Range"));
-                //.SetValue(false).SetFontStyle(FontStyle.Regular, Color.Purple);
-            Variables.DrawingsMenu.Add("drawings.e", new CheckBox("E Range"));
-                //.SetValue(false).SetFontStyle(FontStyle.Regular, Color.Cyan);
-            Variables.DrawingsMenu.Add("drawings.r", new CheckBox("R Range"));
-                //.SetValue(false).SetFontStyle(FontStyle.Regular, Color.Red);
+            Vars.WMenu = Vars.Menu.AddSubMenu("w", "Use W to:");
+            {
+                Vars.WMenu.Add("combo", new CheckBox("Combo", true));
+                Vars.WMenu.Add("buildings", new Slider("Buildings / if Mana >= x%", 50, 0, 101));
+                Vars.WMenu.Add("jungleclear", new Slider("JungleClear / if Mana >= x%", 50, 0, 101));
+            }
+
+            /// <summary>
+            ///     Sets the menu for the E.
+            /// </summary>
+            Vars.EMenu = Vars.Menu.AddSubMenu("e", "Use E to:");
+            {
+                Vars.EMenu.Add("combo", new CheckBox("Combo", true));
+                Vars.EMenu.Add("harass", new Slider("Harass / if Mana >= x%", 50, 0, 101));
+                Vars.EMenu.Add("clear", new Slider("Clear / if Mana >= x%", 50, 0, 101));
+            }
+
+            /// <summary>
+            ///     Sets the menu for the R.
+            /// </summary>
+            Vars.RMenu = Vars.Menu.AddSubMenu("r", "Use R to:");
+            {
+                Vars.RMenu.Add("combo", new CheckBox("Combo", true));
+                Vars.RMenu.Add("killsteal", new CheckBox("KillSteal", true));
+                {
+                    /// <summary>
+                    ///     Sets the whitelist menu for the R.
+                    /// </summary>
+                    Vars.WhiteListMenu = Vars.Menu.AddSubMenu("whitelist", "Ultimate: Whitelist Menu");
+                    {
+                        foreach (var target in GameObjects.EnemyHeroes)
+                        {
+                            Vars.WhiteListMenu.Add(target.ChampionName.ToLower(), new CheckBox($"Use against: {target.ChampionName}", true));
+                        }
+                    }
+                }
+            }
+
+            /// <summary>
+            ///     Sets the drawings menu.
+            /// </summary>
+            Vars.DrawingsMenu = Vars.Menu.AddSubMenu("drawings", "Drawings");
+            {
+                Vars.DrawingsMenu.Add("q", new CheckBox("Q Range"));
+                Vars.DrawingsMenu.Add("w", new CheckBox("W Range"));
+                Vars.DrawingsMenu.Add("e", new CheckBox("E Range"));
+                Vars.DrawingsMenu.Add("r", new CheckBox("R Range"));
+            }
         }
     }
 }
