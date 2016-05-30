@@ -158,7 +158,7 @@ namespace OneKeyToWin_AIO_Sebby.Core
                         E.Cast(Player.Position.Extend(need.PredictedPos, 800));
                     }
 
-                    if (!Orbwalker.IsAutoAttacking && PPDistance < 800 && Player.ChampionName == "Caitlyn" && W.IsReady() && Player.Mana > 200f && PortAIO.Champion.Caitlyn.Program.getBushW() && Utils.TickCount - W.LastCastAttemptT > 2000)
+                    if (!Orbwalker.IsAutoAttacking && PPDistance < 800 && Player.ChampionName == "Caitlyn" && W.IsReady() && Player.Mana > 200f && Caitlyn.getBushW() && Utils.TickCount - W.LastCastAttemptT > 2000)
                     {
                         W.Cast(need.PredictedPos);
                     }

@@ -150,7 +150,7 @@ namespace SebbyLib
                         PortAIO.Champion.Braum.Program.LoadOKTW();
                         break;
                     case "Caitlyn":
-                        PortAIO.Champion.Caitlyn.Program.LoadOKTW();
+                        new Caitlyn().LoadOKTW();
                         break;
                     case "Ekko":
                         PortAIO.Champion.Ekko.Program.LoadOKTW();
