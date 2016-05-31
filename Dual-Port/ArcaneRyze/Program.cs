@@ -19,28 +19,26 @@ namespace Arcane_Ryze
     internal class Program : Core
     {
         Random Random = new Random();
-        internal static float Timer;
-        internal static float LastQ;
 
 
         public static void Load()
         {
-            
-                if (GameObjects.Player.ChampionName != "Ryze")
-                {
-                    return;
-                }
+
+            if (GameObjects.Player.ChampionName != "Ryze")
+            {
+                return;
+            }
             Chat.Print("<b><font color=\"#FFFFFF\">[</font></b><b><font color=\"#00e5e5\">Arcane Ryze</font></b><b><font color=\"#FFFFFF\">]</font></b><b><font color=\"#FFFFFF\"> Version: 1</font></b>");
             Chat.Print("<b><font color=\"#FFFFFF\">[</font></b><b><font color=\"#00e5e5\">Update</font></b><b><font color=\"#FFFFFF\">]</font></b><b><font color=\"#FFFFFF\"> Release</font></b>");
 
             Spells.Load();
             MenuConfig.Load();
             Orbwalker.OnPostAttack += BeforeAA.OnAction;
-           
+
             Game.OnUpdate += OnUpdate;
             Drawing.OnEndScene += Drawing_OnEndScene;
         }
-       
+
         private static void OnUpdate(EventArgs args)
         {
             if (Player.IsDead || Player.LSIsRecalling())
@@ -73,12 +71,12 @@ namespace Arcane_Ryze
             KillSteal.Killsteal();
 
         }
-       public static HpBarDraw HpBarDraw = new HpBarDraw();
+        public static HpBarDraw HpBarDraw = new HpBarDraw();
         private static void Drawing_OnEndScene(EventArgs args)
         {
-           foreach (var enemy in ObjectManager.Get<AIHeroClient>().Where(ene => ene.LSIsValidTarget() && !ene.IsZombie))
+            foreach (var enemy in ObjectManager.Get<AIHeroClient>().Where(ene => ene.LSIsValidTarget() && !ene.IsZombie))
             {
-                if(MenuConfig.dind)
+                if (MenuConfig.dind)
                 {
                     var EasyFuckingKill = Spells.Q.IsReady() && Dmg.EasyFuckingKillKappa(enemy)
                         ? new ColorBGRA(0, 255, 0, 120)
