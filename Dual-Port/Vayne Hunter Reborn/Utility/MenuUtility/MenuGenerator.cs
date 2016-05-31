@@ -56,6 +56,7 @@ namespace VayneHunter_Reborn.Utility.MenuUtility
             miscMenu.Add("dz191.vhr.mixed.mirinQ", new CheckBox("Q to Wall when Possible (Mirin Mode)", true));
             miscMenu.Add("dz191.vhr.misc.tumble.smartq", new CheckBox("Try to QE when possible"));
             miscMenu.Add("dz191.vhr.misc.tumble.noaastealthex", new KeyBind("Don't AA while stealthed", false, KeyBind.BindTypes.PressToggle, 'K'));
+            miscMenu.Add("dz191.vhr.misc.tumble.noaastealthex.hp", new Slider("Only if HP % < x", 35, 0, 100));
             miscMenu.Add("dz191.vhr.misc.tumble.noqenemies", new CheckBox("Don't Q into enemies"));
             miscMenu.Add("dz191.vhr.misc.tumble.noqenemies.old", new CheckBox("Use Old Don't Q into enemies"));
             miscMenu.Add("dz191.vhr.misc.tumble.dynamicqsafety", new CheckBox("Use dynamic Q Safety Distance"));
