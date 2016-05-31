@@ -34,7 +34,6 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - Spirit Karma
 - TroopAIO
 - Dicaste's Ashe/Urgot
-- Arcane Ryze
 - hVayne
 - PrideStalker Rengar
 - EkkoGod [https://github.com/GodLS/EkkoGod]
