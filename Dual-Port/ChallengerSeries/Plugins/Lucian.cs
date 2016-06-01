@@ -368,7 +368,6 @@ namespace Challenger_Series.Plugins
         private bool UseEAntiMelee;
         private bool SemiAutoRKey;
         private bool BlockManualR;
-        private bool ForceR;
         private Menu HarassMenu;
         private bool UseQExtended;
         private int QExManaPercent;
@@ -391,7 +390,6 @@ namespace Challenger_Series.Plugins
             ComboMenu.Add("Lucianegoham", new CheckBox("Use E to go HAM", false));
             ComboMenu.Add("Luciansemiauto", new KeyBind("Semi-Auto R Key", false, KeyBind.BindTypes.HoldActive, 'R'));
             ComboMenu.Add("Lucianblockmanualr", new CheckBox("Block manual R", true));
-            ComboMenu.Add("Lucianrcombo", new CheckBox("Auto R", true));
             ComboMenu.Add("Lucianqks", new CheckBox("Use Q for KS", true));
 
             HarassMenu = MainMenu.AddSubMenu("Harass Settings:", "Harass Settings: ");
@@ -419,7 +417,6 @@ namespace Challenger_Series.Plugins
             UseEGapclose = getCheckBoxItem(ComboMenu, "Lucianegoham");
             SemiAutoRKey = getKeyBindItem(ComboMenu, "Luciansemiauto");
             BlockManualR = getCheckBoxItem(ComboMenu, "Lucianblockmanualr");
-            ForceR = getCheckBoxItem(ComboMenu, "Lucianrcombo");
             QKS = getCheckBoxItem(ComboMenu, "Lucianqks");
             UseQExtended = getCheckBoxItem(HarassMenu, "Lucianqextended");
             QExManaPercent = getSliderItem(HarassMenu, "Lucianqexmanapercent");
