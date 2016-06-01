@@ -272,6 +272,9 @@ namespace PortAIO
                             case 1:
                                 ElEkko.ElEkko.OnLoad();
                                 break;
+                            case 2:
+                                EkkoGod.Program.GameOnOnGameLoad();
+                                break;
                             default:
                                 SebbyLib.Program.GameOnOnGameLoad();
                                 break;
@@ -829,7 +832,7 @@ namespace PortAIO
                         switch (Loader.vayne)
                         {
                             case 0:
-                                Vayne.Program.OnLoad();
+                                Vayne1.Program.OnLoad();
                                 break;
                             case 1:
                                 VayneHunter_Reborn.Program.Game_OnGameLoad();
@@ -837,8 +840,11 @@ namespace PortAIO
                             case 2:
                                 hi_im_gosu.Vayne.Game_OnGameLoad();
                                 break;
+                            case 3:
+                                hVayne.Program.Load();
+                                break;
                             default:
-                                Vayne.Program.OnLoad();
+                                Vayne1.Program.OnLoad();
                                 break;
                         }
                         break;

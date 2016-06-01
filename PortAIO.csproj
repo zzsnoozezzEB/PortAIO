@@ -268,6 +268,7 @@
     <Compile Include="Dual-Port\D-Jarvan\Program.cs" />
     <Compile Include="Dual-Port\D-Rengar\Program.cs" />
     <Compile Include="Dual-Port\e.MotionKatarina\Program.cs" />
+    <Compile Include="Dual-Port\EkkoGod\Program.cs" />
     <Compile Include="Dual-Port\ElEasy Ryze\Ryze.cs" />
     <Compile Include="Dual-Port\ElEasy Sona\Sona.cs" />
     <Compile Include="Dual-Port\ElEkko\DrawDamage.cs" />
@@ -347,6 +348,12 @@
     <Compile Include="Dual-Port\hJhin\Modes\Jungle.cs" />
     <Compile Include="Dual-Port\hJhin\Modes\Ultimate.cs" />
     <Compile Include="Dual-Port\hJhin\Program.cs" />
+    <Compile Include="Dual-Port\hVayne\Champions\Vayne.cs" />
+    <Compile Include="Dual-Port\hVayne\Extensions\Config.cs" />
+    <Compile Include="Dual-Port\hVayne\Extensions\Condemn.cs" />
+    <Compile Include="Dual-Port\hVayne\Extensions\SpellManager.cs" />
+    <Compile Include="Dual-Port\hVayne\Extensions\Spells.cs" />
+    <Compile Include="Dual-Port\hVayne\Program.cs" />
     <Compile Include="Dual-Port\iDzEzreal\Ezreal.cs" />
     <Compile Include="Dual-Port\iDzEzreal\EzrealBootstrap.cs" />
     <Compile Include="Dual-Port\iDzEzreal\MenuHelper\MenuGenerator.cs" />

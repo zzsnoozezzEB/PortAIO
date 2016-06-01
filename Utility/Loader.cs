@@ -210,7 +210,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[10]))
                 {
-                    Miscc.Add("vayne", new ComboBox("Use addon for Vayne : ", 0, "ChallengerVayne", "VayneHunterReborn", "hi im gosu"));
+                    Miscc.Add("vayne", new ComboBox("Use addon for Vayne : ", 0, "ChallengerVayne", "VayneHunterReborn", "hi im gosu", "hVayne SDK"));
                 }
                 if (Player.ChampionName.Equals(Champion[11]))
                 {
@@ -326,7 +326,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[39]))
                 {
-                    Miscc.Add("Ekko", new ComboBox("Use addon for Ekko : ", 0, "OKTW", "ElEkko"));
+                    Miscc.Add("Ekko", new ComboBox("Use addon for Ekko : ", 0, "OKTW", "ElEkko", "EkkoGod"));
                 }
                 if (Player.ChampionName.Equals(Champion[40]))
                 {
