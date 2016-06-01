@@ -230,7 +230,11 @@
         private void CastE(Obj_AI_Base target)
         {
             // TODO check possible wall dashes :^)
+            if (!Variables.Spell[Variables.Spells.E].IsReady() && !getCheckBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.e")
+                && target == null && ObjectManager.Player.HasBuff("LucianR") && ObjectManager.Player.Spellbook.IsAutoAttacking)
+             {
                 return;
+             }
 
             var dashRange = getSliderItem(MenuGenerator.comboOptions, "com.ilucian.combo.eRange");
 
@@ -411,80 +415,201 @@
 
         private void LoadEvents()
         {
+            Game.OnUpdate += OnUpdate;
+            Obj_AI_Base.OnSpellCast += OnDoCast;
+            DZAntigapcloser.OnEnemyGapcloser += OnEnemyGapcloser;
+            Spellbook.OnCastSpell += (sender, args) =>
             {
-                SemiUlt();
-            }
+                if (sender.Owner.IsMe && args.Slot == SpellSlot.E)
+                {
+                    Variables.LastECast = Environment.TickCount;
+                }
+            };
 
-            AutoHarass();
+            Obj_AI_Base.OnProcessSpellCast += OnSpellCast;
+
+            Drawing.OnDraw += args =>
+            {
+                if (getCheckBoxItem(MenuGenerator.miscOptions, "com.ilucian.misc.drawQ"))
+                {
+                    Render.Circle.DrawCircle(ObjectManager.Player.Position, Variables.Spell[Variables.Spells.Q2].Range, Color.BlueViolet);
+                }
+            };
+        }
+
+        private void LoadSpells()
+        {
+            Variables.Spell[Variables.Spells.Q].SetTargetted(0.25f, 1400f);
+            Variables.Spell[Variables.Spells.Q2].SetSkillshot(
+                0.5f,
+                50,
+                float.MaxValue,
+                false,
+                SkillshotType.SkillshotLine);
+            Variables.Spell[Variables.Spells.W].SetSkillshot(0.30f, 70f, 1600f, true, SkillshotType.SkillshotLine);
+            Variables.Spell[Variables.Spells.R].SetSkillshot(0.2f, 110f, 2500, true, SkillshotType.SkillshotLine);
+        }
+
+        private void OnDoCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        {
+            if (!sender.IsMe) return;
+
+            var target = TargetSelector.GetTarget(Variables.Spell[Variables.Spells.Q].Range, DamageType.Physical);
+
+            if (target == null || Environment.TickCount - Variables.LastECast < 250) return;
 
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
             {
-                OnCombo();
-            }
+                if (Orbwalking.IsAutoAttack(args.SData.Name) && target.IsValid)
+                    {
+                        if (getCheckBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.startE") && Variables.Spell[Variables.Spells.E].IsReady())
+                        {
+                            if (!sender.IsDead && !Variables.HasPassive())
+                            {
+                                CastE(target);
+                            }
 
-            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
-            {
+                            if (!Variables.Spell[Variables.Spells.E].IsReady() && target.LSIsValidTarget(Variables.Spell[Variables.Spells.Q].Range) && getCheckBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.q") && !Variables.HasPassive())
+                            {
+                                if (Variables.Spell[Variables.Spells.Q].IsReady()
+                                    && Variables.Spell[Variables.Spells.Q].IsInRange(target)
+                                    && !ObjectManager.Player.LSIsDashing())
+                                {
+                                    Variables.Spell[Variables.Spells.Q].Cast(target);
+                                }
+                            }
+                            if (!Variables.Spell[Variables.Spells.E].IsReady() && !ObjectManager.Player.LSIsDashing()
+                               && getCheckBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.w"))
+                            {
+                                if (Variables.Spell[Variables.Spells.W].IsReady() && !Variables.HasPassive())
+                                {
+                                    if (getCheckBoxItem(MenuGenerator.miscOptions, "com.ilucian.misc.usePrediction"))
+                                    {
+                                        var prediction = Variables.Spell[Variables.Spells.W].GetPrediction(target);
+                                        if (prediction.Hitchance >= HitChance.High)
+                                        {
+                                            Variables.Spell[Variables.Spells.W].Cast(prediction.CastPosition);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (target.LSDistance(ObjectManager.Player) < 600)
+                                        {
+                                            Variables.Spell[Variables.Spells.W].Cast(target.Position);
+                                        }
+                                    }
 
-        }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (target.LSIsValidTarget(Variables.Spell[Variables.Spells.Q].Range)
+                                && getCheckBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.q")
+                                && !Variables.HasPassive())
+                            {
+                                if (Variables.Spell[Variables.Spells.Q].IsReady()
+                                    && Variables.Spell[Variables.Spells.Q].IsInRange(target)
+                                    && !ObjectManager.Player.LSIsDashing())
+                                {
+                                    Variables.Spell[Variables.Spells.Q].Cast(target);
+                                }
+                            }
 
-        {
+                            if (!ObjectManager.Player.LSIsDashing()
+                                && getCheckBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.w"))
+                            {
+                                if (Variables.Spell[Variables.Spells.W].IsReady() && !Variables.HasPassive())
+                                {
+                                    if (getCheckBoxItem(MenuGenerator.miscOptions, "com.ilucian.misc.usePrediction"))
+                                    {
+                                        var prediction = Variables.Spell[Variables.Spells.W].GetPrediction(target);
+                                        if (prediction.Hitchance >= HitChance.High)
+                                        {
+                                            Variables.Spell[Variables.Spells.W].Cast(prediction.CastPosition);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (target.LSDistance(ObjectManager.Player) < 600)
+                                        {
+                                            Variables.Spell[Variables.Spells.W].Cast(target.Position);
+                                        }
+                                    }
 
+                                }
+                            }
+                        }
 
+                        if (!sender.IsDead && !Variables.HasPassive() && !Variables.Spell[Variables.Spells.Q].IsReady())
+                        {
+                            CastE(target);
+                        }
+                    }
 
-            {
+                    if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
+                    { 
+                      if (Orbwalking.IsAutoAttack(args.SData.Name) && target.IsValid)
+                    {
+                        if (target.LSIsValidTarget(Variables.Spell[Variables.Spells.Q].Range)
+                            && getCheckBoxItem(MenuGenerator.harassOptions, "com.ilucian.harass.q"))
+                        {
+                            if (Variables.Spell[Variables.Spells.Q].IsReady()
+                                && Variables.Spell[Variables.Spells.Q].IsInRange(target))
+                            {
+                                Variables.Spell[Variables.Spells.Q].Cast(target);
+                            }
+                        }
 
+                        if (!ObjectManager.Player.LSIsDashing()
+                            && getCheckBoxItem(MenuGenerator.harassOptions, "com.ilucian.harass.w"))
+                        {
+                            if (Variables.Spell[Variables.Spells.W].IsReady())
+                            {
+                                if (getCheckBoxItem(MenuGenerator.miscOptions, "com.ilucian.misc.usePrediction"))
+                                {
+                                    var prediction = Variables.Spell[Variables.Spells.W].GetPrediction(target);
+                                    if (prediction.Hitchance >= HitChance.High)
+                                    {
+                                        Variables.Spell[Variables.Spells.W].Cast(prediction.CastPosition);
+                                    }
+                                }
+                                else
+                                {
+                                    if (target.LSDistance(ObjectManager.Player) < 600)
+                                    {
+                                        Variables.Spell[Variables.Spells.W].Cast(target.Position);
+                                    }
+                                }
+                            }
 
-
-
-
-            var target = TargetSelector.GetTarget(Variables.Spell[Variables.Spells.Q2].Range, DamageType.Physical);
-
-            if (target == null || Variables.HasPassive())
-                return;
-            if (getCheckBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.qExtended"))
-            {
-                CastExtendedQ(ch);
-            }
-            if (target.LSIsValidTarget(Variables.Spell[Variables.Spells.Q].Range) && getCheckBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.q"))
-            {
-                if (Variables.Spell[Variables.Spells.Q].IsReady() && Variables.Spell[Variables.Spells.Q].IsInRange(target))
-                {
-                    Variables.Spell[Variables.Spells.Q].Cast(target);
-                }
-            }
-            if (ObjectManager.Player.LSIsDashing() || !getCheckBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.w")) return;
-            if (!Variables.Spell[Variables.Spells.W].IsReady()) return;
-
-            if (getCheckBoxItem(MenuGenerator.miscOptions, "com.ilucian.misc.usePrediction"))
-            {
-                var prediction = Variables.Spell[Variables.Spells.W].GetPrediction(target);
-                if (prediction.Hitchance >= HitChance.High)
-                {
-                    Variables.Spell[Variables.Spells.W].Cast(prediction.CastPosition);
-                }
-            }
-            else
-            {
-                if (target.LSDistance(ObjectManager.Player) < 600)
-                {
-                    Variables.Spell[Variables.Spells.W].Cast(target.Position);
-                }
-            }
+                        }
+                    }
+              }
+           }
         }
 
         private void OnHarass()
         {
+            var target = TargetSelector.GetTarget(
+                Variables.Spell[Variables.Spells.Q2].Range,
+                DamageType.Physical);
 
+            if (target == null || Variables.HasPassive()) return;
             if (getCheckBoxItem(MenuGenerator.harassOptions, "com.ilucian.harass.qExtended"))
             {
+                CastExtendedQ();
             }
 
             if (target.LSIsValidTarget(Variables.Spell[Variables.Spells.Q].Range) && getCheckBoxItem(MenuGenerator.harassOptions, "com.ilucian.harass.q"))
             {
+                if (Variables.Spell[Variables.Spells.Q].IsReady()
+                    && Variables.Spell[Variables.Spells.Q].IsInRange(target))
                 {
                     Variables.Spell[Variables.Spells.Q].Cast(target);
                 }
             }
+
             if (!ObjectManager.Player.LSIsDashing() && getCheckBoxItem(MenuGenerator.harassOptions, "com.ilucian.harass.w"))
             {
                 if (Variables.Spell[Variables.Spells.W].IsReady())
@@ -510,6 +635,12 @@
 
         private void OnJungleclear()
         {
+            var jungleMob =
+                MinionManager.GetMinions(
+                    Orbwalking.GetRealAutoAttackRange(ObjectManager.Player),
+                    MinionTypes.All,
+                    MinionTeam.Neutral,
+                    MinionOrderTypes.MaxHealth).FirstOrDefault(x => x.IsValid);
 
             if (jungleMob != null)
             {
@@ -538,6 +669,8 @@
                 var minions = MinionManager.GetMinions(Variables.Spell[Variables.Spells.Q].Range);
                 var bestLocation = Variables.Spell[Variables.Spells.Q].GetCircularFarmLocation(minions, 60);
 
+                if (bestLocation.MinionsHit
+                    < getSliderItem(MenuGenerator.laneclearOptions, "com.ilucian.laneclear.qMinions"))
                     return;
                 var adjacentMinions = minions.Where(m => m.LSDistance(bestLocation.Position) <= 45).ToList();
                 if (!adjacentMinions.Any())
@@ -547,6 +680,7 @@
 
                 var firstMinion = adjacentMinions.OrderBy(m => m.LSDistance(bestLocation.Position)).First();
 
+                if (!firstMinion.LSIsValidTarget(Variables.Spell[Variables.Spells.Q].Range)) return;
                 if (!Variables.HasPassive() && Orbwalking.InAutoAttackRange(firstMinion))
                 {
                     Variables.Spell[Variables.Spells.Q].Cast(firstMinion);
@@ -554,21 +688,70 @@
             }
         }
 
+        private void OnSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
+            if (getCheckBoxItem(MenuGenerator.miscOptions, "com.ilucian.misc.antiVayne") && sender.IsEnemy && sender.IsChampion("Vayne")
+                && args.Slot == SpellSlot.E)
             {
+                var predictedPosition = ObjectManager.Player.ServerPosition.LSExtend(sender.Position, -425);
+                var dashPosition = ObjectManager.Player.Position.LSExtend(Game.CursorPos, 450);
+                var dashCondemnCheck = dashPosition.LSExtend(sender.Position, -425);
 
+                if (Variables.Spell[Variables.Spells.E].IsReady() && predictedPosition.IsWall() && !dashCondemnCheck.IsWall())
+                {
+                    Variables.Spell[Variables.Spells.E].Cast(dashPosition);
+                }
             }
         }
 
+        private void OnUpdate(EventArgs args)
         {
+            Variables.Spell[Variables.Spells.W].Collision =
+                getCheckBoxItem(MenuGenerator.miscOptions, "com.ilucian.misc.usePrediction");
+            Killsteal();
 
-
-
+            if (getKeyBindItem(MenuGenerator.comboOptions, "com.ilucian.combo.forceR"))
             {
+                SemiUlt();
+                Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+            }
+
+
+            if (getCheckBoxItem(MenuGenerator.miscOptions, "com.ilucian.misc.forcePassive") && Variables.HasPassive())
+            {
+                var target = TargetSelector.GetTarget(
+                    ObjectManager.Player.AttackRange,
+                    DamageType.Physical);
+                if (target != null && target.IsValid)
                 {
+                    Orbwalker.ForcedTarget = target;
                 }
             }
 
+            AutoHarass();
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
             {
+            if (getCheckBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.qExtended"))
 
+              {
+                  CastExtendedQ();
+              }
+            }
+
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Harass))
+             {
+                OnHarass();
+             }
+            if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.LaneClear))
+             {
+                OnLaneclear();
+                OnJungleclear();
+             }       
+                    
+
+            }
         }
+
+        #endregion
+    }
+

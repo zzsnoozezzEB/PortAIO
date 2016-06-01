@@ -33,6 +33,7 @@ namespace iLucian.MenuHelper
             harassOptions.Add("com.ilucian.harass.auto.autoharass", new KeyBind("Enabled", false, KeyBind.BindTypes.PressToggle, 'Z'));
             harassOptions.Add("com.ilucian.harass.auto.q", new CheckBox("Use Q", true));
             harassOptions.Add("com.ilucian.harass.auto.qExtended", new CheckBox("Use Extended Q", true));
+            harassOptions.AddSeparator();
             harassOptions.Add("com.ilucian.harass.whitelist", new CheckBox("Extended Q Whitelist", true));            
                 foreach (var hero in HeroManager.Enemies)
                 {
