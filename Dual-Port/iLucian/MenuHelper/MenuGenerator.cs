@@ -33,6 +33,12 @@ namespace iLucian.MenuHelper
             harassOptions.Add("com.ilucian.harass.auto.autoharass", new KeyBind("Enabled", false, KeyBind.BindTypes.PressToggle, 'Z'));
             harassOptions.Add("com.ilucian.harass.auto.q", new CheckBox("Use Q", true));
             harassOptions.Add("com.ilucian.harass.auto.qExtended", new CheckBox("Use Extended Q", true));
+            harassOptions.Add("com.ilucian.harass.whitelist", new CheckBox("Extended Q Whitelist", true));            
+                foreach (var hero in HeroManager.Enemies)
+                {
+                  harassOptions.Add("com.ilucian.harass.whitelist." + hero.NetworkId, new CheckBox("Don't Q: " + hero.ChampionName));
+                }
+            
             harassOptions.AddGroupLabel("Harass : ");
             harassOptions.Add("com.ilucian.harass.q", new CheckBox("Use Q", true));
             harassOptions.Add("com.ilucian.harass.qExtended", new CheckBox("Use Extended Q", true));
@@ -51,10 +57,12 @@ namespace iLucian.MenuHelper
             miscOptions = Variables.Menu.AddSubMenu(":: iLucian - Misc Options", "com.ilucian.misc");
             miscOptions.Add("com.ilucian.misc.antiVayne", new CheckBox("Anti Vayne Condemn", true));
             miscOptions.Add("com.ilucian.misc.usePrediction", new CheckBox("Use W Pred", true));
+            miscOptions.Add("com.ilucian.misc.forcePassive", new CheckBox("Force Passive Target", true));
             miscOptions.Add("com.ilucian.misc.gapcloser", new CheckBox("Use E For Gapcloser", true));
             miscOptions.Add("com.ilucian.misc.eqKs", new CheckBox("EQ - Killsteal", true));
             miscOptions.Add("com.ilucian.misc.useChampions", new CheckBox("Use EQ on Champions", true));
             miscOptions.Add("com.ilucian.misc.extendChamps", new CheckBox("Use Ext Q on Champions", true));
+            miscOptions.Add("com.ilucian.misc.drawQ", new CheckBox("Draw Ext Q Range", true));
         }
     }
 }
