@@ -87,7 +87,7 @@ namespace OneKeyToWin_AIO_Sebby.Core
 
         private void Game_OnUpdate(EventArgs args)
         {
-            if (!Program.LagFree(0) || Player.IsRecalling() || Player.IsDead)
+            if (!Program.LagFree(0) || Player.LSIsRecalling() || Player.IsDead)
                 return;
 
             foreach (var obj in HiddenObjList)
@@ -108,7 +108,7 @@ namespace OneKeyToWin_AIO_Sebby.Core
             if (rengar && Player.HasBuff("rengarralertsound"))
                 CastVisionWards(Player.ServerPosition);
 
-            if (Vayne != null && Vayne.IsValidTarget(1000) && Vayne.HasBuff("vaynetumblefade"))
+            if (Vayne != null && Vayne.LSIsValidTarget(1000) && Vayne.HasBuff("vaynetumblefade"))
                 CastVisionWards(Vayne.ServerPosition);
 
             AutoWardLogic();
@@ -142,20 +142,20 @@ namespace OneKeyToWin_AIO_Sebby.Core
                         W.Cast();
                     }
 
-                    if (Program.Combo && PPDistance < 900 && Player.ChampionName == "Karthus" && Q.IsReady() && Player.CountEnemiesInRange(900) == 0)
+                    if (Program.Combo && PPDistance < 900 && Player.ChampionName == "Karthus" && Q.IsReady() && Player.LSCountEnemiesInRange(900) == 0)
                     {
                         Q.Cast(need.PredictedPos);
                     }
 
-                    if (Program.Combo && PPDistance < 1400 && Player.ChampionName == "Ashe" && E.IsReady() && Player.CountEnemiesInRange(800) == 0 && PortAIO.Champion.Ashe.Program.getAutoE())
+                    if (Program.Combo && PPDistance < 1400 && Player.ChampionName == "Ashe" && E.IsReady() && Player.LSCountEnemiesInRange(800) == 0 && PortAIO.Champion.Ashe.Program.getAutoE())
                     {
-                        E.Cast(Player.Position.Extend(need.PredictedPos, 5000));
+                        E.Cast(Player.Position.LSExtend(need.PredictedPos, 5000));
                     }
 
                     if (PPDistance < 800 && Player.ChampionName == "MissFortune" && E.IsReady() && Program.Combo &&
                         Player.Mana > 200)
                     {
-                        E.Cast(Player.Position.Extend(need.PredictedPos, 800));
+                        E.Cast(Player.Position.LSExtend(need.PredictedPos, 800));
                     }
 
                     if (!Orbwalker.IsAutoAttacking && PPDistance < 800 && Player.ChampionName == "Caitlyn" && W.IsReady() && Player.Mana > 200f && Caitlyn.getBushW() && Utils.TickCount - W.LastCastAttemptT > 2000)
@@ -410,11 +410,11 @@ namespace OneKeyToWin_AIO_Sebby.Core
             if (getCheckBoxItem("AutoWardPink"))
             {
                 if (OracleLens.IsReady())
-                    OracleLens.Cast(Player.Position.Extend(position, OracleLens.Range));
+                    OracleLens.Cast(Player.Position.LSExtend(position, OracleLens.Range));
                 else if (VisionWard.IsReady())
-                    VisionWard.Cast(Player.Position.Extend(position, VisionWard.Range));
+                    VisionWard.Cast(Player.Position.LSExtend(position, VisionWard.Range));
                 else if (Sweep.IsReady())
-                    Sweep.Cast(Player.Position.Extend(position, Sweep.Range));
+                    Sweep.Cast(Player.Position.LSExtend(position, Sweep.Range));
             }
         }
     }
