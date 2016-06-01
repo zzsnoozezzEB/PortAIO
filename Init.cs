@@ -436,12 +436,10 @@ namespace PortAIO
                         }
                         break;
                     case "nautilus":
-                        ExorSDK.AIO.OnLoad();
-                        break;
                     case "nunu":
+                    case "olaf":
                         ExorSDK.AIO.OnLoad();
                         break;
-                    case "olaf":
                     case "pantheon":
                     case "renekton":
                     case "tryndamere":

@@ -1,7 +1,7 @@
 using EloBuddy.SDK.Menu.Values;
-using ExorAIO.Utilities;
+using ExorSDK.Utilities;
 
-namespace ExorAIO.Champions.Olaf
+namespace ExorSDK.Champions.Olaf
 {
     /// <summary>
     ///     The menu class.
@@ -13,29 +13,52 @@ namespace ExorAIO.Champions.Olaf
         /// </summary>
         public static void Initialize()
         {
-            Variables.QMenu = Variables.Menu.AddSubMenu("Use Q to:", "qmenu");
-            Variables.QMenu.Add("qspell.combo", new CheckBox("Combo"));
-            Variables.QMenu.Add("qspell.harass", new CheckBox("Harass"));
-            Variables.QMenu.Add("qspell.ks", new CheckBox("KillSteal"));
-            Variables.QMenu.Add("qspell.farm", new CheckBox("Clear"));
-            Variables.QMenu.Add("qspell.mana", new Slider("Harass/Clear: Mana >= x", 50, 10, 99));
+            /// <summary>
+            ///     Sets the menu for the Q.
+            /// </summary>
+            Vars.QMenu = Vars.Menu.AddSubMenu("Use Q to:");
+            {
+                Vars.QMenu.Add("combo", new CheckBox("Combo", true));
+                Vars.QMenu.Add("killsteal", new CheckBox("KillSteal", true));
+                Vars.QMenu.Add("harass", new Slider("Harass / if Mana >= x%", 50, 0, 101));
+                Vars.QMenu.Add("clear", new Slider("Clear / if Mana >= x%", 50, 0, 101));
+            }
 
-            Variables.WMenu = Variables.Menu.AddSubMenu("Use W to:", "wmenu");
-            Variables.WMenu.Add("wspell.combo", new CheckBox("Combo"));
+            /// <summary>
+            ///     Sets the menu for the W.
+            /// </summary>
+            Vars.WMenu = Vars.Menu.AddSubMenu("Use W to:");
+            {
+                Vars.WMenu.Add("combo", new CheckBox("Combo", true));
+                Vars.WMenu.Add("clear", new Slider("Clear / if Mana >= x%", 50, 0, 101));
+                Vars.WMenu.Add("buildings", new Slider("Buildings / if Mana >= x%", 50, 0, 101));
+            }
 
-            Variables.EMenu = Variables.Menu.AddSubMenu("Use E to:", "esettingsmenu");
-            Variables.EMenu.Add("espell.combo", new CheckBox("Combo"));
-            Variables.EMenu.Add("espell.jgc", new CheckBox("JungleClear"));
-            Variables.EMenu.Add("espell.mana", new Slider("JungleClear: Mana >= x", 50, 10, 99));
+            /// <summary>
+            ///     Sets the menu for the E.
+            /// </summary>
+            Vars.EMenu = Vars.Menu.AddSubMenu("Use E to:");
+            {
+                Vars.EMenu.Add("combo", new CheckBox("Combo", true));
+                Vars.EMenu.Add("jungleclear", new Slider("JungleClear / if Mana >= x%", 50, 0, 101));
+            }
 
-            Variables.RMenu = Variables.Menu.AddSubMenu("Use R to:", "rmenu");
-            Variables.RMenu.Add("rspell.auto", new CheckBox("Logical (Cleanse)"));
+            /// <summary>
+            ///     Sets the menu for the R.
+            /// </summary>
+            Vars.RMenu = Vars.Menu.AddSubMenu("Use R to:");
+            {
+                Vars.RMenu.Add("logical", new CheckBox("Logical", true));
+            }
 
-            Variables.DrawingsMenu = Variables.Menu.AddSubMenu("Drawings", "drawingsmenu");
-            Variables.DrawingsMenu.Add("drawings.q", new CheckBox("Q Range", false));
-                //.SetValue(false).SetFontStyle(FontStyle.Regular, Color.Green);
-            Variables.DrawingsMenu.Add("drawings.e", new CheckBox("E Range", false));
-                //.SetValue(false).SetFontStyle(FontStyle.Regular, Color.Cyan);
+            /// <summary>
+            ///     Sets the drawings menu.
+            /// </summary>
+            Vars.DrawingsMenu = Vars.Menu.AddSubMenu("Drawings");
+            {
+                Vars.DrawingsMenu.Add("q", new CheckBox("Q Range"));
+                Vars.DrawingsMenu.Add("e", new CheckBox("E Range"));
+            }
         }
     }
 }
