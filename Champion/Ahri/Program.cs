@@ -155,7 +155,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
             {
                 return;
             }
-            if (E.IsReady() && gapcloser.Sender.IsValidTarget(E.Range) && getCheckBoxItem(EMenu, "Egapcloser" + gapcloser.Sender.NetworkId))
+            if (E.IsReady() && gapcloser.Sender.LSIsValidTarget(E.Range) && getCheckBoxItem(EMenu, "Egapcloser" + gapcloser.Sender.NetworkId))
             {
                 E.Cast(gapcloser.Sender);
             }
@@ -164,7 +164,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
         private static void Interrupter2_OnInterruptableTarget(AIHeroClient sender,
             Interrupter2.InterruptableTargetEventArgs args)
         {
-            if (E.IsReady() && Player.Distance(sender.ServerPosition) < E.Range)
+            if (E.IsReady() && Player.LSDistance(sender.ServerPosition) < E.Range)
             {
                 E.Cast(sender);
             }
@@ -192,10 +192,10 @@ namespace OneKeyToWin_AIO_Sebby.Champions
         {
             var dashPosition = Player.Position.LSExtend(Game.CursorPos, 450);
 
-            if (Player.Distance(Game.CursorPos) < 450)
+            if (Player.LSDistance(Game.CursorPos) < 450)
                 dashPosition = Game.CursorPos;
 
-            if (dashPosition.CountEnemiesInRange(800) > 2)
+            if (dashPosition.LSCountEnemiesInRange(800) > 2)
                 return;
 
             if (getCheckBoxItem(RMenu, "autoR2"))
@@ -211,7 +211,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                     var posPred = missileManager.CalculateReturnPos();
                     if (posPred != Vector3.Zero)
                     {
-                        if (missileManager.Missile.SData.Name == "AhriOrbReturn" && Player.Distance(posPred) > 200)
+                        if (missileManager.Missile.SData.Name == "AhriOrbReturn" && Player.LSDistance(posPred) > 200)
                         {
                             R.Cast(posPred);
                             Program.debug("AIMMMM");
@@ -223,7 +223,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
             if (getCheckBoxItem(RMenu, "autoR"))
             {
                 var t = TargetSelector.GetTarget(450 + R.Range, DamageType.Magical);
-                if (t.IsValidTarget())
+                if (t.LSIsValidTarget())
                 {
                     var comboDmg = R.GetDamage(t) * 3;
                     if (Q.IsReady())
@@ -234,11 +234,11 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                     {
                         comboDmg += W.GetDamage(t) + W.GetDamage(t, 1);
                     }
-                    if (t.CountAlliesInRange(600) < 2 && comboDmg > t.Health && t.Position.Distance(Game.CursorPos) < t.Position.Distance(Player.Position) && dashPosition.Distance(t.ServerPosition) < 500)
+                    if (t.CountAlliesInRange(600) < 2 && comboDmg > t.Health && t.Position.LSDistance(Game.CursorPos) < t.Position.LSDistance(Player.Position) && dashPosition.LSDistance(t.ServerPosition) < 500)
                     {
                         R.Cast(dashPosition);
                     }
-                    foreach (var target in Program.Enemies.Where(target => target.IsMelee && target.IsValidTarget(300)))
+                    foreach (var target in Program.Enemies.Where(target => target.IsMelee && target.LSIsValidTarget(300)))
                     {
                         R.Cast(dashPosition);
                     }
@@ -249,7 +249,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
         private static void LogicW()
         {
             var t = TargetSelector.GetTarget(W.Range, DamageType.Magical);
-            if (t.IsValidTarget())
+            if (t.LSIsValidTarget())
             {
                 if (Program.Combo && Player.Mana > RMANA + WMANA)
                     W.Cast();
@@ -274,7 +274,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
         private static void LogicQ()
         {
             var t = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
-            if (t.IsValidTarget())
+            if (t.LSIsValidTarget())
             {
                 missileManager.Target = t;
                 if (EMissile == null || !EMissile.IsValid)
@@ -293,7 +293,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                 {
                     foreach (
                         var enemy in
-                            Program.Enemies.Where(enemy => enemy.IsValidTarget(Q.Range) && !OktwCommon.CanMove(enemy)))
+                            Program.Enemies.Where(enemy => enemy.LSIsValidTarget(Q.Range) && !OktwCommon.CanMove(enemy)))
                         Q.Cast(enemy, true);
                 }
             }
@@ -313,16 +313,16 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                 var enemy in
                     Program.Enemies.Where(
                         enemy =>
-                            enemy.IsValidTarget(E.Range) &&
+                            enemy.LSIsValidTarget(E.Range) &&
                             E.GetDamage(enemy) + Q.GetDamage(enemy) + W.GetDamage(enemy) +
                             OktwCommon.GetEchoLudenDamage(enemy) > enemy.Health))
             {
                 Program.CastSpell(E, enemy);
             }
             var t = Orbwalker.LastTarget as AIHeroClient;
-            if (!t.IsValidTarget())
+            if (!t.LSIsValidTarget())
                 t = TargetSelector.GetTarget(E.Range, DamageType.Magical);
-            if (t.IsValidTarget())
+            if (t.LSIsValidTarget())
             {
                 if (Program.Combo && Player.Mana > RMANA + EMANA && getCheckBoxItem(EMenu, "Eon" + t.NetworkId))
                     Program.CastSpell(E, t);
@@ -338,7 +338,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
                         var enemy in
                             Program.Enemies.Where(
                                 enemy =>
-                                    enemy.IsValidTarget(E.Range) && !OktwCommon.CanMove(enemy) &&
+                                    enemy.LSIsValidTarget(E.Range) && !OktwCommon.CanMove(enemy) &&
                                     getCheckBoxItem(EMenu, "Eon" + enemy.NetworkId)))
                         E.Cast(enemy);
                 }
@@ -434,7 +434,7 @@ namespace OneKeyToWin_AIO_Sebby.Champions
             {
                 var t = TargetSelector.GetTarget(1500, DamageType.Physical);
 
-                if (t.IsValidTarget())
+                if (t.LSIsValidTarget())
                 {
                     var comboDmg = 0f;
                     if (R.IsReady())
