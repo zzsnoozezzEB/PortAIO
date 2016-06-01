@@ -439,6 +439,8 @@ namespace PortAIO
                         ExorSDK.AIO.OnLoad();
                         break;
                     case "nunu":
+                        ExorSDK.AIO.OnLoad();
+                        break;
                     case "olaf":
                     case "pantheon":
                     case "renekton":
