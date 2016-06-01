@@ -1088,7 +1088,6 @@
     <Compile Include="Utility\AutoSharp\Utils\Helpers.cs" />
     <Compile Include="Utility\AutoSharp\Utils\Positioning.cs" />
     <Compile Include="Utility\AutoSharp\Utils\Wizard.cs" />
-    <Compile Include="Utility\BaseUlt3\BaseUlt.cs" />
     <Compile Include="Utility\ElUtilitySuite\Entry.cs" />
     <Compile Include="Utility\ElUtilitySuite\IPlugin.cs" />
     <Compile Include="Utility\ElUtilitySuite\Items\Defensive2.cs" />
@@ -1121,10 +1120,8 @@
     <Compile Include="Utility\ElUtilitySuite\Summoners\Smite.cs" />
     <Compile Include="Utility\ElUtilitySuite\Trackers\BuildingTracker.cs" />
     <Compile Include="Utility\ElUtilitySuite\Trackers\CooldownTracker.cs" />
-    <Compile Include="Utility\ElUtilitySuite\Trackers\HealthTracker.cs" />
     <Compile Include="Utility\ElUtilitySuite\Trackers\JungleTracker.cs" />
     <Compile Include="Utility\ElUtilitySuite\Trackers\SpellTracker1.cs" />
-    <Compile Include="Utility\ElUtilitySuite\Trackers\SurrenderTracker.cs" />
     <Compile Include="Utility\ElUtilitySuite\Trackers\WardTracker.cs" />
     <Compile Include="Utility\ElUtilitySuite\Utility\AntiStealth.cs" />
     <Compile Include="Utility\ElUtilitySuite\Utility\AutoLantern.cs" />
@@ -1208,8 +1205,6 @@
     <Compile Include="Utility\NabbTracker\Utilities\Properties\Menus.cs" />
     <Compile Include="Utility\NabbTracker\Utilities\Variables.cs" />
     <Compile Include="Utility\NabbTracker\Utilities\WardTracker.cs" />
-    <Compile Include="Utility\RandomUlt\Helpers\LastPositions.cs" />
-    <Compile Include="Utility\RandomUlt\Program.cs" />
     <Compile Include="Utility\SebbyBanWars\Program.cs" />
     <Compile Include="Utility\SkinHack\Program.cs" />
     <Compile Include="Utility\SkinSDK\MenuConfig.cs" />
@@ -1222,8 +1217,6 @@
     <Compile Include="Utility\UniversalGankAlerter\Program.cs" />
     <Compile Include="Utility\UniversalPingBlock\Program.cs" />
     <Compile Include="Utility\UniversalRecallTracker\Program.cs" />
-    <Compile Include="Utility\WreckingBall\ChampInfo.cs" />
-    <Compile Include="Utility\WreckingBall\WreckingBall.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1540,7 +1540,6 @@ namespace Vayne
             FarmSettings,
             ExtraMenu,
             DrawingMenu,
-            ItemMenu,
             GPMenu;
 
         public static void BuildMenu()
