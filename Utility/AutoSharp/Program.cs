@@ -63,8 +63,6 @@ namespace AutoSharp
             randomizer.Add("autosharp.randomizer.playdefensive", new CheckBox("Play Defensive?"));
             randomizer.Add("autosharp.randomizer.auto", new CheckBox("Auto-Adjust? (ALPHA)"));
 
-            new PluginLoader();
-
             Cache.Load();
             Game.OnUpdate += Positioning.OnUpdate;
             Autoplay.Load();
@@ -113,6 +111,7 @@ namespace AutoSharp
 
         private static void AntiShrooms2(EventArgs args)
         {
+            Orbwalker.DisableMovement = true;
             if (Map == LeagueSharp.Common.Utility.Map.MapType.SummonersRift && !Heroes.Player.InFountain() &&
                 Heroes.Player.HealthPercent < getSliderItem(options, "recallhp"))
             {
