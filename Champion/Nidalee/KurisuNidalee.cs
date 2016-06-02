@@ -102,6 +102,8 @@ namespace KurisuNidalee
             qCMenu.Add("ndcqwc", new CheckBox("Enable in WaveClear"));
 
             wCMenu = Root.AddSubMenu("(W) Pounce", "ndcw");
+            wCMenu.Add("ndcwcHPChecl", new Slider("Don't Pounce if lower than % HP : ", 15, 0, 100));
+            wCMenu.Add("ndcwcEnemy", new Slider("Don't Pounce if enemies greater: ", 3, 1, 5));
             wCMenu.Add("ndcwcheck", new CheckBox("Check Hitchance", false));
             wCMenu.Add("ndcwch", new ComboBox("-> Min Hitchance", 2, "Low", "Medium", "High", "Very High"));
             wCMenu.Add("ndcwco", new CheckBox("Enable in Combo"));
