@@ -110,6 +110,7 @@
             comboMenu.AddGroupLabel("Star Combo Settings");
             comboMenu.Add("Star", new KeyBind("Star Combo", false, KeyBind.BindTypes.HoldActive, 'X'));
             comboMenu.Add("StarKill", new CheckBox("Auto Star Combo If Killable", false));
+            comboMenu.Add("StarKillWJ", new CheckBox("-> Ward Jump In Auto Star Combo", false));
 
             lcMenu = config.AddSubMenu("LaneClear", "Lane Clear");
             lcMenu.Add("W", new CheckBox("Use W", false));
@@ -441,7 +442,7 @@
                     {
                         return;
                     }
-                    if (!R.IsInRange(target) && target.DistanceToPlayer() < WardManager.WardRange + R.Range - 50
+                    if (getCheckBoxItem(comboMenu, "StarKillWJ") && !R.IsInRange(target) && target.DistanceToPlayer() < WardManager.WardRange + R.Range - 50
                         && Player.Mana >= 80 && !isDashing)
                     {
                         Flee(target.ServerPosition, true);
