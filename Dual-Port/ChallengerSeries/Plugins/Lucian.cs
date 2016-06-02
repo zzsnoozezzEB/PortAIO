@@ -53,7 +53,7 @@ namespace Challenger_Series.Plugins
                 ValidTargets.FirstOrDefault(
                     e => e.IsMelee && e.ServerPosition.Distance(ObjectManager.Player.ServerPosition) < 350 && e.IsEnemy);
 
-            if (possibleNearbyMeleeChampion.IsValidTarget())
+            if (possibleNearbyMeleeChampion.LSIsValidTarget())
             {
                 if (E.IsReady() && UseEAntiMelee)
                 {
@@ -61,6 +61,10 @@ namespace Challenger_Series.Plugins
                         -Misc.GiveRandomInt(250, 475));
                     if (!IsDangerousPosition(pos))
                     {
+                        if (pos.IsUnderEnemyTurret() && !ObjectManager.Player.IsUnderEnemyTurret())
+                        {
+                            return;
+                        }
                         E.Cast(pos);
                     }
                 }
@@ -118,22 +122,36 @@ namespace Challenger_Series.Plugins
             {
                 case 0:
                     {
-                        E.Cast(
-                            Deviate(ObjectManager.Player.Position.ToVector2(), target.Position.ToVector2(), this.GetHugAngle())
-                                .ToVector3());
+                        var pos = Deviate(ObjectManager.Player.Position.ToVector2(), target.Position.ToVector2(), this.GetHugAngle())
+                                .ToVector3();
+                        if (pos.IsUnderEnemyTurret() && !ObjectManager.Player.IsUnderEnemyTurret())
+                        {
+                            return false;
+                        }
+                        E.Cast(pos);
                         return true;
                     }
                 case 1:
                     {
                         if (!IsDangerousPosition(Game.CursorPos))
                         {
-                            E.Cast(ObjectManager.Player.Position.LSExtend(Game.CursorPos, Misc.GiveRandomInt(50, 100)));
+                            var pos = ObjectManager.Player.Position.LSExtend(Game.CursorPos, Misc.GiveRandomInt(50, 100));
+                            if (pos.IsUnderEnemyTurret() && !ObjectManager.Player.IsUnderEnemyTurret())
+                            {
+                                return false;
+                            }
+                            E.Cast(pos);
                         }
                         return true;
                     }
                 case 2:
                     {
-                        E.Cast(ObjectManager.Player.Position.LSExtend(target.Position, Misc.GiveRandomInt(50, 100)));
+                        var pos = ObjectManager.Player.Position.LSExtend(target.Position, Misc.GiveRandomInt(50, 100));
+                        if (pos.IsUnderEnemyTurret() && !ObjectManager.Player.IsUnderEnemyTurret())
+                        {
+                            return false;
+                        }
+                        E.Cast(pos);
                         return true;
                     }
             }
@@ -173,10 +191,13 @@ namespace Challenger_Series.Plugins
                 {
                     if (EJg && E.IsReady())
                     {
-
-                        E.Cast(
-                            Deviate(ObjectManager.Player.Position.ToVector2(), tg.Position.ToVector2(), this.GetHugAngle())
-                                .ToVector3());
+                        var pos = Deviate(ObjectManager.Player.Position.ToVector2(), tg.Position.ToVector2(), this.GetHugAngle())
+                                .ToVector3();
+                        if (pos.IsUnderEnemyTurret() && !ObjectManager.Player.IsUnderEnemyTurret())
+                        {
+                            return;
+                        }
+                        E.Cast(pos);
                         return;
                     }
                     if (QJg && Q.IsReady())
@@ -268,7 +289,12 @@ namespace Challenger_Series.Plugins
         {
             if (E.IsReady() && this.UseEGapclose && args.DangerLevel == LeagueSharp.SDK.DangerLevel.High && args.Sender.Distance(ObjectManager.Player) < 400)
             {
-                E.Cast(ObjectManager.Player.Position.Extend(args.Sender.Position, -Misc.GiveRandomInt(300, 600)));
+                var pos = ObjectManager.Player.Position.LSExtend(args.Sender.Position, -Misc.GiveRandomInt(300, 600));
+                if (pos.IsUnderEnemyTurret() && !ObjectManager.Player.IsUnderEnemyTurret())
+                {
+                    return;
+                }
+                E.Cast(ObjectManager.Player.Position.LSExtend(args.Sender.Position, -Misc.GiveRandomInt(300, 600)));
             }
         }
 
@@ -276,7 +302,12 @@ namespace Challenger_Series.Plugins
         {
             if (E.IsReady() && UseEGapclose && args.Sender.IsMelee && args.End.Distance(ObjectManager.Player.ServerPosition) > args.Sender.AttackRange)
             {
-                E.Cast(ObjectManager.Player.Position.Extend(args.Sender.Position, -Misc.GiveRandomInt(250, 600)));
+                var pos = ObjectManager.Player.Position.LSExtend(args.Sender.Position, -Misc.GiveRandomInt(250, 600));
+                if (pos.IsUnderEnemyTurret() && !ObjectManager.Player.IsUnderEnemyTurret())
+                {
+                    return;
+                }
+                E.Cast(ObjectManager.Player.Position.LSExtend(args.Sender.Position, -Misc.GiveRandomInt(250, 600)));
             }
         }
 
@@ -308,7 +339,10 @@ namespace Challenger_Series.Plugins
                                         target.ServerPosition, Math.Abs(dist - 500));
                                     if (!IsDangerousPosition(pos))
                                     {
-                                        E.Cast(Deviate(ObjectManager.Player.Position.ToVector2(), target.Position.ToVector2(), this.GetGapclosingAngle()));
+                                        if (pos.IsUnderEnemyTurret() && !ObjectManager.Player.IsUnderEnemyTurret())
+                                        {
+                                            return;
+                                        }
                                         return;
                                     }
                                 }
