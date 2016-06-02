@@ -18,6 +18,7 @@ namespace PortAIO.Utility
     {
 
         public static bool useActivator { get { return Miscc["activator"].Cast<CheckBox>().CurrentValue; } }
+        public static bool sdkPredictioner { get { return Miscc["sdkPredictioner"].Cast<CheckBox>().CurrentValue; } }
         public static bool cheat { get { return Miscc["cheat"].Cast<CheckBox>().CurrentValue; } }
         public static bool autoSharp { get { return Miscc["autoSharp"].Cast<CheckBox>().CurrentValue; } }
         public static bool useTracker { get { return Miscc["tracker"].Cast<CheckBox>().CurrentValue; } }
@@ -419,6 +420,7 @@ namespace PortAIO.Utility
             Miscc.Add("antialistar", new CheckBox("Enable AntiAlistar?", true));
             Miscc.AddSeparator();
             Miscc.Add("autoSharp", new CheckBox("Enable Auto Sharp?", false));
+            Miscc.Add("sdkPredictioner", new CheckBox("Enable SDKPredictioner?", true));
             Miscc.Add("traptrack", new CheckBox("Enable TrapTracker?", false));
 
             /*
