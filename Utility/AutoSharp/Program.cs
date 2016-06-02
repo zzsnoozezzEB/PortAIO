@@ -260,10 +260,13 @@ namespace AutoSharp
                         args.Process = false;
                         return;
                     }
-                    if (Heroes.Player.HealthPercent < getSliderItem(options, "recallhp"))
+                    if (Map == LeagueSharp.Common.Utility.Map.MapType.SummonersRift)
                     {
-                        args.Process = false;
-                        return;
+                        if (Heroes.Player.HealthPercent < getSliderItem(options, "recallhp"))
+                        {
+                            args.Process = false;
+                            return;
+                        }
                     }
                 }
 
