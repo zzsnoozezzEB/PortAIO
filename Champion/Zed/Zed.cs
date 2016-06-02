@@ -5,20 +5,23 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
     using LeagueSharp;
+    using LeagueSharp.Data.Enumerations;
     using LeagueSharp.SDK;
-    using LeagueSharp.SDK.Core.Utils;
-    using LeagueSharp.SDK.Modes;
     using SharpDX;
+
     using Valvrave_Sharp.Core;
     using Valvrave_Sharp.Evade;
+
     using Color = System.Drawing.Color;
     using Skillshot = Valvrave_Sharp.Evade.Skillshot;
     using EloBuddy;
-    using LeagueSharp.Data.Enumerations;
-    using EloBuddy.SDK;
+    using LeagueSharp.SDK.Core.Utils;
     using EloBuddy.SDK.Menu;
     using EloBuddy.SDK.Menu.Values;
+    using LeagueSharp.SDK.Modes;
+    using EloBuddy.SDK;
     #endregion
 
     internal class Zed : Program
@@ -71,7 +74,7 @@
             Q2 = new LeagueSharp.SDK.Spell(Q.Slot, Q.Range).SetSkillshot(Q.Delay, Q.Width, Q.Speed, true, Q.Type);
             Q3 = new LeagueSharp.SDK.Spell(Q.Slot, Q.Range).SetSkillshot(Q.Delay, Q.Width, Q.Speed, true, Q.Type);
             W = new LeagueSharp.SDK.Spell(SpellSlot.W, 700).SetSkillshot(0, 60, 1750, false, SkillshotType.SkillshotLine);
-            E = new LeagueSharp.SDK.Spell(SpellSlot.E, 290).SetTargetted(0.001f, float.MaxValue);
+            E = new LeagueSharp.SDK.Spell(SpellSlot.E, 290).SetTargetted(0.005f, float.MaxValue);
             R = new LeagueSharp.SDK.Spell(SpellSlot.R, 625);
             Q.DamageType = W.DamageType = E.DamageType = R.DamageType = DamageType.Physical;
             Q.MinHitChance = HitChance.VeryHigh;
@@ -79,6 +82,7 @@
             comboMenu = config.AddSubMenu("Combo", "Combo");
             comboMenu.AddGroupLabel("Q/E: Always On");
             comboMenu.Add("Ignite", new CheckBox("Use Ignite"));
+            comboMenu.Add("Items", new CheckBox("Use Items"));
             comboMenu.AddGroupLabel("Swap Settings");
             comboMenu.Add("SwapIfKill", new CheckBox("Swap W/R If Mark Can Kill Target", false));
             comboMenu.Add("SwapIfHpU", new Slider("Swap W/R If Hp < (%)", 10));
@@ -90,7 +94,7 @@
             comboMenu.Add("R", new KeyBind("Use R", false, KeyBind.BindTypes.PressToggle, 'X'));
             comboMenu.Add("RMode", new ComboBox("Mode", 0, "Always", "Wait Q/E"));
             comboMenu.Add("RStopRange", new Slider("Prevent Q/W/E If R Ready And Distance <=", (int)(R.Range + 200), (int)R.Range, (int)(R.Range + W.Range)));
-            if (EntityManager.Heroes.Enemies.Any())
+            if (GameObjects.EnemyHeroes.Any())
             {
                 comboMenu.AddGroupLabel("Extra R Settings");
                 foreach (var enemy in ObjectManager.Get<AIHeroClient>().Where(o => o.IsEnemy))
@@ -114,7 +118,7 @@
             ksMenu.Add("Q", new CheckBox("Use Q"));
             ksMenu.Add("E", new CheckBox("Use E"));
 
-            if (EntityManager.Heroes.Enemies.Any())
+            if (GameObjects.EnemyHeroes.Any())
             {
                 Evade.Init();
             }
@@ -254,6 +258,7 @@
                     deathMark = null;
                 }
             };
+
         }
 
         #endregion
@@ -279,23 +284,28 @@
                     && getKeyBindItem(comboMenu, "R") && RState == 0)
                 {
                     var targetR = EntityManager.Heroes.Enemies.Where(i => i.IsInRange(Player, Q.Range + extraRange) && i.LSIsValidTarget()).OrderByDescending(i => TargetSelector.GetPriority(i)).ThenBy(i => i.DistanceToPlayer()).FirstOrDefault(i => getCheckBoxItem(comboMenu, "RCast" + i.NetworkId));
+
                     if (targetR != null)
                     {
                         return targetR;
                     }
                 }
                 var targets = EntityManager.Heroes.Enemies.Where(i => i.IsInRange(Player, Q.Range + extraRange) && i.LSIsValidTarget()).ToList();
-                if (targets.Count == 0 || targets == null)
+                if (targets.Count == 0)
                 {
                     return null;
                 }
                 var target = targets.FirstOrDefault(HaveR);
-                return target != null ? (IsKillByMark(target) ? (targets.FirstOrDefault(i => !i.Compare(target)) ?? target) : target) : targets.FirstOrDefault();
+                return target != null
+                           ? (IsKillByMark(target)
+                                  ? (targets.FirstOrDefault(i => !i.Compare(target)) ?? target)
+                                  : target)
+                           : targets.FirstOrDefault();
             }
         }
 
         private static bool IsCastingW
-            => !wShadow.IsValid() && wMissile != null && wMissile.Distance(wMissile.EndPosition) < 40;
+            => !wShadow.LSIsValid() && wMissile != null && wMissile.Distance(wMissile.EndPosition) < 40;
 
         private static bool IsROne => R.Instance.SData.Name == "ZedR";
 
@@ -305,8 +315,8 @@
         {
             get
             {
-                var validW = wShadow.IsValid();
-                var validR = rShadow.IsValid();
+                var validW = wShadow.LSIsValid();
+                var validR = rShadow.LSIsValid();
                 var posW = validW ? wShadow.ServerPosition : new Vector3();
                 if (!posW.IsValid() && IsCastingW)
                 {
@@ -322,12 +332,12 @@
         }
 
         private static bool RShadowCanQ
-            => rShadow.IsValid() && Variables.TickCount - rShadowT <= 7500 - Q.Delay * 1000 + 50;
+            => rShadow.LSIsValid() && Variables.TickCount - rShadowT <= 7500 - Q.Delay * 1000 + 50;
 
         private static int RState => R.IsReady() ? (IsROne ? 0 : 1) : (IsROne ? -1 : 2);
 
         private static bool WShadowCanQ
-            => wShadow.IsValid() && Variables.TickCount - wShadowT <= 4500 - Q.Delay * 1000 + 50;
+            => wShadow.LSIsValid() && Variables.TickCount - wShadowT <= 4500 - Q.Delay * 1000 + 50;
 
         private static int WState => W.IsReady() ? (IsWOne ? 0 : 1) : -1;
 
@@ -370,7 +380,7 @@
             {
                 targets = targets.Where(i => !IsKillByMark(i) && i.Health + i.AttackShield <= E.GetDamage(i)).ToList();
             }
-            if (targets.Count == 0 || targets == null)
+            if (targets.Count == 0)
             {
                 return;
             }
@@ -389,7 +399,7 @@
             var pred = Q.GetPrediction(target, true, -1, LeagueSharp.SDK.CollisionableObjects.YasuoWall);
             if (pred.Hitchance >= Q.MinHitChance)
             {
-                Q.Cast(target);
+                Q.Cast(pred.CastPosition);
             }
             else
             {
@@ -401,12 +411,12 @@
                 }
                 else if (IsCastingW)
                 {
-                    Q2.UpdateSourcePosition(wMissile.EndPosition);
+                    Q2.UpdateSourcePosition(wMissile.EndPosition, wMissile.EndPosition);
                     predShadow = Q2.GetPrediction(target, true, -1, LeagueSharp.SDK.CollisionableObjects.YasuoWall);
                 }
                 if (predShadow != null && predShadow.Hitchance >= Q.MinHitChance)
                 {
-                    Q2.Cast(target);
+                    Q.Cast(predShadow.CastPosition);
                 }
                 else if (RShadowCanQ)
                 {
@@ -414,7 +424,7 @@
                     predShadow = Q2.GetPrediction(target, true, -1, LeagueSharp.SDK.CollisionableObjects.YasuoWall);
                     if (predShadow.Hitchance >= Q.MinHitChance)
                     {
-                        Q.Cast(target);
+                        Q.Cast(predShadow.CastPosition);
                     }
                 }
             }
@@ -509,7 +519,7 @@
                 var targetR = getCheckBoxItem(comboMenu, "RCast" + target.NetworkId);
                 var stateR = RState;
                 var canCast = !useR || !targetR
-                              || (stateR == 0 && target.Distance(Player) > getSliderItem(comboMenu, "RStopRange"))
+                              || (stateR == 0 && target.DistanceToPlayer() > getSliderItem(comboMenu, "RStopRange"))
                               || stateR == -1;
                 if (stateR == 0 && useR && targetR && R.IsInRange(target) && CanR && R.CastOnUnit(target))
                 {
@@ -527,7 +537,7 @@
                     var slot = CanW(target);
                     if (slot != SpellSlot.Unknown)
                     {
-                        if (advW > 0 && rShadow.IsValid() && useR && targetR && HaveR(target) && !IsKillByMark(target))
+                        if (advW > 0 && rShadow.LSIsValid() && useR && targetR && HaveR(target) && !IsKillByMark(target))
                         {
                             CastW(target, slot, true);
                             return;
@@ -538,7 +548,7 @@
                             {
                                 CastW(target, slot);
                             }
-                            if (rShadow.IsValid() && useR && targetR && !HaveR(target))
+                            if (rShadow.LSIsValid() && useR && targetR && !HaveR(target))
                             {
                                 CastW(target, slot);
                             }
@@ -561,27 +571,32 @@
                     CastQ(target);
                 }
             }
+            if (getCheckBoxItem(comboMenu, "Items"))
+            {
+                UseItem(target);
+            }
         }
 
         private static void Evading(Obj_AI_Base sender)
         {
-            var skillshot = Evade.SkillshotAboutToHit(sender, 50).OrderByDescending(i => i.DangerLevel).ToList();
+            var skillshot = Evade.SkillshotAboutToHit(sender, 100).OrderByDescending(i => i.DangerLevel).ToList();
             if (skillshot.Count == 0)
             {
                 return;
             }
             var zedW2 = EvadeSpellDatabase.Spells.FirstOrDefault(i => i.Enable && i.IsReady && i.Slot == SpellSlot.W);
-            if (zedW2 != null && wShadow.IsValid() && !Evade.IsAboutToHit(wShadow, 30)
+            if (zedW2 != null && wShadow.LSIsValid() && !Evade.IsAboutToHit(wShadow, 30)
                 && (!wShadow.IsUnderEnemyTurret() || getCheckBoxItem(Config.evadeMenu, zedW2.Name + "Tower"))
                 && skillshot.Any(i => i.DangerLevel >= zedW2.DangerLevel) && W.Cast())
             {
-                sender.Spellbook.CastSpell(zedW2.Slot);
                 return;
             }
             var zedR2 =
                 EvadeSpellDatabase.Spells.FirstOrDefault(
                     i => i.Enable && i.IsReady && i.Slot == SpellSlot.R && i.CheckSpellName == "zedr2");
-            if (zedR2 != null && rShadow.IsValid() && !Evade.IsAboutToHit(rShadow, 30) && (!rShadow.IsUnderEnemyTurret() || getCheckBoxItem(Config.evadeMenu, zedR2.Name + "Tower") && skillshot.Any(i => i.DangerLevel >= zedR2.DangerLevel)))
+            if (zedR2 != null && rShadow.LSIsValid() && !Evade.IsAboutToHit(rShadow, 30)
+                && (!rShadow.IsUnderEnemyTurret() || getCheckBoxItem(Config.evadeMenu, zedR2.Name + "Tower"))
+                && skillshot.Any(i => i.DangerLevel >= zedR2.DangerLevel))
             {
                 R.Cast();
             }
@@ -591,6 +606,28 @@
         {
             var dmgTotal = 0d;
             var manaTotal = 0f;
+            if (getCheckBoxItem(comboMenu, "Items"))
+            {
+                if (Bilgewater.IsReady())
+                {
+                    dmgTotal += Player.CalculateDamage(target, DamageType.Magical, 100);
+                }
+                if (BotRuinedKing.IsReady())
+                {
+                    dmgTotal += Player.CalculateDamage(
+                        target,
+                        DamageType.Physical,
+                        Math.Max(target.MaxHealth * 0.1, 100));
+                }
+                if (Tiamat.IsReady() || Hydra.IsReady())
+                {
+                    dmgTotal += Player.CalculateDamage(target, DamageType.Physical, Player.TotalAttackDamage);
+                }
+                if (Titanic.IsReady())
+                {
+                    dmgTotal += Player.CalculateDamage(target, DamageType.Physical, 40 + 0.1f * Player.MaxHealth);
+                }
+            }
             if (useQ)
             {
                 dmgTotal += Q.GetDamage(target);
@@ -650,8 +687,8 @@
         private static bool IsInRangeE(AIHeroClient target)
         {
             var pos = E.GetPredPosition(target);
-            return pos.DistanceToPlayer() < E.Range || (wShadow.IsValid() && wShadow.Distance(pos) < E.Range)
-                   || (rShadow.IsValid() && rShadow.Distance(pos) < E.Range)
+            return pos.DistanceToPlayer() < E.Range || (wShadow.LSIsValid() && wShadow.Distance(pos) < E.Range)
+                   || (rShadow.LSIsValid() && rShadow.Distance(pos) < E.Range)
                    || (IsCastingW && wMissile.EndPosition.Distance(pos) < E.Range);
         }
 
@@ -665,7 +702,7 @@
             if (getCheckBoxItem(ksMenu, "Q") && Q.IsReady())
             {
                 var targets = EntityManager.Heroes.Enemies.Where(i => i.IsInRange(Player, Q.Range + Q.Width / 2 + RangeTarget) && !IsKillByMark(i) && i.Health + i.AttackShield <= Q.GetDamage(i)).ToList();
-                if (targets.Count > 0 && targets != null)
+                if (targets.Count > 0)
                 {
                     foreach (var target in targets)
                     {
@@ -710,8 +747,8 @@
                 return;
             }
             var minions =
-                EntityManager.MinionsAndMonsters.EnemyMinions.Where(
-                    i => (i.IsMinion() || i.IsPet(false)) && i.IsValidTarget(Q.Range) && Q.CanLastHit(i, Q.GetDamage(i)))
+                GameObjects.EnemyMinions.Where(
+                    i => (i.IsMinion() || i.IsPet(false)) && i.LSIsValidTarget(Q.Range) && Q.CanLastHit(i, Q.GetDamage(i)))
                     .OrderByDescending(i => i.MaxHealth)
                     .ToList();
             if (minions.Count == 0)
@@ -772,9 +809,9 @@
                     Render.Circle.DrawCircle(target.Position, target.BoundingRadius * 1.5f, Color.Aqua);
                 }
             }
-            if (getCheckBoxItem(drawMenu, "DMark") && rShadow.IsValid())
+            if (getCheckBoxItem(drawMenu, "DMark") && rShadow.LSIsValid())
             {
-                var target = EntityManager.Heroes.Enemies.FirstOrDefault(i => i.LSIsValidTarget() && IsKillByMark(i));
+                var target = GameObjects.EnemyHeroes.FirstOrDefault(i => i.LSIsValidTarget() && IsKillByMark(i));
                 if (target != null)
                 {
                     var pos = Drawing.WorldToScreen(Player.Position);
@@ -782,13 +819,13 @@
                     Drawing.DrawText(pos.X - (float)70 / 2, pos.Y + 40, Color.Red, text);
                 }
             }
-            if (getCheckBoxItem(drawMenu, "WPos") && wShadow.IsValid())
+            if (getCheckBoxItem(drawMenu, "WPos") && wShadow.LSIsValid())
             {
                 Render.Circle.DrawCircle(wShadow.Position, wShadow.BoundingRadius, Color.MediumSlateBlue);
                 var pos = Drawing.WorldToScreen(wShadow.Position);
                 Drawing.DrawText(pos.X - (float)30 / 2, pos.Y, Color.BlueViolet, "W");
             }
-            if (getCheckBoxItem(drawMenu, "RPos") && rShadow.IsValid())
+            if (getCheckBoxItem(drawMenu, "RPos") && rShadow.LSIsValid())
             {
                 Render.Circle.DrawCircle(rShadow.Position, rShadow.BoundingRadius, Color.MediumSlateBlue);
                 var pos = Drawing.WorldToScreen(rShadow.Position);
@@ -798,11 +835,10 @@
 
         private static void OnUpdate(EventArgs args)
         {
-            if (Player.IsDead || MenuGUI.IsChatOpen || Player.LSIsRecalling())
+            if (Player.IsDead || MenuGUI.IsChatOpen || Shop.IsOpen || Player.LSIsRecalling())
             {
                 return;
             }
-
             KillSteal();
 
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
@@ -868,8 +904,8 @@
             }
             else if (getBoxItem(comboMenu, "SwapGap") > 0 && !E.IsInRange(target) && !markCanKill)
             {
-                var wDist = WState == 1 && wShadow.IsValid() ? wShadow.Distance(target) : float.MaxValue;
-                var rDist = RState == 1 && rShadow.IsValid() ? rShadow.Distance(target) : float.MaxValue;
+                var wDist = WState == 1 && wShadow.LSIsValid() ? wShadow.Distance(target) : float.MaxValue;
+                var rDist = RState == 1 && rShadow.LSIsValid() ? rShadow.Distance(target) : float.MaxValue;
                 var minDist = Math.Min(wDist, rDist);
                 if (minDist.Equals(float.MaxValue) || target.DistanceToPlayer() <= minDist)
                 {
@@ -945,8 +981,8 @@
 
         private static void SwapCountEnemy()
         {
-            var wCount = WState == 1 && wShadow.IsValid() ? wShadow.CountEnemyHeroesInRange(400) : int.MaxValue;
-            var rCount = RState == 1 && rShadow.IsValid() ? rShadow.CountEnemyHeroesInRange(400) : int.MaxValue;
+            var wCount = WState == 1 && wShadow.LSIsValid() ? wShadow.CountEnemyHeroesInRange(400) : int.MaxValue;
+            var rCount = RState == 1 && rShadow.LSIsValid() ? rShadow.CountEnemyHeroesInRange(400) : int.MaxValue;
             var minCount = Math.Min(rCount, wCount);
             if (minCount == int.MaxValue || Player.CountEnemyHeroesInRange(400) <= minCount)
             {
@@ -978,6 +1014,37 @@
             if (target != null)
             {
                 R.CastOnUnit(target);
+            }
+        }
+
+        private static void UseItem(AIHeroClient target)
+        {
+            if (target != null && (HaveR(target) || target.HealthPercent < 40 || Player.HealthPercent < 50))
+            {
+                if (Bilgewater.IsReady())
+                {
+                    Bilgewater.Cast(target);
+                }
+                if (BotRuinedKing.IsReady())
+                {
+                    BotRuinedKing.Cast(target);
+                }
+            }
+            if (Youmuu.IsReady() && Player.CountEnemyHeroesInRange(R.Range + E.Range) > 0)
+            {
+                Youmuu.Cast();
+            }
+            if (Tiamat.IsReady() && Player.CountEnemyHeroesInRange(Tiamat.Range) > 0)
+            {
+                Tiamat.Cast();
+            }
+            if (Hydra.IsReady() && Player.CountEnemyHeroesInRange(Hydra.Range) > 0)
+            {
+                Hydra.Cast();
+            }
+            if (Titanic.IsReady() && !Player.Spellbook.IsAutoAttacking && Orbwalker.LastTarget != null)
+            {
+                Titanic.Cast();
             }
         }
 
