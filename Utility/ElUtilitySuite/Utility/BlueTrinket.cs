@@ -10,7 +10,7 @@
     using EloBuddy.SDK.Menu;
     using EloBuddy;
     using EloBuddy.SDK.Menu.Values;
-    internal class BlueTrinket : IPlugin
+    internal class BlueTrinket
     {
         #region Constants
 

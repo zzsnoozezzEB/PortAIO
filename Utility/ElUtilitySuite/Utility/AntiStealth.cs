@@ -11,7 +11,7 @@
     using EloBuddy;
     using EloBuddy.SDK.Menu;
     using EloBuddy.SDK.Menu.Values;
-    internal class AntiStealth : IPlugin
+    internal class AntiStealth
     {
         #region Static Fields
 

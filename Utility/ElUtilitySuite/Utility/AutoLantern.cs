@@ -8,7 +8,7 @@
     using EloBuddy;
     using EloBuddy.SDK.Menu;
     using EloBuddy.SDK.Menu.Values;
-    internal class AutoLantern : IPlugin
+    internal class AutoLantern
     {
         #region Fields
 

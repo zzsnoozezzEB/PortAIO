@@ -139,121 +139,121 @@
             Game.OnUpdate += OnUpdate;
             Drawing.OnDraw += OnDraw;
             Obj_AI_Base.OnProcessSpellCast += (sender, args) =>
+            {
+                if (!sender.IsMe)
                 {
-                    if (!sender.IsMe)
-                    {
-                        return;
-                    }
-                    if (args.Slot == SpellSlot.W && args.SData.Name == "ZedW")
-                    {
-                        rCasted = false;
-                        wCasted = true;
-                    }
-                    else if (args.Slot == SpellSlot.R && args.SData.Name == "ZedR")
-                    {
-                        wCasted = false;
-                        rCasted = true;
-                    }
-                };
+                    return;
+                }
+                if (args.Slot == SpellSlot.W && args.SData.Name == "ZedW")
+                {
+                    rCasted = false;
+                    wCasted = true;
+                }
+                else if (args.Slot == SpellSlot.R && args.SData.Name == "ZedR")
+                {
+                    wCasted = false;
+                    rCasted = true;
+                }
+            };
             GameObject.OnCreate += (sender, args) =>
+            {
+                if (sender.IsEnemy)
                 {
-                    if (sender.IsEnemy)
-                    {
-                        return;
-                    }
-                    var shadow = sender as Obj_AI_Minion;
-                    if (shadow == null || !shadow.IsAlly || shadow.CharData.BaseSkinName != "ZedUltMissile" || shadow.CharData.BaseSkinName != "ZedShadowDashMissile" || shadow.CharData.BaseSkinName != "zedshadow")
-                    {
-                        return;
-                    }
-                    if (wCasted)
-                    {
-                        wShadowT = Variables.TickCount;
-                        wShadow = shadow;
-                        wCasted = rCasted = false;
-                    }
-                    else if (rCasted)
-                    {
-                        rShadowT = Variables.TickCount;
-                        rShadow = shadow;
-                        wCasted = rCasted = false;
-                    }
-                };
+                    return;
+                }
+                var shadow = sender as Obj_AI_Minion;
+                if (shadow == null || !shadow.IsAlly || shadow.CharData.BaseSkinName != "ZedUltMissile" || shadow.CharData.BaseSkinName != "ZedShadowDashMissile" || shadow.CharData.BaseSkinName != "zedshadow")
+                {
+                    return;
+                }
+                if (wCasted)
+                {
+                    wShadowT = Variables.TickCount;
+                    wShadow = shadow;
+                    wCasted = rCasted = false;
+                }
+                else if (rCasted)
+                {
+                    rShadowT = Variables.TickCount;
+                    rShadow = shadow;
+                    wCasted = rCasted = false;
+                }
+            };
             Obj_AI_Base.OnBuffGain += (sender, args) =>
+            {
+                if (sender.IsEnemy || !args.Buff.Caster.IsMe)
                 {
-                    if (sender.IsEnemy || !args.Buff.Caster.IsMe)
+                    return;
+                }
+                var shadow = sender as Obj_AI_Minion;
+                if (shadow != null && shadow.IsAlly && shadow.BaseSkinName == "ZedShadow" && args.Buff.Caster.IsMe)
+                {
+                    switch (args.Buff.Name)
                     {
-                        return;
+                        case "zedwshadowbuff":
+                            if (!wShadow.Compare(shadow))
+                            {
+                                wShadowT = Variables.TickCount;
+                                wShadow = shadow;
+                            }
+                            break;
+                        case "zedrshadowbuff":
+                            if (!rShadow.Compare(shadow))
+                            {
+                                rShadowT = Variables.TickCount;
+                                rShadow = shadow;
+                            }
+                            break;
                     }
-                    var shadow = sender as Obj_AI_Minion;
-                    if (shadow != null && shadow.IsAlly && shadow.BaseSkinName == "ZedShadow" && args.Buff.Caster.IsMe)
-                    {
-                        switch (args.Buff.Name)
-                        {
-                            case "zedwshadowbuff":
-                                if (!wShadow.Compare(shadow))
-                                {
-                                    wShadowT = Variables.TickCount;
-                                    wShadow = shadow;
-                                }
-                                break;
-                            case "zedrshadowbuff":
-                                if (!rShadow.Compare(shadow))
-                                {
-                                    rShadowT = Variables.TickCount;
-                                    rShadow = shadow;
-                                }
-                                break;
-                        }
-                    }
-                };
+                }
+            };
             Obj_AI_Base.OnPlayAnimation += (sender, args) =>
+            {
+                if (sender.IsMe || sender.IsEnemy || args.Animation != "Death")
                 {
-                    if (sender.IsMe || sender.IsEnemy || args.Animation != "Death")
-                    {
-                        return;
-                    }
-                    if (sender.Compare(wShadow))
-                    {
-                        wShadow = null;
-                    }
-                    else if (sender.Compare(rShadow))
-                    {
-                        rShadow = null;
-                    }
-                };
+                    return;
+                }
+                if (sender.Compare(wShadow))
+                {
+                    wShadow = null;
+                }
+                else if (sender.Compare(rShadow))
+                {
+                    rShadow = null;
+                }
+            };
             GameObject.OnCreate += (sender, args) =>
+            {
+                var missile = sender as MissileClient;
+                if (missile != null)
                 {
-                    var missile = sender as MissileClient;
-                    if (missile != null)
+                    if (missile.SpellCaster.IsMe && missile.SData.Name == "ZedWMissile")
                     {
-                        if (missile.SpellCaster.IsMe && missile.SData.Name == "ZedWMissile")
-                        {
-                            wMissile = missile;
-                        }
-                        return;
+                        wMissile = missile;
                     }
-                    if (sender.Name != "Zed_Base_R_buf_tell.troy")
-                    {
-                        return;
-                    }
-                    var target = EntityManager.Heroes.Enemies.FirstOrDefault(i => i.LSIsValidTarget() && HaveR(i));
-                    if (target != null && target.Distance(sender) < 150)
-                    {
-                        deathMark = sender;
-                    }
-                };
+                    return;
+                }
+                if (sender.Name != "Zed_Base_R_buf_tell.troy")
+                {
+                    return;
+                }
+                var target = EntityManager.Heroes.Enemies.FirstOrDefault(i => i.LSIsValidTarget() && HaveR(i));
+                if (target != null && target.Distance(sender) < 150)
+                {
+                    deathMark = sender;
+                }
+            };
             GameObject.OnDelete += (sender, args) =>
-                    {
-                        if (sender.Compare(wMissile))
-                        {
-                            wMissile = null;
-                        }
-                        else if (sender.Compare(deathMark))
-                        {
-                            deathMark = null;
-                        }
-                    };
+            {
+                if (sender.Compare(wMissile))
+                {
+                    wMissile = null;
+                }
+                else if (sender.Compare(deathMark))
+                {
+                    deathMark = null;
+                }
+            };
         }
 
         #endregion

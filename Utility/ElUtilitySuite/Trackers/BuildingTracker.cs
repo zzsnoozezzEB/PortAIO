@@ -11,7 +11,7 @@
     using EloBuddy.SDK.Menu;
     using EloBuddy.SDK.Menu.Values;
     using EloBuddy;
-    internal class BuildingTracker : IPlugin
+    internal class BuildingTracker
     {
         #region Public Properties
 
