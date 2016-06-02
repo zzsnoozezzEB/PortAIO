@@ -342,7 +342,7 @@
             {
                 return;
             }
-            var col = pred.GetCollision();
+            var col = Q.GetCollision(target, new List<Vector3> { pred.UnitPosition, target.Position });
             if (col.Count == 0 || (getCheckBoxItem(comboMenu, "QCol") && Common.CastSmiteKillCollision(col)))
             {
                 Q.Cast(predS.CastPosition);
@@ -1338,7 +1338,7 @@
                     var predS = QS.GetPrediction(target);
                     if (pred.Hitchance >= Q.MinHitChance)
                     {
-                        var col = pred.GetCollision();
+                        var col = Q.GetCollision(target, new List<Vector3> { pred.UnitPosition, target.Position });
                         if ((col.Count == 0 || (getCheckBoxItem(insecMenu, "QCol") && Common.CastSmiteKillCollision(col)))
                             && Q.Cast(predS.CastPosition))
                         {

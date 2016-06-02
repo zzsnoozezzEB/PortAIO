@@ -427,7 +427,10 @@
             {
                 return false;
             }
-            var col = pred.GetCollision(LeagueSharp.SDK.CollisionableObjects.Heroes | LeagueSharp.SDK.CollisionableObjects.Minions);
+            var col = spell.GetCollision(
+                target,
+                new List<Vector3> { pred.UnitPosition, target.Position },
+                LeagueSharp.SDK.CollisionableObjects.Heroes | LeagueSharp.SDK.CollisionableObjects.Minions);
             if (col.Count == 0)
             {
                 Q.Cast(target);
