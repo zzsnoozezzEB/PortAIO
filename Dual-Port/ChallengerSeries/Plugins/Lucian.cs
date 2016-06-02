@@ -337,7 +337,6 @@ namespace Challenger_Series.Plugins
                 }
             }
             if (Variables.TickCount - this.ECastTime > 300)
-                if (Variables.TickCount - this.ECastTime > 250)
             {
                 if (!HasPassive && Orbwalker.CanMove)
                 {

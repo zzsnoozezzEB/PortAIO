@@ -60,7 +60,7 @@ namespace ExorSDK.Champions.Pantheon
             ///     The Combo E Logic.
             /// </summary>
             if (Vars.E.IsReady() &&
-                Targets.Target.IsValidTarget(Vars.E.Range) &&
+                Targets.Target.LSIsValidTarget(Vars.E.Range) &&
                 Vars.getCheckBoxItem(Vars.EMenu, "combo"))
             {
                 Vars.E.Cast(Targets.Target.ServerPosition);
