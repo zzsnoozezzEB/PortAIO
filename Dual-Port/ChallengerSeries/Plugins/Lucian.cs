@@ -388,7 +388,7 @@ namespace Challenger_Series.Plugins
             ComboMenu.Add("Lucianecombo", new ComboBox("E Mode", 0, "Side", "Cursor", "Enemy", "Never"));
             ComboMenu.Add("Lucianecockblocker", new CheckBox("Use E to get away from melees", true));
             ComboMenu.Add("Lucianegoham", new CheckBox("Use E to go HAM", false));
-            ComboMenu.Add("Luciansemiauto", new KeyBind("Semi-Auto R Key", false, KeyBind.BindTypes.HoldActive, 'R'));
+            ComboMenu.Add("Luciansemiauto", new KeyBind("Semi-Auto R Key", false, KeyBind.BindTypes.HoldActive, 'T'));
             ComboMenu.Add("Lucianblockmanualr", new CheckBox("Block manual R", true));
             ComboMenu.Add("Lucianqks", new CheckBox("Use Q for KS", true));
 
