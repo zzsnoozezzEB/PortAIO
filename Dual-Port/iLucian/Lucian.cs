@@ -506,6 +506,10 @@ namespace iLucian
         public void SemiUlt()
         {
             var target = TargetSelector.SelectedTarget != null ? TargetSelector.SelectedTarget : TargetSelector.GetTarget(Variables.Spell[Variables.Spells.R].Range, DamageType.Physical);
+            if (target == null)
+            {
+                return;
+            }
             if (target.IsValid && Variables.Spell[Variables.Spells.R].IsReady() && !ObjectManager.Player.HasBuff("LucianR"))
             {
                 Variables.Spell[Variables.Spells.R].Cast(target.Position);
@@ -540,8 +544,9 @@ namespace iLucian
 
         private void CastE(Obj_AI_Base target)
         {
-            if (!Variables.Spell[Variables.Spells.E].IsReady() || !getCheckBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.e") || target == null || ObjectManager.Player.HasBuff("LucianR") || ObjectManager.Player.Spellbook.IsAutoAttacking)
+            if (!Variables.Spell[Variables.Spells.E].IsReady() || !getCheckBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.e") || ObjectManager.Player.HasBuff("LucianR") || Variables.HasPassive())
             {
+                Console.WriteLine("A");
                 return;
             }
 
@@ -550,6 +555,7 @@ namespace iLucian
             switch (getBoxItem(MenuGenerator.comboOptions, "com.ilucian.combo.eMode"))
             {
                 case 0: // kite
+                    /*
                     var hypotheticalPosition = ObjectManager.Player.ServerPosition.LSExtend(Game.CursorPos,
                         Variables.Spell[Variables.Spells.E].Range);
                     if (ObjectManager.Player.HealthPercent <= 70 &&
@@ -570,6 +576,32 @@ namespace iLucian
                     {
                         Variables.Spell[Variables.Spells.E].Cast(hypotheticalPosition);
                     }
+                    */
+
+
+                    var hypotheticalPosition = ObjectManager.Player.ServerPosition.LSExtend(
+                        Game.CursorPos,
+                        Variables.Spell[Variables.Spells.E].Range);
+                    if (ObjectManager.Player.HealthPercent <= 70
+                        && target.HealthPercent >= ObjectManager.Player.HealthPercent)
+                    {
+                        if (ObjectManager.Player.Position.Distance(ObjectManager.Player.ServerPosition) >= 35
+                            && target.Distance(ObjectManager.Player.ServerPosition)
+                            < target.Distance(ObjectManager.Player.Position)
+                            && hypotheticalPosition.IsSafe(Variables.Spell[Variables.Spells.E].Range))
+                        {
+                            Variables.Spell[Variables.Spells.E].Cast(hypotheticalPosition);
+                        }
+                    }
+
+                    if (hypotheticalPosition.IsSafe(Variables.Spell[Variables.Spells.E].Range)
+                        && hypotheticalPosition.Distance(target.ServerPosition)
+                        <= Orbwalking.GetRealAutoAttackRange(null)
+                        && (hypotheticalPosition.Distance(target.ServerPosition) > 400) && !Variables.HasPassive())
+                    {
+                        Variables.Spell[Variables.Spells.E].Cast(hypotheticalPosition);
+                    }
+
                     break;
 
                 case 1: // side

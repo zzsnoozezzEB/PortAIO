@@ -87,7 +87,7 @@ namespace Challenger_Series.Plugins
         void WLogic()
         {
             var wTarget = TargetSelector.GetTarget(1100, DamageType.Physical);
-            if (!Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None) && UseWHarass && !ValidTargets.Any(e => e.InAutoAttackRange()))
+            if (wTarget != null && !Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.None) && UseWHarass && !ValidTargets.Any(e => e.InAutoAttackRange()))
             {
                 var pred = W.GetPrediction(wTarget);
                 if (!pred.CollisionObjects.Any() &&
@@ -102,7 +102,7 @@ namespace Challenger_Series.Plugins
         void RLogic()
         {
             var rTarget = TargetSelector.GetTarget(1400, DamageType.Physical);
-            if (R.IsReady() && Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) && UseRCombo)
+            if (rTarget != null && R.IsReady() && Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo) && UseRCombo)
             {
                 var pred = R.GetPrediction(rTarget);
                 if (pred.Hitchance >= HitChance.High)
