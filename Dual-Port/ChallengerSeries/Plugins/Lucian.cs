@@ -314,14 +314,30 @@ namespace Challenger_Series.Plugins
         public override void OnUpdate(EventArgs args)
         {
             if (ObjectManager.Player.IsCastingInterruptableSpell()) return;
-            var ultTarget = TargetSelector.GetTarget(R.Range, DamageType.Physical);
-            if (this.SemiAutoRKey && ultTarget != null && ultTarget.IsHPBarRendered)
+
+            if (this.SemiAutoRKey)
             {
-                this.pressedR = true;
-                R.Cast(R.GetPrediction(ultTarget).UnitPosition);
-                return;
+                if (ObjectManager.Player.CountEnemyHeroesInRange(1300) > 0)
+                {
+                    var ultTarget = TargetSelector.GetTarget(R.Range, DamageType.Physical);
+                    if (ultTarget != null && ultTarget.IsHPBarRendered)
+                    {
+                        this.pressedR = true;
+                        var rPred = R.GetPrediction(ultTarget);
+                        if (rPred.Hitchance >= HitChance.High)
+                        {
+                            R.Cast(rPred.UnitPosition);
+                        }
+                        return;
+                    }
+                }
+                else
+                {
+                    R.Cast(Game.CursorPos);
+                }
             }
-            if (Variables.TickCount - this.ECastTime > 250)
+            if (Variables.TickCount - this.ECastTime > 300)
+                if (Variables.TickCount - this.ECastTime > 250)
             {
                 if (!HasPassive && Orbwalker.CanMove)
                 {
