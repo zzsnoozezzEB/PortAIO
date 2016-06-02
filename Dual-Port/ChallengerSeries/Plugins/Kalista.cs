@@ -504,7 +504,7 @@ namespace Challenger_Series.Plugins
             // Take into account all kinds of shields
             var totalHealth = GetTotalHealthWithShieldsApplied(target);
 
-            var dmg = GetRendDamage(target);
+            var dmg = GetRendDamage(target) - ReduceRendDamageBySlider;
 
             if (target.Name.Contains("Baron") && ObjectManager.Player.HasBuff("barontarget"))
             {
@@ -530,7 +530,7 @@ namespace Challenger_Series.Plugins
         public double GetRendDamage(Obj_AI_Base target, int customStacks = -1, BuffInstance rendBuff = null)
         {
             // Calculate the damage and return
-            return ObjectManager.Player.CalculateDamage(target, DamageType.Physical, GetRawRendDamage(target, customStacks, rendBuff) - this.ReduceRendDamageBySlider);
+            return ObjectManager.Player.CalculateDamage(target, DamageType.Physical, GetRawRendDamage(target, customStacks, rendBuff));
         }
 
         public float GetRawRendDamage(Obj_AI_Base target, int customStacks = -1, BuffInstance rendBuff = null)
