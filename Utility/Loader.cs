@@ -104,6 +104,7 @@ namespace PortAIO.Utility
         public static int karma { get { return Miscc["karma"].Cast<ComboBox>().CurrentValue; } }
         public static int teemo { get { return Miscc["teemo"].Cast<ComboBox>().CurrentValue; } }
         public static int evadeCB { get { return Miscc["evadeCB"].Cast<ComboBox>().CurrentValue; } }
+        public static int aramCB { get { return Miscc["aramCB"].Cast<ComboBox>().CurrentValue; } }
 
 
         public static Menu Miscc;
@@ -442,7 +443,7 @@ namespace PortAIO.Utility
             Miscc.Add("banwards", new CheckBox("Enable Sebby BanWars?", false));
             Miscc.Add("antialistar", new CheckBox("Enable AntiAlistar?", true));
             Miscc.AddSeparator();
-            Miscc.Add("autoSharp", new CheckBox("Enable Auto Sharp?", false));
+            Miscc.Add("autoSharp", new CheckBox("Enable Aram AutoPlay?", false));
             Miscc.Add("sdkPredictioner", new CheckBox("Enable SDKPredictioner?", true));
             Miscc.Add("traptrack", new CheckBox("Enable TrapTracker?", false));
             Miscc.Add("limitedShat", new CheckBox("Enable LimitedShat?", false));
@@ -458,6 +459,7 @@ namespace PortAIO.Utility
             Miscc.AddSeparator();
             Miscc.AddGroupLabel("Util Dual-Port :");
             Miscc.Add("evadeCB", new ComboBox("Which Evade?", 0, "ezEvade", "Evade#"));
+            Miscc.Add("aramCB", new ComboBox("Which Aram Auto Play?", 0, "AutoSharp", "AramDETFull"));
 
             /*
             Miscc.Add("stream", new CheckBox("Enable StreamBuddy?", false));
