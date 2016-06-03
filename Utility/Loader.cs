@@ -103,6 +103,7 @@ namespace PortAIO.Utility
         public static int braum { get { return Miscc["braum"].Cast<ComboBox>().CurrentValue; } }
         public static int karma { get { return Miscc["karma"].Cast<ComboBox>().CurrentValue; } }
         public static int teemo { get { return Miscc["teemo"].Cast<ComboBox>().CurrentValue; } }
+        public static int evadeCB { get { return Miscc["evadeCB"].Cast<ComboBox>().CurrentValue; } }
 
 
         public static Menu Miscc;
@@ -454,6 +455,9 @@ namespace PortAIO.Utility
             Miscc.Add("pastingSharp", new CheckBox("Enable PastingSharp?", false));
             //Miscc.Add("VCursor", new CheckBox("Enable VCursor?", false));
             Miscc.Add("autoJungle", new CheckBox("Enable Auto Jungle?", false));
+            Miscc.AddSeparator();
+            Miscc.AddGroupLabel("Util Dual-Port :");
+            Miscc.Add("evadeCB", new ComboBox("Which Evade?", 0, "ezEvade", "Evade#"));
 
             /*
             Miscc.Add("stream", new CheckBox("Enable StreamBuddy?", false));

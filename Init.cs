@@ -108,7 +108,18 @@ namespace PortAIO
 
                 if (Loader.evade)
                 {
-                    new ezEvade.Evade();
+                    switch (Loader.evadeCB)
+                    {
+                        case 0:
+                            new ezEvade.Evade();
+                            break;
+                        case 1:
+                            EvadeSharp.Program.Game_OnGameStart();
+                            break;
+                        default:
+                            new ezEvade.Evade();
+                            break;
+                    }
                 }
 
                 if (Loader.cheat)
