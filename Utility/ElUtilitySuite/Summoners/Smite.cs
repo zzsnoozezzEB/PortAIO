@@ -789,7 +789,7 @@
 
                 if (this.SmiteSpell.IsReady())
                 {
-                    if (Vector3.Distance(ObjectManager.Player.ServerPosition, Minion.ServerPosition) <= SmiteRange)
+                    if (Vector3.Distance(this.Player.ServerPosition, Minion.ServerPosition) <= SmiteRange)
                     {
                         if (this.Player.GetSummonerSpellDamage(Minion, LeagueSharp.Common.Damage.SummonerSpell.Smite) >= Minion.Health
                             && this.SmiteSpell.CanCast(Minion))
