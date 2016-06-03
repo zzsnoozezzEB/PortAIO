@@ -34,80 +34,20 @@
         private readonly List<WardObject> _wardObjects = new List<WardObject>();
 
         private readonly List<WardStruct> _wardStructs = new List<WardStruct>
-                                                             {
-                                                                 new WardStruct(
-                                                                     60 * 1,
-                                                                     1100,
-                                                                     "YellowTrinket",
-                                                                     "TrinketTotemLvl1",
-                                                                     WardType.Green),
-                                                                 new WardStruct(
-                                                                     60 * 1,
-                                                                     1100,
-                                                                     "BlueTrinket",
-                                                                     "TrinketOrbLvl3",
-                                                                     WardType.Green),
-                                                                 new WardStruct(
-                                                                     60 * 2,
-                                                                     1100,
-                                                                     "YellowTrinketUpgrade",
-                                                                     "TrinketTotemLvl2",
-                                                                     WardType.Green),
-                                                                 new WardStruct(
-                                                                     60 * 3,
-                                                                     1100,
-                                                                     "SightWard",
-                                                                     "ItemGhostWard",
-                                                                     WardType.Green),
-                                                                 new WardStruct(
-                                                                     60 * 3,
-                                                                     1100,
-                                                                     "SightWard",
-                                                                     "SightWard",
-                                                                     WardType.Green),
-                                                                 new WardStruct(
-                                                                     60 * 3,
-                                                                     1100,
-                                                                     "MissileWard",
-                                                                     "MissileWard",
-                                                                     WardType.Green),
-                                                                 new WardStruct(
-                                                                     int.MaxValue,
-                                                                     1100,
-                                                                     "VisionWard",
-                                                                     "VisionWard",
-                                                                     WardType.Pink),
-                                                                 new WardStruct(
-                                                                     60 * 4,
-                                                                     212,
-                                                                     "CaitlynTrap",
-                                                                     "CaitlynYordleTrap",
-                                                                     WardType.Trap),
-                                                                 new WardStruct(
-                                                                     60 * 10,
-                                                                     212,
-                                                                     "TeemoMushroom",
-                                                                     "BantamTrap",
-                                                                     WardType.Trap),
-                                                                 new WardStruct(
-                                                                     60 * 1,
-                                                                     212,
-                                                                     "ShacoBox",
-                                                                     "JackInTheBox",
-                                                                     WardType.Trap),
-                                                                 new WardStruct(
-                                                                     60 * 2,
-                                                                     212,
-                                                                     "Nidalee_Spear",
-                                                                     "Bushwhack",
-                                                                     WardType.Trap),
-                                                                 new WardStruct(
-                                                                     60 * 10,
-                                                                     212,
-                                                                     "Noxious_Trap",
-                                                                     "BantamTrap",
-                                                                     WardType.Trap)
-                                                             };
+        {
+            new WardStruct( 60 * 1, 1100, "YellowTrinket", "TrinketTotemLvl1", WardType.Green),
+            new WardStruct( 60 * 1, 1100, "BlueTrinket", "TrinketOrbLvl3", WardType.Green),
+            new WardStruct( 60 * 2, 1100, "YellowTrinketUpgrade", "TrinketTotemLvl2", WardType.Green),
+            new WardStruct( 60 * 3, 1100, "SightWard", "ItemGhostWard", WardType.Green),
+            new WardStruct( 60 * 3, 1100, "SightWard", "SightWard", WardType.Green),
+            new WardStruct( 60 * 3, 1100, "MissileWard", "MissileWard", WardType.Green),
+            new WardStruct( int.MaxValue, 1100, "VisionWard", "VisionWard", WardType.Pink),
+            new WardStruct( 60 * 4, 212, "CaitlynTrap", "CaitlynYordleTrap", WardType.Trap),
+            new WardStruct( 60 * 10, 212, "TeemoMushroom", "BantamTrap", WardType.Trap),
+            new WardStruct( 60 * 1, 212, "ShacoBox", "JackInTheBox", WardType.Trap),
+            new WardStruct( 60 * 2, 212, "Nidalee_Spear", "Bushwhack", WardType.Trap),
+            new WardStruct( 60 * 10, 212, "Noxious_Trap", "BantamTrap", WardType.Trap)
+        };
 
         private Texture _greenWardTexture;
 
@@ -490,7 +430,7 @@
             try
             {
                 var ward = sender as Obj_AI_Base;
-                if (ward != null && sender.Name.ToLower().Contains("Ward"))
+                if (ward != null && sender.Name.IndexOf("Ward", StringComparison.OrdinalIgnoreCase) != -1)
                 {
                     this._wardObjects.RemoveAll(w => w.Object != null && w.Object.NetworkId == sender.NetworkId);
                     this._wardObjects.RemoveAll(
