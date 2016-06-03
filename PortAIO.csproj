@@ -86,6 +86,7 @@
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Speech" />
     <Reference Include="System.Web" />
@@ -1488,7 +1489,7 @@
     <None Include="Resources\JarvanIV.png" />
     <None Include="Resources\Jax.png" />
     <None Include="Resources\Jayce.png" />
-    <None Include="Resources\Jhin.png" />
+    <None Include="Resources\jhin.png" />
     <None Include="Resources\Jinx.png" />
     <None Include="Resources\Kalista.png" />
     <None Include="Resources\Karma.png" />
@@ -1556,7 +1557,7 @@
     <None Include="Resources\Swain.png" />
     <None Include="Resources\Syndra.png" />
     <None Include="Resources\TahmKench.png" />
-    <None Include="Resources\Taliyah.png" />
+    <None Include="Resources\taliyah.png" />
     <None Include="Resources\Talon.png" />
     <None Include="Resources\Taric.png" />
     <None Include="Resources\Teemo.png" />
