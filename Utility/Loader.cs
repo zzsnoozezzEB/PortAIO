@@ -16,6 +16,15 @@ namespace PortAIO.Utility
 {
     class Loader
     {
+        public static bool VCursor { get { return Miscc["VCursor"].Cast<CheckBox>().CurrentValue; } }
+        public static bool limitedShat { get { return Miscc["limitedShat"].Cast<CheckBox>().CurrentValue; } }
+        public static bool autoLevel { get { return Miscc["autoLevel"].Cast<CheckBox>().CurrentValue; } }
+        public static bool chatLogger { get { return Miscc["chatLogger"].Cast<CheckBox>().CurrentValue; } }
+        public static bool autoFF { get { return Miscc["autoFF"].Cast<CheckBox>().CurrentValue; } }
+        public static bool urfSpell { get { return Miscc["urfSpell"].Cast<CheckBox>().CurrentValue; } }
+        public static bool pastingSharp { get { return Miscc["pastingSharp"].Cast<CheckBox>().CurrentValue; } }
+        public static bool autoJungle { get { return Miscc["autoJungle"].Cast<CheckBox>().CurrentValue; } }
+
 
         public static bool useActivator { get { return Miscc["activator"].Cast<CheckBox>().CurrentValue; } }
         public static bool sdkPredictioner { get { return Miscc["sdkPredictioner"].Cast<CheckBox>().CurrentValue; } }
@@ -435,6 +444,16 @@ namespace PortAIO.Utility
             Miscc.Add("autoSharp", new CheckBox("Enable Auto Sharp?", false));
             Miscc.Add("sdkPredictioner", new CheckBox("Enable SDKPredictioner?", true));
             Miscc.Add("traptrack", new CheckBox("Enable TrapTracker?", false));
+            Miscc.Add("limitedShat", new CheckBox("Enable LimitedShat?", false));
+            Miscc.AddSeparator();
+            Miscc.Add("autoLevel", new CheckBox("Enable Auto Level?", false));
+            Miscc.Add("chatLogger", new CheckBox("Enable Chat Logger?", false));
+            Miscc.Add("autoFF", new CheckBox("Enable Auto FF?", false));
+            Miscc.Add("urfSpell", new CheckBox("Enable URF Spam Speller?", false));
+            Miscc.AddSeparator();
+            Miscc.Add("pastingSharp", new CheckBox("Enable PastingSharp?", false));
+            //Miscc.Add("VCursor", new CheckBox("Enable VCursor?", false));
+            Miscc.Add("autoJungle", new CheckBox("Enable Auto Jungle?", false));
 
             /*
             Miscc.Add("stream", new CheckBox("Enable StreamBuddy?", false));

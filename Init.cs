@@ -141,6 +141,46 @@ namespace PortAIO
                     AutoSharp.Program.Main();
                 }
 
+                if (Loader.limitedShat)
+                {
+                    LimitedShat.Program.Game_OnGameLoad();
+                }
+
+                if (Loader.autoLevel)
+                {
+                    AutoLevelup.Program.Game_OnGameLoad();
+                }
+
+                if (Loader.chatLogger)
+                {
+                    Chat_Logger.Program.Init();
+                }
+
+                if (Loader.autoFF)
+                {
+                    AutoFF.Program.Game_OnGameLoad();
+                }
+
+                if (Loader.urfSpell)
+                {
+                    URF_Spell_Spammer.Program.Game_OnGameLoad();
+                }
+
+                if (Loader.pastingSharp)
+                {
+                    PastingSharp.Program.Game_OnGameLoad();
+                }
+
+                //if (Loader.VCursor)
+                //{
+                    //VCursor.Program.Game_OnGameLoad();
+                //}
+
+                if (Loader.autoJungle)
+                {
+                    AutoJungle.Program.OnGameLoad();
+                }
+
                 /*
                 if (Loader.stream)
                 {
