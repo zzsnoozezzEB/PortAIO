@@ -11,7 +11,7 @@ namespace Swiftly_Teemo.Main
 {
     internal class MenuConfig
     {
-        public static Menu menu, comboMenu, laneMenu, drawMenu;
+        public static Menu Menu, comboMenu, laneMenu, drawMenu;
 
         public static bool KillStealSummoner;
         public static bool LaneQ;
@@ -33,25 +33,25 @@ namespace Swiftly_Teemo.Main
         public static void Load()
         {
 
-            menu = MainMenu.AddMenu("Swiftly Teemo", "Teemo");
+            Menu = MainMenu.AddMenu("Swiftly Teemo", "Teemo");
 
-            comboMenu = menu.AddSubMenu("Combo", "ComboMenu");
+            comboMenu = Menu.AddSubMenu("Combo", "ComboMenu");
             comboMenu.Add("KillStealSummoner", new CheckBox("KillSteal Summoner", true));
 
-            laneMenu = menu.AddSubMenu("Lane", "LaneMenu");
+            laneMenu = Menu.AddSubMenu("Lane", "LaneMenu");
             laneMenu.Add("LaneQ", new CheckBox("Last Hit Q AA", true));
 
-            drawMenu = menu.AddSubMenu("Draw", "Draw");
+            drawMenu = Menu.AddSubMenu("Draw", "Draw");
             drawMenu.Add("dind", new CheckBox("Damage Indicator", true));
             drawMenu.Add("EngageDraw", new CheckBox("Draw Engage", true));
 
-            menu.Add("Flee", new KeyBind("Flee", false, KeyBind.BindTypes.HoldActive, 'Z'));
+            Menu.Add("Flee", new KeyBind("Flee", false, KeyBind.BindTypes.HoldActive, 'Z'));
 
             KillStealSummoner = getCheckBoxItem(comboMenu, "KillStealSummoner");
-            LaneQ = getCheckBoxItem(laneMenu, "asheqcombo");
+            LaneQ = getCheckBoxItem(laneMenu, "LaneQ");
             dind = getCheckBoxItem(drawMenu, "dind");
             EngageDraw = getCheckBoxItem(drawMenu, "EngageDraw");
-            Flee = getKeyBindItem(menu, "Flee");
+            Flee = getKeyBindItem(Menu, "Flee");
 
         }
 
