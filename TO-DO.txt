@@ -31,10 +31,8 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - Geass Tristana
 - SoloVayne
 - YasuoSharpV2
-- Spirit Karma
 - TroopAIO
 - Dicaste's Ashe/Urgot
-- PrideStalker Rengar
 - Shen Hand of God
 
 Utility Ports [Only doing after Champions are completed] :
