@@ -11,7 +11,7 @@
     using EloBuddy.SDK.Menu;
     using EloBuddy;
     using EloBuddy.SDK.Menu.Values;
-    internal class TurnAround
+    internal class TurnAround : IPlugin
     {
         // Copyright 2014 - 2015 Nikita Bernthaler
 

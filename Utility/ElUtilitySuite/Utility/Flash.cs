@@ -9,7 +9,7 @@
     using SharpDX;    /// <summary>
                       /// Automatically levels R.
                       /// </summary>
-    internal class Flash
+    internal class Flash : IPlugin
     {
         #region Public Methods and Operators
 

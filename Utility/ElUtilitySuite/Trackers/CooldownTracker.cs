@@ -34,7 +34,7 @@ namespace ElUtilitySuite.Trackers
     using EloBuddy.SDK.Menu;
     using EloBuddy.SDK.Menu.Values;
     using EloBuddy;
-    internal class CoolDownTimers
+    internal class CoolDownTimers : IPlugin
     {
         #region Fields
 

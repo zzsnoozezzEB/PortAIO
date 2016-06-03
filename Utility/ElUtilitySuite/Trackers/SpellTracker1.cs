@@ -20,7 +20,7 @@
     using EloBuddy.SDK.Menu;
     using PortAIO.Properties;
     using EloBuddy.SDK.Menu.Values;
-    internal class SpellTracker
+    internal class SpellTracker : IPlugin
     {
         #region Constants
 

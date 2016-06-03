@@ -19,7 +19,7 @@
     using EloBuddy.SDK.Menu.Values;
     using PortAIO.Properties;
     using EloBuddy.SDK.Menu;
-    internal class WardTracker
+    internal class WardTracker : IPlugin
     {
         #region Constants
 

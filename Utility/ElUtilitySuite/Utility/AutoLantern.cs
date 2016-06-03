@@ -8,7 +8,7 @@
     using EloBuddy;
     using EloBuddy.SDK.Menu;
     using EloBuddy.SDK.Menu.Values;
-    internal class AutoLantern
+    internal class AutoLantern : IPlugin
     {
         #region Fields
 
@@ -171,7 +171,7 @@
             try
             {
                 if (this.Player.IsDead || !getCheckBoxItem(this.Menu, "ThreshLantern") || this.ThreshLantern == null
-                    || !this.ThreshLantern.IsValid)
+                    || !this.ThreshLantern.IsValid || this.Player.ChampionName.Equals("Thresh"))
                 {
                     return;
                 }
