@@ -1132,8 +1132,19 @@ namespace PortAIO
                                 break;
                         }
                         break;
-                    case "teemo": // Sharpshooter
-                        new SharpShooter.Plugins.Teemo();
+                    case "teemo": // Sharpshooter & Swiftly_Teemo
+                        switch (Loader.teemo)
+                        {
+                            case 0:
+                                new SharpShooter.Plugins.Teemo();
+                                break;
+                            case 1:
+                                Swiftly_Teemo.Program.Load();
+                                break;
+                            default:
+                                new SharpShooter.Plugins.Teemo();
+                                break;
+                        }
                         break;
                     case "viktor": // Trus In my Viktor
                         Viktor.Program.Game_OnGameLoad();

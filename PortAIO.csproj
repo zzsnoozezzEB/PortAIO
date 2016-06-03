@@ -488,6 +488,15 @@
     <Compile Include="Dual-Port\Spirit Karma\Load\Load.cs" />
     <Compile Include="Dual-Port\Spirit Karma\Menus\MenuConfig.cs" />
     <Compile Include="Dual-Port\Spirit Karma\Program.cs" />
+    <Compile Include="Dual-Port\Swiftly Teemo\Core.cs" />
+    <Compile Include="Dual-Port\Swiftly Teemo\Draw\Drawings.cs" />
+    <Compile Include="Dual-Port\Swiftly Teemo\Draw\HpBarIndicator.cs" />
+    <Compile Include="Dual-Port\Swiftly Teemo\Handler\AfterAA.cs" />
+    <Compile Include="Dual-Port\Swiftly Teemo\Handler\Dmg.cs" />
+    <Compile Include="Dual-Port\Swiftly Teemo\Handler\Killsteal.cs" />
+    <Compile Include="Dual-Port\Swiftly Teemo\Main\MenuConfig.cs" />
+    <Compile Include="Dual-Port\Swiftly Teemo\Main\Mode.cs" />
+    <Compile Include="Dual-Port\Swiftly Teemo\Program.cs" />
     <Compile Include="Dual-Port\TophSharp\MenuConfig.cs" />
     <Compile Include="Dual-Port\TophSharp\Taliyah.cs" />
     <Compile Include="Dual-Port\Tyler1\Program.cs" />

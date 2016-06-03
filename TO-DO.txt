@@ -16,7 +16,6 @@ Champion Ports [Starting 5/19, I'm going to start checking these in game via L# 
 - SkyLv Tristana/AurelionSol [https://github.com/EloFactory/SkyLv_SoLuTiON]
 - Nocturne is Back https://github.com/xQxCPMxQx/LeagueSharp2/tree/master/Nocturne
 - Sharpy AIO Zed [https://github.com/deop7138/Sharpy-AIO/tree/master/Sharpy%20AIO]
-- Swiftly Teemo [https://github.com/Nechrito/SDK/tree/master/Swiftly%20Teemo]
 - Teemo God [https://github.com/MasterGFv2/Teemo_The_Real_God/tree/master/Teemo_The_Real_God]
 - RAREKarthus/Zyra [https://github.com/KyonLeague/RAREScripts/tree/master]
 - Karma - the Englightned One [https://github.com/SwipeDan/LeagueSharp/tree/master/Karma%20%20%20%E2%80%93%20%20the%20Enlightened%20One]
