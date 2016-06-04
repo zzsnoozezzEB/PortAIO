@@ -16,6 +16,7 @@ namespace PortAIO.Utility
 {
     class Loader
     {
+        public static bool orbwalker { get { return Miscc["orbwalker"].Cast<CheckBox>().CurrentValue; } }
         public static bool VCursor { get { return Miscc["VCursor"].Cast<CheckBox>().CurrentValue; } }
         public static bool limitedShat { get { return Miscc["limitedShat"].Cast<CheckBox>().CurrentValue; } }
         public static bool autoLevel { get { return Miscc["autoLevel"].Cast<CheckBox>().CurrentValue; } }
@@ -115,7 +116,7 @@ namespace PortAIO.Utility
         }
 
         public static List<string> RandomUltChampsList = new List<string>(new[] { "Ezreal", "Jinx", "Ashe", "Draven", "Gangplank", "Ziggs", "Lux", "Xerath" });
-        public static List<string> BaseUltList = new List<string>(new[] { "Jinx", "Ashe", "Draven", "Ezreal", "Karthus"});
+        public static List<string> BaseUltList = new List<string>(new[] { "Jinx", "Ashe", "Draven", "Ezreal", "Karthus" });
         public static List<string> Champion = new List<string>(new[] {
             "Soraka", // 0
             "KogMaw", // 1
@@ -456,6 +457,7 @@ namespace PortAIO.Utility
             Miscc.Add("pastingSharp", new CheckBox("Enable PastingSharp?", false));
             //Miscc.Add("VCursor", new CheckBox("Enable VCursor?", false));
             Miscc.Add("autoJungle", new CheckBox("Enable Auto Jungle?", false));
+            Miscc.Add("orbwalker", new CheckBox("Enable L# Orbwalker (HIGHLY BETA)?", false));
             Miscc.AddSeparator();
             Miscc.AddGroupLabel("Util Dual-Port :");
             Miscc.Add("evadeCB", new ComboBox("Which Evade?", 0, "ezEvade", "Evade#"));
@@ -480,4 +482,4 @@ namespace PortAIO.Utility
         }
     }
 
-    }
+}
