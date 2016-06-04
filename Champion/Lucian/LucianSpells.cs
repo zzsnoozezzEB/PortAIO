@@ -10,8 +10,8 @@ namespace LCS_Lucian
         public static void Init()
         {
             Q = new Spell(SpellSlot.Q, 675);
-            Q2 = new Spell(SpellSlot.Q, 1200);
-            W = new Spell(SpellSlot.W, 1000);
+            Q2 = new Spell(SpellSlot.Q, 900);
+            W = new Spell(SpellSlot.W, 900);
             E = new Spell(SpellSlot.E, 425);
             R = new Spell(SpellSlot.R, 1400);
 
