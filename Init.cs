@@ -258,6 +258,9 @@ namespace PortAIO
                             case 1:
                                 ExorSDK.AIO.OnLoad();
                                 break;
+                            case 2:
+                                Challenger_Series.Program.Main();
+                                break;
                             default:
                                 SebbyLib.Program.GameOnOnGameLoad();
                                 break;

@@ -208,7 +208,7 @@ namespace PortAIO.Utility
                 }
                 if (Player.ChampionName.Equals(Champion[5]))
                 {
-                    Miscc.Add("cait", new ComboBox("Use addon for Caitlyn : ", 0, "OKTW", "ExorSeries : AIO"));
+                    Miscc.Add("cait", new ComboBox("Use addon for Caitlyn : ", 0, "OKTW", "ExorSeries : AIO", "ChallengerSeries"));
                 }
                 if (Player.ChampionName.Equals(Champion[6]))
                 {
