@@ -451,7 +451,7 @@ namespace SCommon.Orbwalking
                 if (holdzone && playerPos.LSDistance(pos, true) < holdzoneRadiusSqr)
                 {
                     //if ((Utils.TickCount + Game.Ping / 2 - m_lastAATick) * 0.6f >= 1000f / (ObjectManager.Player.GetAttackSpeed() * m_baseWindUp))
-                        //EloBuddy.Player.IssueOrder(GameObjectOrder.Stop, playerPos);
+                    //EloBuddy.Player.IssueOrder(GameObjectOrder.Stop, playerPos);
                     m_lastMoveTick = Utils.TickCount + m_rnd.Next(1, 20);
                     return;
                 }
@@ -523,33 +523,46 @@ namespace SCommon.Orbwalking
             Events.FireAfterAttack(this, target);
         }
 
+        private Obj_AI_Minion _prevMinion;
+
         /// <summary>
         /// Gets laneclear target
         /// </summary>
         /// <returns></returns>
-        private Obj_AI_Base GetLaneClearTarget()
+        private AttackableUnit GetLaneClearTarget()
         {
-            foreach (var minion in MinionManager.GetMinions(ObjectManager.Player.AttackRange + 100f).OrderByDescending(p => ObjectManager.Player.LSGetAutoAttackDamage(p)))
+            AttackableUnit result = null;
+
+            if (_prevMinion.LSIsValidTarget() && InAutoAttackRange(_prevMinion))
             {
-                if (CanOrbwalkTarget(minion))
+                var predHealth = HealthPrediction.LaneClearHealthPrediction(
+                    _prevMinion, (int)(ObjectManager.Player.AttackDelay * 1000 * 2f), ConfigMenu.getSliderItem("Orbwalking.Root.iExtraWindup"));
+                if (predHealth >= 2 * ObjectManager.Player.LSGetAutoAttackDamage(_prevMinion) ||
+                    Math.Abs(predHealth - _prevMinion.Health) < float.Epsilon)
                 {
-                    var pred = HealthPrediction.LaneClearHealthPrediction(minion, (int)(ObjectManager.Player.AttackDelay * 1000 * 2), 30);
-                    if (pred >= 2 * Damage.AutoAttack.GetDamage(minion, true) || Damage.Prediction.IsLastHitable(minion))
-                    {
-                        /*
-                        //check if minion is about to be attacked
-                        if (Damage.Prediction.AggroCount(minion) == 0 && ObjectManager.Get<Obj_AI_Minion>().Any(p => p.IsEnemy && !p.IsMelee && MinionManager.IsMinion(p) && p.LSIsValidTarget(1500) && p.ServerPosition.LSDistance(minion.ServerPosition) - p.AttackRange < p.MoveSpeed * ObjectManager.Player.AttackDelay && p.Path.Length > 0))
-                            continue;
-                        */
-                        return minion;
-                    }
+                    return _prevMinion;
                 }
             }
-            var mob = GetJungleClearTarget();
-            if (mob != null)
-                return mob;
 
-            return null;
+            result = (from minion in
+                ObjectManager.Get<Obj_AI_Minion>()
+                    .Where(
+                        minion =>
+                            minion.LSIsValidTarget() && InAutoAttackRange(minion))
+                      let predHealth =
+                          HealthPrediction.LaneClearHealthPrediction(
+                              minion, (int)(ObjectManager.Player.AttackDelay * 1000 * 2f), ConfigMenu.getSliderItem("Orbwalking.Root.iExtraWindup"))
+                      where
+                          predHealth >= 2 * ObjectManager.Player.LSGetAutoAttackDamage(minion) ||
+                          Math.Abs(predHealth - minion.Health) < float.Epsilon
+                      select minion).MaxOrDefault(
+                    m => !MinionManager.IsMinion(m, true) ? float.MaxValue : m.Health);
+
+            if (result != null)
+            {
+                _prevMinion = (Obj_AI_Minion)result;
+            }
+            return result;
         }
 
         /// <summary>
@@ -641,6 +654,73 @@ namespace SCommon.Orbwalking
 
         }
 
+
+        /// <summary>
+        ///     Returns true if the target is in auto-attack range.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public static bool InAutoAttackRange(AttackableUnit target)
+        {
+            if (!target.LSIsValidTarget())
+            {
+                return false;
+            }
+            var myRange = GetRealAutoAttackRange(target);
+            return
+                Vector2.DistanceSquared(
+                    target is Obj_AI_Base ? ((Obj_AI_Base)target).ServerPosition.LSTo2D() : target.Position.LSTo2D(),
+                    ObjectManager.Player.ServerPosition.LSTo2D()) <= myRange * myRange;
+        }
+
+        /// <summary>
+        ///     Returns the auto-attack range of local player with respect to the target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>System.Single.</returns>
+        public static float GetRealAutoAttackRange(AttackableUnit target)
+        {
+            var result = ObjectManager.Player.AttackRange + ObjectManager.Player.BoundingRadius;
+            if (target.LSIsValidTarget())
+            {
+                var aiBase = target as Obj_AI_Base;
+                if (aiBase != null && ObjectManager.Player.ChampionName == "Caitlyn")
+                {
+                    if (aiBase.HasBuff("caitlynyordletrapinternal"))
+                    {
+                        result += 650;
+                    }
+                }
+
+                return result + target.BoundingRadius;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        ///     Returns true if the unit is melee
+        /// </summary>
+        /// <param name="unit">The unit.</param>
+        /// <returns><c>true</c> if the specified unit is melee; otherwise, <c>false</c>.</returns>
+        public static bool IsMelee(Obj_AI_Base unit)
+        {
+            return unit.CombatType == GameObjectCombatType.Melee;
+        }
+
+
+        /// <summary>
+        ///     Returns player auto-attack missile speed.
+        /// </summary>
+        /// <returns>System.Single.</returns>
+        public static float GetMyProjectileSpeed()
+        {
+            return IsMelee(ObjectManager.Player) || ObjectManager.Player.ChampionName == "Azir" || ObjectManager.Player.ChampionName == "Velkoz" ||
+                   ObjectManager.Player.ChampionName == "Viktor" && Player.HasBuff("ViktorPowerTransferReturn")
+                ? float.MaxValue
+                : ObjectManager.Player.BasicAttack.MissileSpeed;
+        }
+
         /// <summary>
         /// Gets orbwalker target
         /// </summary>
@@ -651,9 +731,35 @@ namespace SCommon.Orbwalking
             if (ActiveMode == Mode.LaneClear)
                 wait = ShouldWait();
 
+            /*Killable Minion*/
+            if (ActiveMode == Mode.LaneClear || ActiveMode == Mode.Mixed || ActiveMode == Mode.LastHit)
+            {
+                var MinionList =ObjectManager.Get<Obj_AI_Minion>().Where(minion => minion.LSIsValidTarget() && InAutoAttackRange(minion)).OrderByDescending(minion => minion.CharData.BaseSkinName.Contains("Siege")).ThenBy(minion => minion.CharData.BaseSkinName.Contains("Super")).ThenBy(minion => minion.Health).ThenByDescending(minion => minion.MaxHealth);
+                foreach (var minion in MinionList)
+                {
+                    var t = (int)(ObjectManager.Player.AttackCastDelay * 1000) - 100 + Game.Ping / 2 + 1000 * (int)Math.Max(0, ObjectManager.Player.LSDistance(minion) - ObjectManager.Player.BoundingRadius) / (int)GetMyProjectileSpeed();
+                    var predHealth = HealthPrediction.GetHealthPrediction(minion, t, ConfigMenu.getSliderItem("Orbwalking.Root.iExtraWindup"));
+                    if (minion.Team != GameObjectTeam.Neutral)
+                    {
+                        var damage = ObjectManager.Player.LSGetAutoAttackDamage(minion, true);
+                        var killable = predHealth <= damage;
+                        if (predHealth <= 0)
+                        {
+                            //FireOnNonKillableMinion(minion);
+                        }
+                        if (killable)
+                        {
+                            return minion;
+                        }
+                    }
+                }
+            }
+
+
             if (ActiveMode == Mode.LaneClear || ActiveMode == Mode.LastHit || ActiveMode == Mode.Mixed)
             {
-                //turret farming
+                #region turret farming
+                /*
                 if (m_towerTarget != null && m_sourceTower != null && m_sourceTower.LSIsValidTarget(float.MaxValue, false) && m_towerTarget.LSIsValidTarget() && CanOrbwalkTarget(m_towerTarget, ObjectManager.Player.AttackRange + 150f))
                 {
                     float health = m_towerTarget.Health - Damage.Prediction.GetPrediction(m_towerTarget, (m_towerTarget.LSDistance(m_sourceTower.ServerPosition) / m_sourceTower.BasicAttack.MissileSpeed + m_sourceTower.AttackCastDelay) * 1000f);
@@ -687,6 +793,8 @@ namespace SCommon.Orbwalking
                 var killableMinion = FindKillableMinion();
                 if (killableMinion != null)
                     return killableMinion;
+                    */
+                #endregion
             }
 
             if (m_forcedTarget != null && m_forcedTarget.LSIsValidTarget() && Utility.InAARange(m_forcedTarget))
@@ -744,6 +852,18 @@ namespace SCommon.Orbwalking
                         return minion;
                 }
             }
+
+            if (!wait)
+            {
+                if (ActiveMode == Mode.LaneClear)
+                {
+                    var jminions = ObjectManager.Get<Obj_AI_Minion>().Where(mobA => mobA.LSIsValidTarget() && mobA.Team == GameObjectTeam.Neutral && InAutoAttackRange(mobA) && mobA.CharData.BaseSkinName != "gangplankbarrel" && mobA.Name != "WardCorpse");
+                    var mob = jminions.MaxOrDefault(mobB => mobB.MaxHealth);
+                    if (mob != null)
+                        return mob;
+                }
+            }
+
             return null;
         }
 
