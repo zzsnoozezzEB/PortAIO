@@ -839,6 +839,8 @@
     <Compile Include="Libraries\ExorSDK\AIO\Utilities\Helpers\ManaManager.cs" />
     <Compile Include="Libraries\ExorSDK\AIO\Utilities\Vars.cs" />
     <Compile Include="Libraries\ExorSDK\ExorAIO.cs" />
+    <Compile Include="Libraries\SCommon\Orbwalking\Drawings.cs" />
+    <Compile Include="Libraries\SCommon\Orbwalking\Orbwalker.cs" />
     <Compile Include="Libraries\Sebby-OKTW\Movement.cs" />
     <Compile Include="Libraries\ValvraveSharp\Core\Common.cs" />
     <Compile Include="Libraries\ValvraveSharp\Evade\Collision.cs" />

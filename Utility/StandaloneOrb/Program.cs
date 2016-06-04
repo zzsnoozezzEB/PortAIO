@@ -14,8 +14,7 @@ namespace PuppyStandaloneOrbwalker
     internal class Program
     {
         public const string ChampionName = "balblabll";
-        static Orbwalking.Orbwalker Orbwalker;
-        static Menu Menu;
+        static SCommon.Orbwalking.Orbwalker Orbwalker;
         public static LeagueSharp.Common.Spell Q;
         public static LeagueSharp.Common.Spell W;
         public static LeagueSharp.Common.Spell E;
@@ -23,7 +22,8 @@ namespace PuppyStandaloneOrbwalker
 
         public static void Game_OnGameLoad()
         {
-            Orbwalker = new Orbwalking.Orbwalker();
+            Orbwalker = new SCommon.Orbwalking.Orbwalker();
+            SCommon.TS.TargetSelector.Initialize();
 
             Q = new LeagueSharp.Common.Spell(SpellSlot.Q, 1);
             W = new LeagueSharp.Common.Spell(SpellSlot.W, 1);
@@ -31,16 +31,14 @@ namespace PuppyStandaloneOrbwalker
             R = new LeagueSharp.Common.Spell(SpellSlot.R, 1);
 
             Game.OnUpdate += Game_OnGameUpdate;
-
         }
+
         private static void Game_OnGameUpdate(EventArgs args)
         {
             switch (Orbwalker.ActiveMode)
             {
-                case Orbwalking.OrbwalkingMode.Combo:
-
+                case SCommon.Orbwalking.Orbwalker.Mode.Combo:
                     var Target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
-
                     if (Q.IsReady()) Q.Cast(Target);
                     if (W.IsReady()) W.Cast(Target);
                     if (E.IsReady()) E.Cast(Target);

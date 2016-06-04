@@ -8,7 +8,7 @@ namespace SCommon.Orbwalking
     {
         private static Menu m_Menu;
 
-        public ConfigMenu(Menu menuToAttach)
+        public ConfigMenu()
         {
             m_Menu = MainMenu.AddMenu("Orbwalking", "Orbwalking.Root");
             m_Menu.Add("Orbwalking.Root.iExtraWindup", new Slider("Extra Windup Time"));
@@ -17,16 +17,14 @@ namespace SCommon.Orbwalking
 
             m_Menu.Add("Orbwalking.Root.blLastHit", new KeyBind("Last Hit", false, KeyBind.BindTypes.HoldActive, 'X'));
             m_Menu.Add("Orbwalking.Root.blHarass", new KeyBind("Harass", false, KeyBind.BindTypes.HoldActive, 'C'));
-            m_Menu.Add("Orbwalking.Root.blLaneClear",
-                new KeyBind("Lane Clear", false, KeyBind.BindTypes.HoldActive, 'V'));
+            m_Menu.Add("Orbwalking.Root.blLaneClear",new KeyBind("Lane Clear", false, KeyBind.BindTypes.HoldActive, 'V'));
             m_Menu.Add("Orbwalking.Root.blCombo", new KeyBind("Combo", false, KeyBind.BindTypes.HoldActive, 32));
 
             m_Menu.AddGroupLabel("Misc");
             m_Menu.Add("Orbwalking.Misc.blAttackStructures", new CheckBox("Attack Structures"));
             m_Menu.Add("Orbwalking.Misc.blFocusNormalWhileTurret", new CheckBox("Focus mins. not focused by turret"));
             m_Menu.Add("Orbwalking.Misc.blSupportMode", new CheckBox("Support Mode", false));
-            m_Menu.Add("Orbwalking.Misc.blDontAttackChampWhileLaneClear",
-                new CheckBox("Dont attack champions while Lane Clear", false));
+            m_Menu.Add("Orbwalking.Misc.blDontAttackChampWhileLaneClear", new CheckBox("Dont attack champions while Lane Clear", false));
             m_Menu.Add("Orbwalking.Misc.blDisableAA", new CheckBox("Disable AutoAttack", false));
             m_Menu.Add("Orbwalking.Misc.blDontMoveMouseOver", new CheckBox("Mouse over hero to stop move", false));
             m_Menu.Add("Orbwalking.Misc.blMagnetMelee", new CheckBox("Magnet Target (Only Melee)"));
@@ -41,6 +39,11 @@ namespace SCommon.Orbwalking
             m_Menu.Add("Orbwalking.Drawings.LastHitMinion", new CheckBox("Last Hitable Minion", false));
             m_Menu.Add("Orbwalking.Drawings.HoldZone", new CheckBox("Hold Zone", false));
             m_Menu.Add("Orbwalking.Drawings.iLineWidth", new Slider("Line Width", 2, 1, 6));
+        }
+
+        public bool LegitMode
+        {
+            get { return getCheckBoxItem("Orbwalking.Misc.blLegitMode"); }
         }
 
         /// <summary>

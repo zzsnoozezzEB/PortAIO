@@ -64,7 +64,7 @@ namespace SCommon.TS
             return s_Config[item].Cast<KeyBind>().CurrentValue;
         }
 
-        public static void Create(Menu menuToAttach)
+        public static void Create()
         {
             s_Config = MainMenu.AddMenu("Target Selector", "TargetSelector.Root");
             s_Config.Add("TargetSelector.Root.blFocusSelected", new CheckBox("Focus Selected Target"));
