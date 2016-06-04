@@ -108,7 +108,11 @@ namespace ARAMDetFull
 
         public static void OrbwalkTo(Vector3 goalPosition, bool useDelay = true, bool onlyChamps = false)
         {
-            Orbwalker.OrbwalkTo(goalPosition);
+            CheckAutoWindUp();
+            if (MyHero.IsChannelingImportantSpell() || CustomOrbwalkMode)
+                return;
+            var target = GetPossibleTarget(onlyChamps || Aggresivity.getIgnoreMinions());
+            Orbwalk(goalPosition, target);
         }
 
         public static void getTheFukaway()
@@ -120,6 +124,13 @@ namespace ARAMDetFull
         {
             try
             {
+                if (target != null && target.IsValidTarget() && CanAttack() && IsAllowedToAttack())
+                {
+                    if (EloBuddy.Player.IssueOrder(GameObjectOrder.AttackUnit, target))
+                        _lastAATick = LXOrbwalker.now + Game.Ping / 2;
+                }
+                if (!CanMove() || !IsAllowedToMove())
+                    return;
                 MoveTo(goalPosition, -1, useDelay);
             }
             catch (Exception ex)

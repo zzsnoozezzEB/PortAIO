@@ -11,6 +11,7 @@ namespace ARAMDetFull
         public static void Init()
         {
             new ARAMDetFull();
+            AutoSharp.Auto.HowlingAbyss.ARAMShopAI.Main.Init();
         }
     }
 }
