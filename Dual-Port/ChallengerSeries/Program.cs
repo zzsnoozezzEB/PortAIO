@@ -39,9 +39,6 @@ namespace Challenger_Series
                     case "Ashe":
                         new Plugins.Ashe();
                         break;
-                    case "Caitlyn":
-                        new Plugins.Caitlyn();
-                        break;
                     default:
                         //Variables.Orbwalker.Enabled = false;
                         break;

@@ -56,8 +56,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Berb.Common">
-      <HintPath>..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\Berb.Common.dll</HintPath>
+    <Reference Include="Berb.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Berb.Common\Berb.Common\bin\Debug\Berb.Common.dll</HintPath>
     </Reference>
     <Reference Include="EloBuddy">
       <HintPath>..\..\..\AppData\Roaming\EloBuddy\Addons\Libraries\EloBuddy.dll</HintPath>
@@ -243,7 +244,6 @@
     <Compile Include="Dual-Port\BadaoRiven\Program.cs" />
     <Compile Include="Dual-Port\ChallengerSeries\CSPlugin.cs" />
     <Compile Include="Dual-Port\ChallengerSeries\Plugins\Ashe.cs" />
-    <Compile Include="Dual-Port\ChallengerSeries\Plugins\Caitlyn.cs" />
     <Compile Include="Dual-Port\ChallengerSeries\Plugins\Kalista.cs" />
     <Compile Include="Dual-Port\ChallengerSeries\Plugins\KogMaw.cs" />
     <Compile Include="Dual-Port\ChallengerSeries\Plugins\Lucian.cs" />
