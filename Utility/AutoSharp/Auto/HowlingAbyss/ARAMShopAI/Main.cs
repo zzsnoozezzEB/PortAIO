@@ -1233,7 +1233,7 @@ namespace AutoSharp.Auto.HowlingAbyss.ARAMShopAI
 
         public static void BuyItems(EventArgs args)
         {
-            if ((ObjectManager.Player.InFountain() || ObjectManager.Player.IsDead) && Environment.TickCount - _lastShop < new Random().Next(350, 450)) return;
+            if ((ObjectManager.Player.InFountain() || ObjectManager.Player.IsDead) && Environment.TickCount - _lastShop < new Random().Next(100, 200)) return;
             if (!InventoryFull() && !Items.HasItem(2003) && ObjectManager.Player.Gold > 400)
             {
                 Shop.BuyItem(ItemId.Health_Potion);

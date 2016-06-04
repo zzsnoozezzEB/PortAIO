@@ -700,25 +700,6 @@ namespace ARAMDetFull
             
         }
 
-        public static void buyItems()
-        {
-            if (lastBuy<LXOrbwalker.now-2300)
-            {
-                AutoShopper.buyNext();
-                lastBuy = LXOrbwalker.now;
-            }
-               /* foreach (var item in nextItem.itemIds)
-                {
-                    if (!LeagueSharp.Common.Items.HasItem(item) && nextItem.goldReach<=player.Gold)
-                    {
-                        Console.WriteLine("Buy itemmss: "+item);
-                        player.BuyItem((ItemId)item);
-                        lastBuy = LXOrbwalker.now;
-                    }
-                }
-            checkItems();*/
-        }
-
         public static void setupARMASimulator()
         {
             GameObject.OnCreate += TowerAttackOnCreate;
@@ -753,10 +734,8 @@ namespace ARAMDetFull
             MapControl.setupMapControl();
             AutoLevelChamp.setAutoLevel();
             LXOrbwalker.setpOrbwalker();
-            //AutoShopper.init();
             setUpItems();
             setChamp();
-            AutoShopper.setBuild(champBuild);
             //checkItems();
             sSpells = new SummonerSpells();
             if (champ != null)
@@ -841,10 +820,6 @@ namespace ARAMDetFull
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-            }
-            if ((player.InShop() || player.IsDead)/* && nextItem != null && nextItem.goldReach <= player.Gold*/)
-            {
-                buyItems();
             }
             if (champ != null)
             {

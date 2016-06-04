@@ -6,6 +6,7 @@ using LeagueSharp.Common;
 using SharpDX;
 using Color = System.Drawing.Color;
 using EloBuddy;
+using EloBuddy.SDK;
 
 namespace ARAMDetFull
 {
@@ -65,7 +66,7 @@ namespace ARAMDetFull
         private const float LaneClearWaitTimeMod = 2f;
         private static int _lastAATick;
         private static Obj_AI_Base _lastTarget;
-        private static Spell _movementPrediction;
+        private static LeagueSharp.Common.Spell _movementPrediction;
         private static int _lastMovement;
         private static int _delayAttackTill = 0;
         public static bool inDanger = false;
@@ -75,7 +76,7 @@ namespace ARAMDetFull
 
         public static void setpOrbwalker()
         {
-            _movementPrediction = new Spell(SpellSlot.Unknown, GetAutoAttackRange());
+            _movementPrediction = new LeagueSharp.Common.Spell(SpellSlot.Unknown, GetAutoAttackRange());
             _movementPrediction.SetTargetted(MyHero.BasicAttack.SpellCastTime, MyHero.BasicAttack.MissileSpeed);
             Obj_AI_Base.OnProcessSpellCast += OnProcessSpell;
             GameObject.OnCreate += MissileClient_OnCreate;
@@ -107,11 +108,7 @@ namespace ARAMDetFull
 
         public static void OrbwalkTo(Vector3 goalPosition, bool useDelay = true, bool onlyChamps = false)
         {
-            CheckAutoWindUp();
-            if (MyHero.IsChannelingImportantSpell() || CustomOrbwalkMode)
-                return;
-            var target = GetPossibleTarget(onlyChamps || Aggresivity.getIgnoreMinions());
-            Orbwalk(goalPosition, target);
+            Orbwalker.OrbwalkTo(goalPosition);
         }
 
         public static void getTheFukaway()
@@ -119,27 +116,11 @@ namespace ARAMDetFull
             _delayAttackTill = LXOrbwalker.now + Game.Ping / 2 + 500;
         }
 
-        public static void Orbwalk(Vector3 goalPosition, AttackableUnit target,bool useDelay = true)
+        public static void Orbwalk(Vector3 goalPosition, AttackableUnit target, bool useDelay = true)
         {
             try
             {
-                    if (target != null && target.LSIsValidTarget() && CanAttack() && IsAllowedToAttack())
-                    {
-                        if (EloBuddy.Player.IssueOrder(GameObjectOrder.AttackUnit, target))
-                            _lastAATick = LXOrbwalker.now + Game.Ping/2;
-                    }
-                    if (!CanMove() || !IsAllowedToMove())
-                        return;
-                    /*if ( MyHero.IsMelee() && target != null &&
-                        target.Position.LSDistance(MyHero.Position) < GetAutoAttackRange(MyHero, target)
-                        && target is AIHeroClient && MyHero.LSDistance(target.Position) < 300)
-                    {
-                        _movementPrediction.Delay = MyHero.BasicAttack.SpellCastTime;
-                        _movementPrediction.Speed = MyHero.BasicAttack.MissileSpeed;
-                        MoveTo(_movementPrediction.GetPrediction((AIHeroClient)target).UnitPosition, -1, useDelay);
-                    }
-                    else*/
-                        MoveTo(goalPosition, -1, useDelay);
+                MoveTo(goalPosition, -1, useDelay);
             }
             catch (Exception ex)
             {
@@ -151,51 +132,29 @@ namespace ARAMDetFull
 
         private static void MoveTo(Vector3 position, float holdAreaRadius = -1, bool useDelay = true)
         {
-            var delay = (useDelay) ? moveDelay : 0;
-            if (LXOrbwalker.now - _lastMovement < delay)
-                return;
-            _lastMovement = LXOrbwalker.now;
-            if (!CanMove())
-                return;
-            if (holdAreaRadius < 0)
-                holdAreaRadius = 90;
-            if (MyHero.ServerPosition.LSDistance(position) < holdAreaRadius)
-            {
-                if (MyHero.Path.Count() > 1)
-                    EloBuddy.Player.IssueOrder(GameObjectOrder.HoldPosition, MyHero.ServerPosition);
-                return;
-            }
-            if (position.LSDistance(MyHero.Position) > 200)
-                EloBuddy.Player.IssueOrder(GameObjectOrder.MoveTo, position);
-            else
-            {
-                var point = MyHero.ServerPosition +
-                200 * (position.LSTo2D() - MyHero.ServerPosition.LSTo2D()).LSNormalized().To3D();
-                EloBuddy.Player.IssueOrder(GameObjectOrder.MoveTo, point);
-            }
-
+            Orbwalker.MoveTo(position);
         }
 
         private static bool IsAllowedToMove()
         {
             if (!_movement)
                 return false;
-            
+
             return true;
         }
 
         private static bool IsAllowedToAttack()
         {
-            if (!_attack || (MyHero.HealthPercent<25 && ARAMSimulator.balance<-150))
+            if (!_attack || (MyHero.HealthPercent < 25 && ARAMSimulator.balance < -150))
                 return false;
-           
+
             return true;
 
         }
 
         private static void OnDraw(EventArgs args)
         {
-            
+
         }
 
         private static void OnProcessSpell(Obj_AI_Base unit, GameObjectProcessSpellCastEventArgs spell)
@@ -257,7 +216,7 @@ namespace ARAMDetFull
                     return tempTarget;
             }
 
-            
+
 
             /*inhibitor*/
             if (CurrentMode == Mode.LaneClear)
@@ -287,8 +246,8 @@ namespace ARAMDetFull
                 HeroManager.Enemies.Where(ene => !ene.IsDead)
                     .OrderBy(ene => ene.LSDistance(MyHero, true))
                     .FirstOrDefault();
-            var aaRangeext = GetAutoAttackRange(MyHero, closestenemy)+120;
-            if (closestenemy != null && closestenemy.LSDistance(MyHero, true) < aaRangeext*aaRangeext)
+            var aaRangeext = GetAutoAttackRange(MyHero, closestenemy) + 120;
+            if (closestenemy != null && closestenemy.LSDistance(MyHero, true) < aaRangeext * aaRangeext)
                 return null;
             enemiesMinionsAround = ObjectManager.Get<Obj_AI_Base>()
                    .Where(targ => targ.LSIsValidTarget(farmRange) && !targ.IsDead && targ.IsTargetable && targ.IsEnemy).ToList();
@@ -302,7 +261,7 @@ namespace ARAMDetFull
                         let t = (int)(MyHero.AttackCastDelay * 1000) - 100 + Game.Ping / 2 +
                                 1000 * (int)MyHero.LSDistance(minion) / (int)MyProjectileSpeed()
                         let predHealth = HealthPrediction.GetHealthPrediction(minion, t, FarmDelay())
-                        where minion.Team != GameObjectTeam.Neutral && predHealth > 0 && minion.BaseSkinName != "GangplankBarrel" && 
+                        where minion.Team != GameObjectTeam.Neutral && predHealth > 0 && minion.BaseSkinName != "GangplankBarrel" &&
                               predHealth <= MyHero.LSGetAutoAttackDamage(minion, true)
                         select minion)
                     return minion;
@@ -387,7 +346,7 @@ namespace ARAMDetFull
         {
             if (_lastAATick <= LXOrbwalker.now && _delayAttackTill <= LXOrbwalker.now)
             {
-                float danger = (inDanger && MyHero.FlatMagicDamageMod > MyHero.FlatPhysicalDamageMod*1.4f) ? 500 : 0;
+                float danger = (inDanger && MyHero.FlatMagicDamageMod > MyHero.FlatPhysicalDamageMod * 1.4f) ? 500 : 0;
                 return LXOrbwalker.now + Game.Ping / 2 + 25 >= _lastAATick + MyHero.AttackDelay * 1000 + danger && _attack;
             }
             return false;
@@ -395,7 +354,7 @@ namespace ARAMDetFull
 
         public static bool CanMove()
         {
-            var extraWindup = (CustomOrbwalkMode)?100:320;
+            var extraWindup = (CustomOrbwalkMode) ? 100 : 320;
             if (_lastAATick <= LXOrbwalker.now)
                 return LXOrbwalker.now >= _lastAATick + MyHero.AttackCastDelay * 1000 + extraWindup && _movement || MyHero.ChampionName == "Kalista";
             return false;
