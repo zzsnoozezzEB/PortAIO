@@ -11,7 +11,6 @@ namespace SephCassiopeia
     {
         public static Menu Config;
         public static Menu Combo, KillSteal, Harass, Farm, Waveclear, Interrupter, hc, misc, Drawings;
-        public static Orbwalking.Orbwalker Orbwalker;
         public static Menu CreateMenu()
         {
 
