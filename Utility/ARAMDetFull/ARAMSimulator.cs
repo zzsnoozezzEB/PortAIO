@@ -753,7 +753,7 @@ namespace ARAMDetFull
             MapControl.setupMapControl();
             AutoLevelChamp.setAutoLevel();
             LXOrbwalker.setpOrbwalker();
-            AutoShopper.init();
+            //AutoShopper.init();
             setUpItems();
             setChamp();
             AutoShopper.setBuild(champBuild);
@@ -822,7 +822,6 @@ namespace ARAMDetFull
         [DllImport("user32.dll")]
         static extern bool PostMessage(IntPtr hWnd, UInt32 Msg, int wParam, int lParam);
 
-        [SecurityPermission(SecurityAction.Assert, Unrestricted = true)]
         public static void updateArmaPlay()
         {
 
