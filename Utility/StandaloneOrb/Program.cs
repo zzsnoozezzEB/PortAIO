@@ -30,6 +30,11 @@ namespace PuppyStandaloneOrbwalker
             E = new LeagueSharp.Common.Spell(SpellSlot.E, 1);
             R = new LeagueSharp.Common.Spell(SpellSlot.R, 1);
 
+            Chat.Print("In the EB Orbwalker make sure all the keys are the same as the standalone orbwalker.");
+            Chat.Print("- Disable everything in drawings.");
+            Chat.Print("- In Advanced Orbwalker settings check Disable Attacking & Movement");
+            Chat.Print("Some things do NOT work such as resetting auto attack.");
+
             Game.OnUpdate += Game_OnGameUpdate;
         }
 

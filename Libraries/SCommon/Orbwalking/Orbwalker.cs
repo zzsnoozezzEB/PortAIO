@@ -59,6 +59,20 @@ namespace SCommon.Orbwalking
         private Func<bool> m_fnShouldWait;
 
         /// <summary>
+        ///     Spells that reset the attack timer.
+        /// </summary>
+        private static readonly string[] AttackResets =
+        {
+            "dariusnoxiantacticsonh", "fioraflurry", "garenq",
+            "gravesmove", "hecarimrapidslash", "jaxempowertwo", "jaycehypercharge", "leonashieldofdaybreak", "luciane",
+            "monkeykingdoubleattack", "mordekaisermaceofspades", "nasusq", "nautiluspiercinggaze", "netherblade",
+            "gangplankqwrapper", "powerfist", "renektonpreexecute", "rengarq",
+            "shyvanadoubleattack", "sivirw", "takedown", "talonnoxiandiplomacy", "trundletrollsmash", "vaynetumble",
+            "vie", "volibearq", "xenzhaocombotarget", "yorickspectral", "reksaiq", "itemtitanichydracleave", "masochism",
+            "illaoiw", "elisespiderw", "fiorae", "meditate", "sejuaninorthernwinds", "asheq"
+        };
+
+        /// <summary>
         /// The orbwalker constructor
         /// </summary>
         /// <param name="menuToAttach">The menu to attach.</param>
@@ -708,18 +722,36 @@ namespace SCommon.Orbwalking
         /// <returns></returns>
         public AttackableUnit GetTarget()
         {
-            bool wait = false;
-            if (ActiveMode == Mode.LaneClear)
-                wait = EloBuddy.SDK.Orbwalker.ShouldWait;
+            #region farm
 
-            /*Killable Minion*/
+            if (!EloBuddy.SDK.Orbwalker.ShouldWait)
+            {
+                if (ActiveMode == Mode.LaneClear)
+                {
+                    var minion = EloBuddy.SDK.Orbwalker.LaneClearMinion;
+                    if (minion != null)
+                        return minion;
+                }
+            }
+
+            if (!EloBuddy.SDK.Orbwalker.ShouldWait)
+            {
+                if (ActiveMode == Mode.LaneClear)
+                {
+                    var jminions = ObjectManager.Get<Obj_AI_Minion>().Where(mobA => mobA.LSIsValidTarget() && mobA.Team == GameObjectTeam.Neutral && InAutoAttackRange(mobA) && mobA.CharData.BaseSkinName != "gangplankbarrel" && mobA.Name != "WardCorpse" && mobA.IsMonster);
+                    var mob = jminions.MaxOrDefault(mobB => mobB.MaxHealth);
+                    if (mob != null)
+                        return mob;
+                }
+            }
+
             if (ActiveMode == Mode.LaneClear || ActiveMode == Mode.Mixed || ActiveMode == Mode.LastHit)
             {
-                var MinionList =ObjectManager.Get<Obj_AI_Minion>().Where(minion => minion.LSIsValidTarget() && InAutoAttackRange(minion)).OrderByDescending(minion => minion.CharData.BaseSkinName.Contains("Siege")).ThenBy(minion => minion.CharData.BaseSkinName.Contains("Super")).ThenBy(minion => minion.Health).ThenByDescending(minion => minion.MaxHealth);
+                var MinionList = ObjectManager.Get<Obj_AI_Minion>().Where(minion => minion.LSIsValidTarget() && InAutoAttackRange(minion)).OrderByDescending(minion => minion.CharData.BaseSkinName.Contains("Siege")).ThenBy(minion => minion.CharData.BaseSkinName.Contains("Super")).ThenBy(minion => minion.Health).ThenByDescending(minion => minion.MaxHealth);
                 foreach (var minion in MinionList)
                 {
                     var t = (int)(ObjectManager.Player.AttackCastDelay * 1000) - 100 + Game.Ping / 2 + 1000 * (int)Math.Max(0, ObjectManager.Player.LSDistance(minion) - ObjectManager.Player.BoundingRadius) / (int)GetMyProjectileSpeed();
-                    var predHealth = HealthPrediction.GetHealthPrediction(minion, t, ConfigMenu.getSliderItem("Orbwalking.Root.iExtraWindup"));
+                    var predHealth = HealthPrediction.GetHealthPrediction(minion, t, 40);
                     if (minion.Team != GameObjectTeam.Neutral)
                     {
                         var damage = ObjectManager.Player.LSGetAutoAttackDamage(minion, true);
@@ -735,7 +767,6 @@ namespace SCommon.Orbwalking
                     }
                 }
             }
-
 
             if (ActiveMode == Mode.LaneClear || ActiveMode == Mode.LastHit || ActiveMode == Mode.Mixed)
             {
@@ -921,12 +952,13 @@ namespace SCommon.Orbwalking
                 }
                 #endregion
             }
+            #endregion
 
             if (m_forcedTarget != null && m_forcedTarget.LSIsValidTarget() && Utility.InAARange(m_forcedTarget))
                 return m_forcedTarget;
 
             //buildings
-            if (ActiveMode == Mode.LaneClear && m_Configuration.AttackStructures && !wait)
+            if (ActiveMode == Mode.LaneClear && m_Configuration.AttackStructures && !EloBuddy.SDK.Orbwalker.ShouldWait)
             {
                 /* turrets */
                 foreach (var turret in
@@ -953,7 +985,7 @@ namespace SCommon.Orbwalking
             //champions
             if (ActiveMode != Mode.LastHit)
             {
-                if (ActiveMode == Mode.LaneClear && wait)
+                if (ActiveMode == Mode.LaneClear && EloBuddy.SDK.Orbwalker.ShouldWait)
                     return null;
 
                 if ((ActiveMode == Mode.LaneClear && !m_Configuration.DontAttackChampWhileLaneClear) || ActiveMode == Mode.Combo || ActiveMode == Mode.Mixed)
@@ -965,27 +997,6 @@ namespace SCommon.Orbwalking
                     var target = TargetSelector.GetTarget(range, DamageType.Physical);
                     if (target.LSIsValidTarget() && (Utility.InAARange(target) || (ActiveMode != Mode.LaneClear && ObjectManager.Player.IsMelee && m_Configuration.MagnetMelee && target.LSIsValidTarget(m_Configuration.StickRange))))
                         return target;
-                }
-            }
-
-            if (!wait)
-            {
-                if (ActiveMode == Mode.LaneClear)
-                {
-                    var minion = GetLaneClearTarget();
-                    if (minion != null)
-                        return minion;
-                }
-            }
-
-            if (!wait)
-            {
-                if (ActiveMode == Mode.LaneClear)
-                {
-                    var jminions = ObjectManager.Get<Obj_AI_Minion>().Where(mobA => mobA.LSIsValidTarget() && mobA.Team == GameObjectTeam.Neutral && InAutoAttackRange(mobA) && mobA.CharData.BaseSkinName != "gangplankbarrel" && mobA.Name != "WardCorpse");
-                    var mob = jminions.MaxOrDefault(mobB => mobB.MaxHealth);
-                    if (mob != null)
-                        return mob;
                 }
             }
 
