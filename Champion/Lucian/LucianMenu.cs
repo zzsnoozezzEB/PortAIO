@@ -48,13 +48,10 @@ namespace LCS_Lucian
 
             miscMenu = Config.AddSubMenu(":: Miscellaneous", ":: Miscellaneous");
             miscMenu.AddGroupLabel("Custom Anti-Gapcloser");
-            foreach (
-                var gapclose in
-                    AntiGapcloseSpell.GapcloseableSpells.Where(
-                        x => ObjectManager.Get<AIHeroClient>().Any(y => y.ChampionName == x.ChampionName && y.IsEnemy)))
+            foreach (var gapclose in AntiGapcloseSpell.GapcloseableSpells.Where(x => ObjectManager.Get<AIHeroClient>().Any(y => y.ChampionName == x.ChampionName && y.IsEnemy)))
             {
-                miscMenu.Add("gapclose." + gapclose.ChampionName, new CheckBox("Anti-Gapclose: " + gapclose.ChampionName + " - Spell: " + gapclose.Slot));
-                miscMenu.Add("gapclose.slider." + gapclose.SpellName, new Slider("" + gapclose.ChampionName + " - Spell: " + gapclose.Slot + " Priorty", gapclose.DangerLevel, 1, 5));
+                miscMenu.Add("gapclose." + gapclose.ChampionName + gapclose.Slot, new CheckBox("Anti-Gapclose: " + gapclose.ChampionName + " - Spell: " + gapclose.Slot));
+                miscMenu.Add("gapclose.slider." + gapclose.SpellName + gapclose.Slot, new Slider("" + gapclose.ChampionName + " - Spell: " + gapclose.Slot + " Priorty", gapclose.DangerLevel, 1, 5));
             }
 
             drawMenu = Config.AddSubMenu(":: Draw Settings", ":: Draw Settings");
